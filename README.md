@@ -22,8 +22,11 @@ create database iggood default character set utf8 collate utf8_unicode_ci;
 在iggood/settings.py中修改：
 
 TIME_ZONE 修改为 'Asia/Shanghai' 
+
 STATIC_URL 后增加⼀⾏ STATIC_ROOT = os.path.join(BASE_DIR, 'static') 
+
 修改 ALLOWED_HOSTS 为 ['*']
+
 修改 LANGUAGE_CODE 为 'zh-hans'
 
 ```
