@@ -45,31 +45,23 @@ DATABASES = {
 
 后面是配置前后端运行环境所依赖的包
 
-在控制台下运行下面命令：
+在合适的文件夹位置控制台下运行下面命令：
 
 ```
 git clone git@se.jisuanke.com:course-qa-platform/iron-gank/IGProject.git
-cd fedora27-python37
+cd IGProject
 vagrant up
 ```
 
 
 #### 后端配置
 
+然后运行下面的命令：
+
 ```
 cd server
 pip install package.txt
 ```
-
-执行上面两条命令后开始执行后面的命令行代码进行配置前端vue依赖的安装
-
-```
-cd ..
-cd frontend
-npm init
-npm install
-```
-
 
 运行前面所有命令均无异常后进行下面的测试：
 
