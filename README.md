@@ -73,28 +73,22 @@ pip list
 
 运行上面的命令后应该在命令行输出：
 
-> Package             Version
-> ------------------- ----------
-> certifi             2018.11.29
-> chardet             3.0.4
-> colorama            0.4.1
-> Django              2.1.4
-> djangorestframework 3.9.0
-> httpie              1.0.2
-> idna                2.8
-> jieba               0.39
-> pbr                 5.1.1
-> pip                 18.1
-> Pygments            2.3.1
-> pytz                2018.7
-> requests            2.21.0
-> setuptools          39.0.1
-> six                 1.12.0
-> stevedore           1.30.0
-> urllib3             1.24.1
-> virtualenv          16.1.0
-> virtualenv-clone    0.4.0
-> virtualenvwrapper   4.8.2
+Package             Version
+------------------- ----------
+certifi             2018.11.29
+chardet             3.0.4
+colorama            0.4.1
+Django              2.1.4
+djangorestframework 3.9.0
+httpie              1.0.2
+idna                2.8
+pip                 18.1
+Pygments            2.3.1
+PyMySQL             0.9.3
+pytz                2018.7
+requests            2.21.0
+setuptools          39.0.1
+urllib3             1.24.1
 
 若出现此结果则表示后端依赖包安装完成。
 
