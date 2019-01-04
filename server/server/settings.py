@@ -80,11 +80,11 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.mysql',
 
-        'NAME': 'iggood',
+        'NAME': 'test',
 
         'USER': 'root',
 
-        'PASSWORD': 'db123456',  # 修改为你的密码
+        'PASSWORD': '123456',  # 修改为你的密码
 
         # 'HOST': '',
 
@@ -92,7 +92,7 @@ DATABASES = {
 
         # 'OPTIONS': {
         #     'autocommit': True,
-        # }
+        #  }
     }
 }
 
@@ -138,5 +138,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, '../frontend/dist/static'),
 ]
-
-AUTH_USER_MODEL = 'Student.user'
