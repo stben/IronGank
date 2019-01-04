@@ -10,7 +10,7 @@ backendtest:
     - python3 -m coverage run --source="." manage.py test --noinput
     - python3 -m coverage report
   tags:
-    - txy2
+    - shared
 
 backendlint:
   stage: server
@@ -20,7 +20,7 @@ backendlint:
     - pylint --rcfile=.pylintrc ./**/*.py || exit $((35 & $?))
   allow_failure: false
   tags:
-    - txy3
+    - shared
 
 frontendtest:
   stage: frontend
@@ -30,7 +30,7 @@ frontendtest:
     - npm run test
   allow_failure: false
   tags:
-    - txy2
+    - shared
 
 frontendlint:
   stage: frontend
@@ -41,4 +41,4 @@ frontendlint:
     - npm run stylelint
   allow_failure: false
   tags:
-    - txy3
+    - shared
