@@ -1,0 +1,31 @@
+<template>
+  <div id="app">
+    <login/>
+  </div>
+</template>
+
+<script>
+import HelloWorld from './components/HelloWorld'
+import login from './components/login'
+import register from './components/register'
+
+export default {
+  name: 'App',
+  components: {
+    HelloWorld,
+    login,
+    register
+  }
+}
+</script>
+
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
