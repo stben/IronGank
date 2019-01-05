@@ -6,21 +6,21 @@ backendtest:
   stage: server
   script:
     - cd server
-    - pip3 install -r package.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
-    - python3 -m coverage run --source="." manage.py test --noinput
-    - python3 -m coverage report
+    - pip install -r package.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+    - python -m coverage run --source="." manage.py test --noinput
+    - python -m coverage report
   tags:
-    - shared
+    - fedora
 
 backendlint:
   stage: server
   script:
     - cd server
-    - pip3 install -r package.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+    - pip install -r package.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
     - pylint --rcfile=.pylintrc ./**/*.py || exit $((35 & $?))
   allow_failure: false
   tags:
-    - shared
+    - fedora
 
 frontendtest:
   stage: frontend
@@ -30,7 +30,7 @@ frontendtest:
     - npm run test
   allow_failure: false
   tags:
-    - shared
+    - fedora
 
 frontendlint:
   stage: frontend
@@ -41,4 +41,4 @@ frontendlint:
     - npm run stylelint
   allow_failure: false
   tags:
-    - shared
+    - fedora
