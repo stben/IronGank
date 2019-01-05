@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.urls import path, include
 from . import views
+from ..Student.views import register
 
 urlpatterns = [
-  path('', views.index),
-  path('api/', include([
-    path('random/', views.random)
-  ])),
+    path('', views.index),
+    path('api/', include([
+        path('random/', views.random)]
+    )),
+    path('student/register', register),
 ]
