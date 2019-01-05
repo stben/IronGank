@@ -80,7 +80,7 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.mysql',
 
-        'NAME': 'test',
+        'NAME': 'iggood',
 
         'USER': 'root',
 
