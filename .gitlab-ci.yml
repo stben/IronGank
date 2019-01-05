@@ -7,8 +7,8 @@ backendtest:
   script:
     - cd server
     - pip3 install -r package.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
-    - python -m coverage run --source="." manage.py test --noinput
-    - python -m coverage report
+    - python3 -m coverage run --source="." manage.py test --noinput
+    - python3 -m coverage report
   tags:
     - fedora
 
