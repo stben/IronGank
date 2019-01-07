@@ -32,3 +32,7 @@ class RoomAndTeacher(models.Model):
 class room_and_student(models.Model):
     room_id = models.CharField(max_length=100, foreign_key=True)
     username = models.CharField(max_length=100, foreign_key=True)	
+
+class list_of_forbidden_students(models.Model):
+    room_id = models.CharField(max_length=100, foreign_key=True)
+    username = models.CharField(max_length=100, foreign_key=True)
