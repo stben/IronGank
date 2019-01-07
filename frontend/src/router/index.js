@@ -1,20 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import RoomManage from '@/components/RoomMange'
-import TeacherIndex from '@/components/TeacherIndex'
+import PickStuAudit from '@/components/PickStuAudit'
+import PickStuAccepted from '@/components/PickStuAccepted'
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/TeacherIndex',
-      name: 'TeacherIndex',
-      component: TeacherIndex
+      path: '/teacher/pickstu/audit',
+      name: 'PickStuAudit',
+      component: PickStuAudit
     },
     {
-      path: '/RoomManage',
-      name: 'RoomManage',
-      component: RoomManage
-    }
+      path: '/teacher/pickstu/accepted',
+      name: 'PickStuAccepted',
+      component: PickStuAccepted
+    },
   ]
 })
