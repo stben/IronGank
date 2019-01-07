@@ -1,20 +1,14 @@
 <template>
   <div id="app">
-    <login/>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
-import login from './components/login'
-import register from './components/register'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
-    login,
-    register
   }
 }
 </script>
