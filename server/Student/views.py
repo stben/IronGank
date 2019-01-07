@@ -38,11 +38,11 @@ def register(request):
 
 def student_login(request):
     if request.method == 'POST':
-        username = request.POST.get['username']
-        if username.length != 11:
+        username = request.POST.get('username')
+        if len(username) != 11:
             data = {'code': '0002', 'msg': '请输入正确格式的用户名（手机号）'}
             return HttpResponse(json.dumps(data))
-        password = request.POST.get['password']
+        password = request.POST.get('password')
         user = auth.authenticate(username=username, password=password)
         if user is not None and user.is_active:
             auth.login(request, user)
