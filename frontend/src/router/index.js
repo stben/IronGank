@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import PickStuAudit from '@/components/PickStuAudit'
 import PickStuAccepted from '@/components/PickStuAccepted'
 import Login from "@/components/Login"
+import BanStu from "@/components/BanStu";
 Vue.use(Router)
 
 export default new Router({
@@ -21,6 +22,11 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/teacher/banstu',
+      name: 'BanStu',
+      component: BanStu
     }
   ]
 })
