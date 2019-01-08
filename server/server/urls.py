@@ -16,6 +16,7 @@ Including another URLconf
 from django.urls import path, include
 from . import views
 from Student.views import *
+from Teacher.views import *
 
 urlpatterns = [
     path('', views.index),
@@ -25,4 +26,6 @@ urlpatterns = [
     path('student/register', register),
     path('student/studentLogin', student_login),
     path('student/studentLogout', student_logout),
+    path('teacher/teacherLogin', teacher_login),
+    path('teacher/teacherLogout', teacher_logout),
 ]

@@ -28,3 +28,12 @@ class RoomAndTeacher(models.Model):
     room_id = models.CharField(max_length=100, foreign_key=True)
     username = models.CharField(max_length=100, foreign_key=True)
     status = models.BooleanField()
+	
+class RoomAndStudent(models.Model):
+    room_id = models.ForeignKey('Room', on_delete=models.CASCADE,)
+    username = models.ForeignKey(User, on_delete=models.CASCADE,)
+
+
+class ListOfForbiddenStudents(models.Model):
+    room_id = models.ForeignKey('Room', on_delete=models.CASCADE,)
+    username = models.CharField(User, on_delete=models.CASCADE,)
