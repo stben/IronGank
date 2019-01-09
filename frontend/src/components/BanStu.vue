@@ -17,27 +17,27 @@
 </template>
 
 <script>
-  import TeacherFrame from "./TeacherFrame"
-    export default {
-      name: "BanStu",
-      components: {
-        TeacherFrame
-      },
-      data(){
-        return{
-          roomNo:30150,//要把房间号改了
-          banList:[
-            {stuName:'张三',stuNo:'20162358'},{stuName:'李四',stuNo:'20162362'},{stuName:'王五',stuNo:'20162351'}
-            ]
-        }
-      },
-      methods:{
-        remove(e){
-          e.currentTarget.style.display = 'none'
-          e.currentTarget.nextElementSibling.style.display = 'inline'
-        }
-      }
+import TeacherFrame from './TeacherFrame'
+export default {
+  name: 'BanStu',
+  components: {
+    TeacherFrame
+  },
+  data() {
+    return {
+      roomNo: 30150, // 要把房间号改了
+      banList: [
+        {stuName: '张三', stuNo: '20162358'}, {stuName: '李四', stuNo: '20162362'}, {stuName: '王五',stuNo: '20162351'}
+      ]
     }
+  },
+  methods: {
+    remove(e) {
+      e.currentTarget.style.display = 'none'
+      e.currentTarget.nextElementSibling.style.display = 'inline'
+    }
+  }
+}
 </script>
 
 <style scoped>

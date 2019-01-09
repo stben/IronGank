@@ -16,10 +16,10 @@
 </template>
 
 <script>
-    export default {
-      name: "TeacherNavigation",
-      props: ['selected']
-    }
+export default {
+  name: 'TeacherNavigation',
+  props: ['selected']
+}
 </script>
 
 <style scoped>
