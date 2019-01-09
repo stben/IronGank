@@ -14,7 +14,6 @@ class Room(models.Model):
     college = models.ForeignKey(College, on_delete=models.CASCADE)
     password = models.CharField(max_length=16)
     description = models.CharField(max_length=1000)
-
     is_need_whiteboard = models.BooleanField()
     is_need_code_editor = models.BooleanField()
     is_need_password = models.BooleanField()
