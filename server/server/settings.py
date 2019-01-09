@@ -86,13 +86,6 @@ DATABASES = {
 
         'PASSWORD': '123456',  # 修改为你的密码
 
-        # 'HOST': '',
-
-        # 'PORT': '3307',
-
-        # 'OPTIONS': {
-        #     'autocommit': True,
-        #  }
     }
 }
 
