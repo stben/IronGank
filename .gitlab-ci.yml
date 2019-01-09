@@ -38,6 +38,6 @@ frontendlint:
     - cd frontend
     - npm install
     - npm run lint
-  allow_failure: false
+  allow_failure: true
   tags:
     - centos2
