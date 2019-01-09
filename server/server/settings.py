@@ -84,7 +84,7 @@ DATABASES = {
 
         'USER': 'root',
 
-        'PASSWORD': 'vagrant',  # 修改为你的密码
+        'PASSWORD': '123456',  # 修改为你的密码
 
     }
 }
