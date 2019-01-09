@@ -30,5 +30,6 @@ urlpatterns = [
     path('student/studentLogout', student_logout),
     path('teacher/teacherLogin', teacher_login),
     path('teacher/teacherLogout', teacher_logout),
+    path('teacher/NewRoom', create_new_room),
 
 ]

@@ -9,14 +9,15 @@ class College(models.Model):
 
 
 class Room(models.Model):
-    room_id = models.CharField(max_length=40)
-    title = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     college = models.ForeignKey(College, on_delete=models.CASCADE)
     password = models.CharField(max_length=16)
     description = models.CharField(max_length=1000)
     is_need_whiteboard = models.BooleanField()
     is_need_code_editor = models.BooleanField()
     is_need_password = models.BooleanField()
+
+
 
 
 class TimeTable(models.Model):
@@ -40,4 +41,3 @@ class RoomAndStudent(models.Model):
 class ListOfForbiddenStudents(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
