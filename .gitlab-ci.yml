@@ -6,30 +6,36 @@ backendtest:
   stage: server
   script:
     - cd server
-  allow_failure: false
+    - python3 -m coverage run --source="." manage.py test --noinput
+    - python3 -m coverage report
   tags:
-    - centos
+    - centos2
 
 backendlint:
   stage: server
   script:
     - cd server
-  allow_failure: false
+    - pylint --rcfile=.pylintrc ./**/*.py || exit $((35 & $?))
+  allow_failure: true
   tags:
-    - centos
+    - centos2
 
 frontendtest:
   stage: frontend
   script:
     - cd frontend
-  allow_failure: false
+    - npm install
+    - npm run test
+  allow_failure: true
   tags:
-    - centos
+    - centos2
 
 frontendlint:
   stage: frontend
   script:
     - cd frontend
+    - npm install
+    - npm run lint
   allow_failure: false
   tags:
-    - centos
+    - centos2
