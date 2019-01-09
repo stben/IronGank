@@ -6,10 +6,10 @@
 </template>
 
 <script>
-    export default {
-      name: "TeacherBar",
-      props: ['title']
-      }
+export default {
+  name: 'TeacherBar',
+  props: ['title']
+}
 </script>
 
 <style scoped>

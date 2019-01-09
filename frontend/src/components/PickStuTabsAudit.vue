@@ -22,31 +22,31 @@
 </template>
 
 <script>
-    export default {
-      name: "PickStuTabsAudit",
-      props:['auditList'],
-      data(){
-        return{
-          active:0
-        }
+export default {
+  name: 'PickStuTabsAudit',
+  props: ['auditList'],
+  data() {
+    return {
+      active: 0
+    }
+  },
+  methods: {
+    agree(e) {
+      e.currentTarget.style.display = 'none'
+      e.currentTarget.nextElementSibling.style.display = 'none'
+      e.currentTarget.nextElementSibling.nextElementSibling.style.display = 'inline'
     },
-    methods:{
-        agree(e){
-          e.currentTarget.style.display = 'none'
-          e.currentTarget.nextElementSibling.style.display = 'none'
-          e.currentTarget.nextElementSibling.nextElementSibling.style.display = 'inline'
-        },
-      disagree(e){
-        e.currentTarget.style.display = 'none'
-        e.currentTarget.previousElementSibling.style.display = 'none'
-        e.currentTarget.nextElementSibling.nextElementSibling.style.display = 'inline'
-      },
-      remove(e){
-        e.currentTarget.style.display = 'none'
-        e.currentTarget.nextElementSibling.style.display = 'inline'
-      }
+    disagree(e) {
+      e.currentTarget.style.display = 'none'
+      e.currentTarget.previousElementSibling.style.display = 'none'
+      e.currentTarget.nextElementSibling.nextElementSibling.style.display = 'inline'
+    },
+    remove(e) {
+      e.currentTarget.style.display = 'none'
+      e.currentTarget.nextElementSibling.style.display = 'inline'
     }
-    }
+  }
+}
 </script>
 
 <style scoped>
