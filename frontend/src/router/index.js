@@ -5,6 +5,7 @@ import PickStuAccepted from '@/components/PickStuAccepted'
 import Login from '@/components/Login'
 import BanStu from '@/components/BanStu'
 import timeTable from '@/components/timeTable'
+import AllRoom from '@/components/AllRoom'
 Vue.use(Router)
 
 export default new Router({
@@ -23,6 +24,11 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+            {
+      path: '/AllRoom',
+      name: 'AllRoom',
+      component: AllRoom
     },
     {
       path: '/teacher/banstu',
