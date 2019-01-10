@@ -23,6 +23,7 @@ class TimeTable(models.Model):
     class_week = models.IntegerField()
     class_day = models.IntegerField()
     class_class = models.IntegerField()
+    description = models.CharField(max_length=1000)
 
 
 class RoomAndTeacher(models.Model):
