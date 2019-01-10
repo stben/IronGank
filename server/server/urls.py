@@ -24,12 +24,12 @@ urlpatterns = [
     path('api/', include([
         path('random/', views.random)]
     )),
-    path('admin/',admin.site.urls),
+    path('admin/', admin.site.urls),
     path('student/register', register),
     path('student/studentLogin', student_login),
     path('student/studentLogout', student_logout),
     path('teacher/teacherLogin', teacher_login),
     path('teacher/teacherLogout', teacher_logout),
-    path('teacher/NewRoom', create_new_room),
+    path('teacher/newRoom', create_new_room),
 
 ]
