@@ -1,9 +1,9 @@
 from django.contrib.auth.models import auth
 from django.http import HttpResponse
-from django.db import transaction
-from Teacher.models import *
 import re
 import json
+from Teacher.models import *
+from django.db import transaction
 
 # Create your views here.
 
@@ -36,29 +36,35 @@ def teacher_logout(request):
 
 def create_new_room(request):
     if request.method == 'POST':
-        # noinspection PyBroadException
+        username = request.POST.get('username')
+        room_name = request.POST.get('room_name')
+        college_name = request.POST.get('college')
+        password = request.POST.get('password')
+        description = request.POST.get('description')
+        is_need_whiteboard = request.POST.get('is_need_whiteboard')
+        is_need_code_editor = request.POST.get('is_need_code_editor')
+        is_need_password = request.POST.get('is_need_password')
+        if is_need_password and password == '':
+            data = {'code': '0001', 'msg': '请输入房间密码'}
+            return HttpResponse(json.dumps(data))
+        if room_name == '':
+            data = {'code': '0002', 'msg': '请输入房间名称'}
+            return HttpResponse(json.dumps(data))
+        college = College.objects.fliter(name=college_name)[0]
+        if not college:
+            data = {'code': '0003', 'msg': '请输入正确院系'}
+            return HttpResponse(json.dumps(data))
+        user = auth.authenticate(username=username)
         try:
             with transaction.atomic():
-                room_name = request.POST.get('roomName')
-                room_department_id = request.POST.get('departmentId')
-                room_college = College.objects.filter(
-                    college_id=room_department_id)[0]
-                room_password = request.POST.get('password')
-                room_description = request.POST.get('roomDescription')
-                is_board = request.POST.get('isBoard')
-                is_code = request.POST.get('isCode')
-                is_need_password = request.POST.get('isPassword')
-                room = Room(name=room_name,
-                            college=room_college,
-                            password = room_password,
-                            description=room_description,
-                            is_need_whiteboard=is_board,
-                            is_need_code_editor=is_code,
-                            is_need_password=is_need_password,
-                            )
+                room = Room(name=room_name, college=college, password=password, description=description,
+                            is_need_whiteboard=is_need_whiteboard, is_need_password=is_need_password,
+                            is_need_code_editor=is_need_code_editor)
                 room.save()
-                data = {'code': '0000', 'msg': '新建房间成功！'}
+                owner = RoomAndTeacher(user=user, room=room, status=1)
+                owner.save()
+                data = {'code': '0000', 'msg': '创建成功'}
                 return HttpResponse(json.dumps(data))
-        except Exception:
-            data = {'code': '0001', 'msg': '创建失败！请检查字段格式！'}
+        except BaseException:
+            data = {'code': '0003', 'msg': '请先登录'}
             return HttpResponse(json.dumps(data))

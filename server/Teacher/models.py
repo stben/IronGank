@@ -18,8 +18,6 @@ class Room(models.Model):
     is_need_password = models.BooleanField()
 
 
-
-
 class TimeTable(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     class_week = models.IntegerField()
