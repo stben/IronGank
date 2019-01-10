@@ -4,6 +4,7 @@ import PickStuAudit from '@/components/PickStuAudit'
 import PickStuAccepted from '@/components/PickStuAccepted'
 import Login from '@/components/Login'
 import BanStu from '@/components/BanStu'
+import timeTable from '@/components/timeTable'
 Vue.use(Router)
 
 export default new Router({
@@ -27,6 +28,11 @@ export default new Router({
       path: '/teacher/banstu',
       name: 'BanStu',
       component: BanStu
+    },
+    {
+      path: '/teacher/timeTable',
+      name: 'timeTable',
+      component: timeTable
     }
   ]
 })
