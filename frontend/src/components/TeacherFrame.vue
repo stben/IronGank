@@ -6,16 +6,16 @@
 </template>
 
 <script>
-  import TeacherBar from '../components/TeacherBar'
-  import TeacherNavigation from '../components/TeacherNavigation'
-    export default {
-      name: "TeacherFrame",
-      components: {
-        TeacherBar,
-        TeacherNavigation
-      },
-      props: ['selected','title']
-    }
+import TeacherBar from '../components/TeacherBar'
+import TeacherNavigation from '../components/TeacherNavigation'
+export default {
+  name: 'TeacherFrame',
+  components: {
+    TeacherBar,
+    TeacherNavigation
+  },
+  props: ['selected', 'title']
+}
 </script>
 
 <style scoped>

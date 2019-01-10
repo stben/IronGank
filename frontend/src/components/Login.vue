@@ -43,46 +43,45 @@
 </template>
 
 <script>
-  export default {
-    name: "Login",
-    data () {
-      return {
-        active: 0,
-        error0: '',
-        error1: '',
-        usernameRules0: [
-          { validate: (val) => !!val, message: '必须填写用户名'}
-        ],
-        passwordRules0: [
-          { validate: (val) => !!val, message: '必须填写密码'}
-        ],
-        usernameRules1: [
-          { validate: (val) => !!val, message: '必须填写用户名'}
-        ],
-        passwordRules1: [
-          { validate: (val) => !!val, message: '必须填写密码'}
-        ],
-        validateForm0: {
-          username: '',
-          password: ''
-        },
-        validateForm1: {
-          username: '',
-          password: ''
-        }
-      }
-    },
-    methods: {
-      submit () {
-        this.$refs.form.validate().then((result) => {
-
-        })
+export default {
+  name: 'Login',
+  data () {
+    return {
+      active: 0,
+      error0: '',
+      error1: '',
+      usernameRules0: [
+        {validate: (val) => !!val, message: '必须填写用户名'}
+      ],
+      passwordRules0: [
+        {validate: (val) => !!val, message: '必须填写密码'}
+      ],
+      usernameRules1: [
+        {validate: (val) => !!val, message: '必须填写用户名'}
+      ],
+      passwordRules1: [
+        {validate: (val) => !!val, message: '必须填写密码'}
+      ],
+      validateForm0: {
+        username: '',
+        password: ''
       },
-      jump(){
-        window.location.href="";
+      validateForm1: {
+        username: '',
+        password: ''
       }
     }
+  },
+  methods: {
+    submit () {
+      this.$refs.form.validate().then((result) => {
+      })
+    },
+    jump() {
+      window.location.href = ''
+    }
   }
+}
 </script>
 
 <style scoped>

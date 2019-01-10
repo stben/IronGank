@@ -20,21 +20,21 @@
 </template>
 
 <script>
-    export default {
-      name: "PickStuTabsAccepted",
-      props:['acceptedList'],
-      data(){
-        return{
-          active:1
-        }
-      },
-      methods:{
-        remove(e){
-          e.currentTarget.style.display = 'none'
-          e.currentTarget.nextElementSibling.style.display = 'inline'
-        }
-      }
+export default {
+  name: 'PickStuTabsAccepted',
+  props: ['acceptedList'],
+  data() {
+    return {
+      active: 1
     }
+  },
+  methods: {
+    remove(e) {
+      e.currentTarget.style.display = 'none'
+      e.currentTarget.nextElementSibling.style.display = 'inline'
+    }
+  }
+}
 </script>
 
 <style scoped>
