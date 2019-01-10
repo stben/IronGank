@@ -35,6 +35,7 @@ class RoomAndTeacher(models.Model):
 class RoomAndStudent(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    status = models.BooleanField()
 
 
 class ListOfForbiddenStudents(models.Model):
