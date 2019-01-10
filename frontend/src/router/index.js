@@ -25,6 +25,11 @@ export default new Router({
       name: 'Login',
       component: Login
     },
+    {
+      path: '/NewRoom',
+      name: 'NewRoom',
+      component: NewRoom
+    },
             {
       path: '/AllRoom',
       name: 'AllRoom',
