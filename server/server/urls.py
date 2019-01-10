@@ -31,5 +31,5 @@ urlpatterns = [
     path('teacher/teacherLogin', teacher_login),
     path('teacher/teacherLogout', teacher_logout),
     path('teacher/newRoom', create_new_room),
-
+    path('teacher/allRoom',all_room),
 ]

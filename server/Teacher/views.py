@@ -71,3 +71,12 @@ def create_new_room(request):
         except BaseException:
             data = {'code': '0005', 'msg': '未知错误请联系管理员'}
             return HttpResponse(json.dumps(data))
+
+
+def all_room(request):
+    if request.method == 'GET':
+        room = Room.objects.filter()
+        data = []
+        for i in room:
+            data.append({"id": i.id, "name": i.name})
+    return HttpResponse(json.dumps(data))
