@@ -36,28 +36,31 @@ def teacher_logout(request):
 
 def create_new_room(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        room_name = request.POST.get('room_name')
-        college_name = request.POST.get('college')
+        room_name = request.POST.get('roomName')
+        college_id = request.POST.get('departmentId')
         password = request.POST.get('password')
-        description = request.POST.get('description')
-        is_need_whiteboard = request.POST.get('is_need_whiteboard')
-        is_need_code_editor = request.POST.get('is_need_code_editor')
-        is_need_password = request.POST.get('is_need_password')
+        description = request.POST.get('roomDescription')
+        is_need_whiteboard = request.POST.get('isBoard')
+        is_need_code_editor = request.POST.get('isCode')
+        is_need_password = request.POST.get('isPassword')
         if is_need_password and password == '':
             data = {'code': '0001', 'msg': '请输入房间密码'}
             return HttpResponse(json.dumps(data))
         if room_name == '':
             data = {'code': '0002', 'msg': '请输入房间名称'}
             return HttpResponse(json.dumps(data))
-        college = College.objects.fliter(name=college_name)[0]
+        college = College.objects.filter(college_id=college_id)
         if not college:
             data = {'code': '0003', 'msg': '请输入正确院系'}
             return HttpResponse(json.dumps(data))
-        user = auth.authenticate(username=username)
+        username = request.user.username
+        user = User.objects.filter(username=username)
+        if not user:
+            data = {'code': '0004', 'msg': '你的账号已注销或未登录'}
+            return HttpResponse(json.dumps(data))
         try:
             with transaction.atomic():
-                room = Room(name=room_name, college=college, password=password, description=description,
+                room = Room(name=room_name, college=college[0], password=password, description=description,
                             is_need_whiteboard=is_need_whiteboard, is_need_password=is_need_password,
                             is_need_code_editor=is_need_code_editor)
                 room.save()
@@ -66,5 +69,5 @@ def create_new_room(request):
                 data = {'code': '0000', 'msg': '创建成功'}
                 return HttpResponse(json.dumps(data))
         except BaseException:
-            data = {'code': '0003', 'msg': '请先登录'}
+            data = {'code': '0005', 'msg': '未知错误请联系管理员'}
             return HttpResponse(json.dumps(data))
