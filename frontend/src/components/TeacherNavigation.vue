@@ -9,7 +9,7 @@
     <mu-list-item button value="2" to="/teacher/banstu">
       <mu-list-item-title>被禁言学生列表</mu-list-item-title>
     </mu-list-item>
-    <mu-list-item button value="3" to="/">
+    <mu-list-item button value="3" to="/teacher/timeTable">
       <mu-list-item-title>直播间日历</mu-list-item-title>
     </mu-list-item>
   </mu-list>
