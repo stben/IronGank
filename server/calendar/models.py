@@ -33,7 +33,7 @@ class Calendar():
             data = {'code': '0001', 'msg': '未知错误'}
             return data
 
-    def add_new_timetbale(self, new_timetable_info):
+    def add_new_timetable(self, new_timetable_info):
         try:
             its_room_id = int(new_timetable_info.get('room_no'))
             its_room = Room.objects.get(id=its_room_id)
@@ -75,4 +75,27 @@ class Calendar():
         except Exception:
             print(Exception.message)
             data = {'code': '0001', 'msg': '课程安排不存在，请重试'}
+            return data
+
+    def modify_timetable(self, new_info):
+        try:
+            if self.start_bigger_than_end(
+                    new_info.get('begin'), new_info.get('end')):
+                data = {'code': '0001', 'msg': '创建失败，课程起始时间出错'}
+                return data
+            old_timetable = TimeTable.objects.get(
+                id=int(new_info.get('time_table_id')),
+            )
+            old_timetable.week = new_info.get('week')
+            old_timetable.weekday = new_info.get('weekday')
+            old_timetable.begin = new_info.get('begin')
+            old_timetable.end = new_info.get('end')
+            old_timetable.description = new_info.get('description')
+            old_timetable.save()
+            data = Calendar.get_list_of_timetable(
+                self, new_info.get('room_no'))
+            return data
+        except Exception:
+            print(Exception.message)
+            data = {'code': '0001', 'msg': '未知错误'}
             return data

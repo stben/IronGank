@@ -14,5 +14,6 @@ urlpatterns = [
     path('timeTable', get_list_of_timetable),
     path('newTimeTable', add_new_timetable),
     path('deleteTimeTable', delete_timetable),
+    path('modifyTimeTable', modify_timetable),
 
 ]
