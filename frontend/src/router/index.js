@@ -1,15 +1,31 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import RoomManage from '@/components/RoomManage'
+import NewRoom from '@/components/NewRoom'
+import TeacherIndex from '@/components/TeacherIndex'
 import PickStuAudit from '@/components/PickStuAudit'
 import PickStuAccepted from '@/components/PickStuAccepted'
-import Login from '@/components/Login'
-import BanStu from '@/components/BanStu'
-import timeTable from '@/components/timeTable'
-import AllRoom from '@/components/AllRoom'
+import stuIndex from '@/components/stuIndex'
+import teachingRoom from '@/components/teachingRoom'
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/TeacherIndex',
+      name: 'TeacherIndex',
+      component: TeacherIndex
+    },
+    {
+      path: '/RoomManage',
+      name: 'RoomManage',
+      component: RoomManage
+    },
+    {
+      path: '/NewRoom',
+      name: 'NewRoom',
+      component: NewRoom
+    },
     {
       path: '/teacher/pickstu/audit',
       name: 'PickStuAudit',
@@ -21,29 +37,14 @@ export default new Router({
       component: PickStuAccepted
     },
     {
-      path: '/login',
-      name: 'Login',
-      component: Login
+      path: '/stuIndex',
+      name: 'stuIndex',
+      component: stuIndex
     },
     {
-      path: '/NewRoom',
-      name: 'NewRoom',
-      component: NewRoom
-    },
-            {
-      path: '/AllRoom',
-      name: 'AllRoom',
-      component: AllRoom
-    },
-    {
-      path: '/teacher/banstu',
-      name: 'BanStu',
-      component: BanStu
-    },
-    {
-      path: '/teacher/timeTable',
-      name: 'timeTable',
-      component: timeTable
+      path: '/teachingRoom',
+      name: 'teachingRoom',
+      component: teachingRoom
     }
   ]
 })
