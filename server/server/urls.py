@@ -33,5 +33,6 @@ urlpatterns = [
     path('teacher/newRoom', create_new_room),
     path('teacher/allRoom', all_room),
     path('teacher/teacherIndex', get_view_rooms),
-    path('teacher/roomInfo', get_room_info)
+    path('teacher/roomInfo', get_room_info),
+    path('teacher/pickRoomStudent', get_student_in_room)
 ]
