@@ -73,11 +73,12 @@ def create_new_room(request):
 
 def all_room(request):
     if request.method == 'GET':
-        room = Room.objects.filter()
-        data = []
+        room = Room.objects.filter.all()
+        list = []
         for i in room:
-            data.append({"id": i.id, "name": i.name})
-    return HttpResponse(json.dumps(data))
+            list.append({"id": i.id, "name": i.name, "college": i.college, "description": i.description})
+        data = {'code': '0000', 'msg': ''}
+        return HttpResponse(json.dumps(data))
 
 
 def get_view_rooms(request):
