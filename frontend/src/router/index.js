@@ -10,6 +10,7 @@ import teachingRoom from '@/components/teachingRoom'
 import Login from '@/components/Login'
 import BanStu from '@/components/BanStu'
 import timeTable from '@/components/timeTable'
+import Register from '@/components/Register'
 Vue.use(Router)
 
 export default new Router({
@@ -43,6 +44,11 @@ export default new Router({
       path: '/stuIndex',
       name: 'stuIndex',
       component: stuIndex
+    },
+    {
+      path: '/Register',
+      name: 'Register',
+      component: Register
     },
     {
       path: '/teachingRoom',
