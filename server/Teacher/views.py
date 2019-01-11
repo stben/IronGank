@@ -97,3 +97,18 @@ def get_view_rooms(request):
                               'college': item.room.college.name})
         data = {'code': '0000', 'msg': '获取成功'}
         return HttpResponse(json.dumps(data))
+
+
+def get_room_info(request):
+    if request.method == 'GET':
+        room_id = request.GET.get('roomId')  # fot test
+        room_list = Room.objects.filter(id=room_id)
+        if not room_list:
+            data = {'code': '0001', 'msg': '你的房间不存在或已注销'}
+            return HttpResponse(json.dumps(data))
+        room = room_list[0]
+        data = {'code': '0000', 'msg': '获取成功', 'roomTitle': room.name, 'roomId': room.id,
+                'departmentName': room.college.name, 'password': room.password, 'roomDescription': room.description,
+                'isWhiteboard': room.is_need_code_editor, 'isCode': room.is_need_code_editor,
+                'isPassword': room.is_need_password}
+        return HttpResponse(json.dumps(data))
