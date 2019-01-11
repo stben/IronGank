@@ -101,7 +101,7 @@ def get_view_rooms(request):
 
 def get_room_info(request):
     if request.method == 'GET':
-        room_id = request.GET.get('roomId')  # fot test
+        room_id = request.GET.get('roomId')
         room_list = Room.objects.filter(id=room_id)
         if not room_list:
             data = {'code': '0001', 'msg': '你的房间不存在或已注销'}
@@ -113,9 +113,9 @@ def get_room_info(request):
                 'isPassword': room.is_need_password}
         return HttpResponse(json.dumps(data))
     if request.method == 'POST':
-        room_id = request.POST.get('roomId')
+        room_id = int(request.POST.get('roomId'))
         room_name = request.POST.get('roomName')
-        college_id = request.POST.get('departmentId')
+        college_name = request.POST.get('departmentName')
         password = request.POST.get('password')
         description = request.POST.get('roomDescription')
         is_need_whiteboard = request.POST.get('isBoard')
@@ -127,23 +127,14 @@ def get_room_info(request):
         if room_name == '':
             data = {'code': '0002', 'msg': '请输入房间名称'}
             return HttpResponse(json.dumps(data))
-        college = College.objects.filter(college_id=college_id)
+        college = College.objects.filter(name=college_name)
         if not college:
             data = {'code': '0003', 'msg': '请输入正确院系'}
             return HttpResponse(json.dumps(data))
-        username = request.user.username
-        user = User.objects.filter(username=username)
-        if not user:
-            data = {'code': '0004', 'msg': '你的账号已注销或未登录'}
-            return HttpResponse(json.dumps(data))
-        room_list = Room.objects.filter(room_id=room_id)
-        if not room_list:
-            data = {'code': '0005', 'msg': '你的房间不存在'}
-            return HttpResponse(json.dumps(data))
         try:
-            room = room_list[0]
+            room = Room.objects.get(id=room_id)
             room.name = room_name
-            room.college = college
+            room.college = college[0]
             room.password = password
             room.description = description
             room.is_need_password = is_need_password
@@ -153,5 +144,5 @@ def get_room_info(request):
             data = {'code': '0000', 'msg': '保存成功'}
             return HttpResponse(json.dumps(data))
         except BaseException:
-            data = {'code': '0006', 'msg': '未知错误，请联系管理员'}
+            data = {'code': '0004', 'msg': '未知错误，请联系管理员'}
             return HttpResponse(json.dumps(data))
