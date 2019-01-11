@@ -26,16 +26,7 @@ urlpatterns = [
         path('random/', views.random)]
     )),
     path('admin/', admin.site.urls),
-    path('student/register', register),
-    path('student/studentLogin', student_login),
-    path('student/studentLogout', student_logout),
-    path('teacher/teacherLogin', teacher_login),
-    path('teacher/teacherLogout', teacher_logout),
-    path('teacher/newRoom', create_new_room),
-    path('teacher/allRoom', all_room),
-    path('teacher/teacherIndex', get_view_rooms),
-    path('teacher/roomInfo', get_room_info),
-    path('teacher/pickRoomStudent', get_student_in_room),
 
-  path('teacher/timeTable', get_list_of_timetable),
+    path('student/', include('Student.urls')),
+    path('teacher/', include('Teacher.urls')),
 ]
