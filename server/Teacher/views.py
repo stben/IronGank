@@ -161,8 +161,42 @@ def get_student_in_room(request):
         accept_list = []
         for stu in stu_list:
             if stu.status == 1:
-                audit_list.append({'stuName': stu.user.get_full_name(), 'stuNo': stu.sid})
+                audit_list.append(
+                    {'stuName': stu.user.get_full_name(), 'stuNo': stu.sid})
             if stu.status == 0:
-                accept_list.append({'stuName': stu.user.get_full_name(), 'stuNo': stu.sid})
-        data = {'code': '0000', 'auditList': audit_list, 'acceptedList': accept_list}
+                accept_list.append(
+                    {'stuName': stu.user.get_full_name(), 'stuNo': stu.sid})
+        data = {
+            'code': '0000',
+            'auditList': audit_list,
+            'acceptedList': accept_list}
+        return HttpResponse(json.dumps(data))
+    if request.method == 'POST':
+        room_id = int(request.POST.get('roomNo'))
+        sid = request.POST.get('stuNo')
+        is_done = request.POST.get('isAccepted')
+        stu_list = Student.object.filter(sid=sid)
+        if not stu_list or stu_list.length == 0:
+            data = {'code': '0001', 'msg': '学生不存在或已注销'}
+            return HttpResponse(json.dumps(data))
+        room_list = Room.objects.filter(room_id=room_id)
+        if not room_list or room_list.length == 0:
+            data = {'code': '0002', 'msg': '房间不存在或已注销'}
+            return HttpResponse(json.dumps(data))
+        stu_in_list = RoomAndStudent.objects.filter(
+            room=room_list[0], student=stu_list[0])
+        if not stu_in_list or stu_in_list.length == 0:
+            data = {'code': '0003', 'msg': '记录不存在或已注销'}
+            return HttpResponse(json.dumps(data))
+        stu_in = stu_in_list[0]
+        if stu_in.status == 1:
+            if is_done == 1:
+                stu_in.status = 0
+            else:
+                stu_in.status = 2
+        else:
+            if is_done == 0:
+                stu_in.status = 2
+        stu_in.save
+        data = {'code': '0000', 'msg': '成功'}
         return HttpResponse(json.dumps(data))
