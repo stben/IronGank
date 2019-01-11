@@ -8,6 +8,8 @@ import PickStuAccepted from '@/components/PickStuAccepted'
 import stuIndex from '@/components/stuIndex'
 import teachingRoom from '@/components/teachingRoom'
 import Login from '@/components/Login'
+import BanStu from '@/components/BanStu'
+import timeTable from '@/components/timeTable'
 Vue.use(Router)
 
 export default new Router({
@@ -49,8 +51,18 @@ export default new Router({
     },
     {
       path: '/Login',
-        name: 'Login',
+      name: 'Login',
       component: Login
+    },
+    {
+      path: '/BanStu',
+      name: 'BanStu',
+      component: BanStu
+    },
+    {
+      path: '/timeTable',
+      name: 'timeTable',
+      component: timeTable
     }
   ]
 })
