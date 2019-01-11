@@ -77,7 +77,7 @@ def all_room(request):
         list = []
         for i in room:
             list.append({"id": i.id, "name": i.name, "college": i.college, "description": i.description})
-        data = {'code': '0000', 'msg': ''}
+        data = {'code': '0000', 'msg': '获取成功'}
         return HttpResponse(json.dumps(data))
 
 
