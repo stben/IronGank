@@ -92,10 +92,10 @@ def get_view_rooms(request):
         rooms = RoomAndTeacher.objects.filter(user=user[0])
         room_list = []
         for item in rooms:
-            room_list.append({'room_id': item.room.id,
+            room_list.append({'roomId': item.room.id,
                               'name': item.room.name,
                               'college': item.room.college.name})
-        data = {'code': '0000', 'msg': '获取成功'}
+        data = {'code': '0000', 'roomList': room_list}
         return HttpResponse(json.dumps(data))
 
 
@@ -146,3 +146,23 @@ def get_room_info(request):
         except BaseException:
             data = {'code': '0004', 'msg': '未知错误，请联系管理员'}
             return HttpResponse(json.dumps(data))
+
+
+def get_student_in_room(request):
+    if request.method == 'GET':
+        room_id = request.GET.get('roomNo')
+        room_list = Room.objects.filter(id=room_id)
+        if not room_list:
+            data = {'code': '0001', 'msg': '你的房间不存在或已注销'}
+            return HttpResponse(json.dumps(data))
+        room = room_list[0]
+        stu_list = RoomAndStudent.objects.filter(room=room)
+        audit_list = []
+        accept_list = []
+        for stu in stu_list:
+            if stu.status == 1:
+                audit_list.append({'stuName': stu.user.get_full_name(), 'stuNo': stu.sid})
+            if stu.status == 0:
+                accept_list.append({'stuName': stu.user.get_full_name(), 'stuNo': stu.sid})
+        data = {'code': '0000', 'auditList': audit_list, 'acceptedList': accept_list}
+        return HttpResponse(json.dumps(data))
