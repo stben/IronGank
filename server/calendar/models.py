@@ -63,3 +63,16 @@ class Calendar():
         except Exception:
             data = {'code': '0001', 'msg': '创建失败'}
             return data
+
+    def delete_timetable(self, delete_timetable_info):
+        try:
+            delete_timetable_id = int(
+                delete_timetable_info.get('time_table_id'))
+            delete_timetable = TimeTable.objects.get(id=delete_timetable_id)
+            delete_timetable.delete()
+            data = {'code': '0000', 'msg': '删除成功'}
+            return data
+        except Exception:
+            print(Exception.message)
+            data = {'code': '0001', 'msg': '课程安排不存在，请重试'}
+            return data
