@@ -20,12 +20,10 @@ def teacher_login(request):
                 auth.login(request, user)
                 data = {'code': '0000', 'msg': '登录成功'}
                 return HttpResponse(json.dumps(data))
-            else:
-                data = {'code': '0001', 'msg': '用户名或者密码错误'}
-                return HttpResponse(json.dumps(data))
-        else:
-            data = {'code': '0002', 'msg': '请输入正确格式的用户名（邮箱）'}
+            data = {'code': '0001', 'msg': '用户名或者密码错误'}
             return HttpResponse(json.dumps(data))
+        data = {'code': '0002', 'msg': '请输入正确格式的用户名（邮箱）'}
+        return HttpResponse(json.dumps(data))
 
 
 def teacher_logout(request):
