@@ -32,3 +32,12 @@ class CalendarTestCase(TestCase):
         room_no = '1'
         data = calendar.get_list_of_timetable(room_no)
         self.assertEqual(data.get('code'), '0000')
+
+    def test_calendar_can_delete(self):
+        print(TimeTable.objects.get(id=1))
+        calendar = Calendar()
+        delete_timetable_info = {'room_no': '1',
+                                 'time_no': '1',
+                                 'time_table_id': '1', }
+        data = calendar.delete_timetable(delete_timetable_info)
+        self.assertEqual(data.get('code'), '0000')

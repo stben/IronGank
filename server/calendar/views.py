@@ -30,3 +30,18 @@ def add_new_timetable(request):
         calendar = Calendar()
         data = calendar.add_new_timetbale(new_timetable_info)
         return JsonResponse(data)
+
+
+def delete_timetable(request):
+    if request.method == 'POST':
+        room_no = request.POST.get('roomNo')
+        time_no = request.POST.get('timeNo')
+        time_table_id = request.POST.get('timeTableId')
+        info = {
+            'room_no': room_no,
+            'time_no': time_no,
+            'time_table_id': time_table_id,
+        }
+        calendar = Calendar()
+        data = calendar.delete_timetable(info)
+        return JsonResponse(data)
