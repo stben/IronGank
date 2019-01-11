@@ -4,8 +4,12 @@ from Student.models import Student
 
 
 class College(models.Model):
-    name = models.CharField(max_length=100)
-    college_id = models.CharField(max_length=100)
+    name = models.CharField('院系名',max_length=100)
+    college_id = models.CharField('院系号',max_length=100)
+    class Meta:
+        verbose_name = "院系信息"
+        verbose_name_plural = "院系信息"
+
 
 
 class Room(models.Model):
