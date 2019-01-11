@@ -26,8 +26,10 @@ class TimeTable(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     class_week = models.IntegerField()
     class_day = models.IntegerField()
-    class_class = models.IntegerField()
+    begin = models.CharField(max_length=100, default="10:00")
+    end = models.CharField(max_length=100, default="11:00")
     description = models.CharField(max_length=1000)
+    status = models.BooleanField(default = False)
 
 
 class RoomAndTeacher(models.Model):
