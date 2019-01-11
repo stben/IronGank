@@ -4,7 +4,7 @@ import re
 import json
 from Teacher.models import *
 from django.db import transaction
-
+from django.http import JsonResponse
 # Create your views here.
 
 
@@ -73,11 +73,15 @@ def create_new_room(request):
 
 def all_room(request):
     if request.method == 'GET':
-        room = Room.objects.filter()
-        data = []
+        room = Room.objects.all()
+        all_room_list = []
         for i in room:
-            data.append({"id": i.id, "name": i.name})
-    return HttpResponse(json.dumps(data))
+            all_room_list.append({"roomNo": i.id,
+                                  "roomName": i.name,
+                                  "departmentName": i.college.name,
+                                  "roomDescription": i.description})
+        data = {'code': '0000', 'msg': '获取成功', 'allRoomList': all_room_list}
+        return JsonResponse(data)
 
 
 def get_view_rooms(request):
