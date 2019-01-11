@@ -18,6 +18,7 @@ from django.contrib import admin
 from . import views
 from Student.views import *
 from Teacher.views import *
+from calendar.views import *
 
 urlpatterns = [
     path('', views.index),
@@ -34,5 +35,7 @@ urlpatterns = [
     path('teacher/allRoom', all_room),
     path('teacher/teacherIndex', get_view_rooms),
     path('teacher/roomInfo', get_room_info),
-    path('teacher/pickRoomStudent', get_student_in_room)
+    path('teacher/pickRoomStudent', get_student_in_room),
+
+  path('teacher/timeTable', get_list_of_timetable),
 ]
