@@ -41,3 +41,17 @@ class CalendarTestCase(TestCase):
                                  'time_table_id': '1', }
         data = calendar.delete_timetable(delete_timetable_info)
         self.assertEqual(data.get('code'), '0000')
+
+    def test_calendar_can_modify(self):
+        calendar = Calendar()
+        new_info = {'room_no': '1',
+                    'week': '2',
+                    'weekday': '6',
+                    'begin': '13:00',
+                    'end': '14:00',
+                    'description': '图形学答疑',
+                    'time_no': '1',
+                    'time_table_id': '1',
+                    'status': '0'}
+        data = calendar.modify_timetable(new_info)
+        self.assertEqual(data.get('code'), '0000')
