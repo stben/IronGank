@@ -7,6 +7,7 @@ import PickStuAudit from '@/components/PickStuAudit'
 import PickStuAccepted from '@/components/PickStuAccepted'
 import stuIndex from '@/components/stuIndex'
 import teachingRoom from '@/components/teachingRoom'
+import Login from '@/components/Login'
 Vue.use(Router)
 
 export default new Router({
@@ -45,6 +46,11 @@ export default new Router({
       path: '/teachingRoom',
       name: 'teachingRoom',
       component: teachingRoom
+    },
+    {
+      path: '/Login',
+        name: 'Login',
+      component: Login
     }
   ]
 })

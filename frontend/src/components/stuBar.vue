@@ -2,6 +2,7 @@
   <mu-appbar class="bar" color="primary">
     <mu-button flat slot="left" to="/stuIndex">直播系统首页</mu-button>
     {{title}}
+    <mu-button flat slot="right" to="/Login">退出</mu-button>
   </mu-appbar>
 </template>
 
