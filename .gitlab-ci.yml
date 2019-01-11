@@ -1,23 +1,16 @@
 stages:
   - server
   - frontend
-
-backendtest:
-  stage: server
-  script:
-    - cd server
-    - python3 manage.py makemigrations
-    - python3 manage.py migrate    
-    - python3 -m coverage run --source="." manage.py test --noinput
-    - python3 -m coverage report
-  tags:
-    - centos2
-
+  
 backendlint:
   stage: server
   script:
     - cd server
     - pylint --rcfile=.pylintrc ./**/*.py || exit $((35 & $?))
+    - python3 manage.py makemigrations
+    - python3 manage.py migrate    
+    - python3 -m coverage run --source="." manage.py test --noinput
+    - python3 -m coverage report
   allow_failure: true
   tags:
     - centos2
@@ -26,17 +19,6 @@ frontendtest:
   stage: frontend
   script:
     - cd frontend
-    - npm install
-    - npm run test
-  allow_failure: true
-  tags:
-    - centos2
-
-frontendlint:
-  stage: frontend
-  script:
-    - cd frontend
-    - npm install
     - npm run lint
   allow_failure: true
   tags:
