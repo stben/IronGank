@@ -80,3 +80,20 @@ def all_room(request):
         for i in room:
             data.append({"id": i.id, "name": i.name})
     return HttpResponse(json.dumps(data))
+
+
+def get_view_rooms(request):
+    if request.method == 'GET':
+        username = request.user.username
+        user = User.objects.filter(username=username)
+        if not user:
+            data = {'code': '0001', 'msg': '你的账号已注销或未登录'}
+            return HttpResponse(json.dumps(data))
+        rooms = RoomAndTeacher.objects.filter(user=user[0])
+        room_list = []
+        for item in rooms:
+            room_list.append({'room_id': item.room.id,
+                              'name': item.room.name,
+                              'college': item.room.college.name})
+        data = {'code': '0000', 'msg': '获取成功'}
+        return HttpResponse(json.dumps(data))
