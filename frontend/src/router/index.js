@@ -10,7 +10,8 @@ import teachingRoom from '@/components/teachingRoom'
 import Login from '@/components/Login'
 import BanStu from '@/components/BanStu'
 import timeTable from '@/components/timeTable'
-import Register from '@/components/Register'
+import register from '@/components/register'
+import liveRoom from '@/components/liveRoom'
 Vue.use(Router)
 
 export default new Router({
@@ -24,6 +25,11 @@ export default new Router({
       path: '/RoomManage',
       name: 'RoomManage',
       component: RoomManage
+    },
+    {
+      path: '/liveRoom',
+      name: 'liveRoom',
+      component: liveRoom
     },
     {
       path: '/NewRoom',
@@ -46,9 +52,9 @@ export default new Router({
       component: stuIndex
     },
     {
-      path: '/Register',
-      name: 'Register',
-      component: Register
+      path: '/register',
+      name: 'register',
+      component: register
     },
     {
       path: '/teachingRoom',
