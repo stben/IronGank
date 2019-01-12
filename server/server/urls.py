@@ -16,8 +16,8 @@ Including another URLconf
 from django.urls import path, include
 from django.contrib import admin
 from . import views
-from Student.views import *
-from Teacher.views import *
+from student.views import *
+from teacher.views import *
 from calendar.views import *
 
 urlpatterns = [
@@ -27,6 +27,6 @@ urlpatterns = [
     )),
     path('admin/', admin.site.urls),
     path('upload/', include('upload.urls')),
-    path('student/', include('Student.urls')),
-    path('teacher/', include('Teacher.urls')),
+    path('student/', include('student.urls')),
+    path('teacher/', include('teacher.urls')),
 ]

@@ -2,7 +2,7 @@ from django.contrib.auth.models import auth
 from django.http import HttpResponse
 import re
 import json
-from Teacher.models import *
+from teacher.models import *
 from django.db import transaction
 from django.http import JsonResponse
 # Create your views here.
