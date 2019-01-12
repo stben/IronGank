@@ -5,6 +5,11 @@ import App from './App'
 import router from './router'
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+
+Vue.prototype.axios = axios
+Vue.use(VueAxios, axios)
 
 Vue.use(MuseUI)
 
