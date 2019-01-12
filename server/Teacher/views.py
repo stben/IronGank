@@ -202,3 +202,36 @@ def get_student_in_room(request):
         stu_in.save
         data = {'code': '0000', 'msg': '成功'}
         return HttpResponse(json.dumps(data))
+
+
+def ban_stu_list(request):
+    if request.method == 'GET':
+        try:
+            ban_student_lists = ListOfForbiddenStudents.objects.all()
+            ban_list = []
+            for i in ban_student_lists:
+                student = Student.objects.get(user=i.user)
+                ban_list.append({"stuNo": student.sid,
+                                 "stuName": i.user.get_full_name(),
+                                 })
+            data = {'code': '0000', 'sum': len(ban_list), 'banList': ban_list}
+            return JsonResponse(data)
+        except Exception:
+            print(Exception.message)
+            data = {'code': '0001', 'msg': '未知错误'}
+            return data
+    if request.method == 'POST':
+        try:
+            room_id = int(request.POST.get('roomNo'))
+            user_id = request.POST.get('stuNo')
+            its_student = Student.objects.get(sid=user_id)
+            its_room = Room.objects.get(id=room_id)
+            re_user = its_student.user
+            ListOfForbiddenStudents.objects.filter(
+                room_id=its_room, user_id=re_user).delete()
+            data = {'code': '0000', 'msg': '删除成功'}
+            return JsonResponse(data)
+        except Exception:
+            print(Exception.message)
+            data = {'code': '0001', 'msg': '未知错误'}
+            return data
