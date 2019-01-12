@@ -152,22 +152,21 @@ def get_room_info(request):
 
 def get_student_in_room(request):
     if request.method == 'GET':
-        room_id = request.GET.get('roomNo')
+        room_id = int(request.GET.get('roomNo'))
         room_list = Room.objects.filter(id=room_id)
         if not room_list:
             data = {'code': '0001', 'msg': '你的房间不存在或已注销'}
             return HttpResponse(json.dumps(data))
-        room = room_list[0]
-        stu_list = RoomAndStudent.objects.filter(room=room)
+        stu_list = RoomAndStudent.objects.filter(room=room_list[0])
         audit_list = []
         accept_list = []
         for stu in stu_list:
             if stu.status == 1:
                 audit_list.append(
-                    {'stuName': stu.user.get_full_name(), 'stuNo': stu.sid})
+                    {'stuName': stu.student.user.get_full_name(), 'stuNo': stu.student.sid})
             if stu.status == 0:
                 accept_list.append(
-                    {'stuName': stu.user.get_full_name(), 'stuNo': stu.sid})
+                    {'stuName': stu.student.user.get_full_name(), 'stuNo': stu.student.sid})
         data = {
             'code': '0000',
             'auditList': audit_list,
@@ -178,27 +177,27 @@ def get_student_in_room(request):
         sid = request.POST.get('stuNo')
         is_done = request.POST.get('isAccepted')
         stu_list = Student.object.filter(sid=sid)
-        if not stu_list or stu_list.length == 0:
+        if not stu_list:
             data = {'code': '0001', 'msg': '学生不存在或已注销'}
             return HttpResponse(json.dumps(data))
         room_list = Room.objects.filter(room_id=room_id)
-        if not room_list or room_list.length == 0:
+        if not room_list:
             data = {'code': '0002', 'msg': '房间不存在或已注销'}
             return HttpResponse(json.dumps(data))
         stu_in_list = RoomAndStudent.objects.filter(
             room=room_list[0], student=stu_list[0])
-        if not stu_in_list or stu_in_list.length == 0:
+        if not stu_in_list:
             data = {'code': '0003', 'msg': '记录不存在或已注销'}
             return HttpResponse(json.dumps(data))
         stu_in = stu_in_list[0]
         if stu_in.status == 1:
             if is_done == 1:
-                stu_in.status = 0
+                stu_in.status = 0  # 如果申请通过，变成在班级学生
             else:
-                stu_in.status = 2
+                stu_in.status = 2  # 如果申请不通过，变成注销班级学生
         else:
             if is_done == 0:
-                stu_in.status = 2
+                stu_in.status = 2   # 如果已在班级，移除学生
         stu_in.save
         data = {'code': '0000', 'msg': '成功'}
         return HttpResponse(json.dumps(data))
