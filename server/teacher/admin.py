@@ -1,5 +1,5 @@
 from django.contrib import admin
-from Teacher.models import *
+from teacher.models import *
 
 
 admin.site.site_title = '后台管理'

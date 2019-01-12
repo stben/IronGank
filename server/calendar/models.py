@@ -1,4 +1,4 @@
-from Teacher.models import *
+from teacher.models import *
 
 # Create your models here.
 

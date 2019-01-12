@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.test import Client
 
-from Teacher.models import *
+from teacher.models import *
 from calendar.models import *
 
 
