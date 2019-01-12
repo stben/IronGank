@@ -12,11 +12,11 @@ def register(request):
     if request.method == 'POST':
         try:
             with transaction.atomic():
-                print(1)
                 sid = request.POST.get('student_id')
                 password = request.POST.get('password')
                 tel = request.POST.get('tel')
-                print(sid)
+                first_name = request.POST.get('firstname')
+                last_name = request.POST.get('lastname')
                 if len(tel) != 11:
                     data = {'code': '0001', 'msg': '手机号输入错误，请重新输入'}
                     return HttpResponse(json.dumps(data))
@@ -24,11 +24,10 @@ def register(request):
                     data = {'code': '0002', 'msg': '请输入密码'}
                     return HttpResponse(json.dumps(data))
                 else:
-                    print(1)
-                    new_user = User.objects.create_user(username=tel, password=password)
+                    new_user = User.objects.create_user(
+                        username=tel, password=password, first_name=first_name, last_name=last_name)
                     student = Student(sid=sid, user=new_user)
                     student.save()
-                    print(1)
                     data = {'code': '0000', 'msg': '注册成功'}
                     return HttpResponse(json.dumps(data))
         except Exception:
