@@ -34,7 +34,6 @@ def register(request):
             data = {'code': '0002', 'msg': '学号输入错误或已经注册，请重新输入'}
             return HttpResponse(json.dumps(data))
 
-
 def student_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
