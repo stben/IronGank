@@ -18,8 +18,11 @@ class RoomAdmin(admin.ModelAdmin):
     list_display = ['name', 'college', 'password', 'description', 'is_need_whiteboard',
                     'is_need_code_editor', 'is_need_password']
 
+@admin.register(TimeTable)
+class TimeTableAdmin(admin.ModelAdmin):
+    list_display = ['room', 'class_week', 'class_day', 'begin', 'end',
+                  'description', 'status']
 
 admin.site.register(RoomAndTeacher)
 admin.site.register(RoomAndStudent)
-admin.site.register(TimeTable)
 admin.site.register(ListOfForbiddenStudents)
