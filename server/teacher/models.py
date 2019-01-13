@@ -23,19 +23,25 @@ class Room(models.Model):
     is_need_code_editor = models.BooleanField('是否有代码编辑器')
     is_need_password = models.BooleanField('是否设置密码')
 
+    def __str__(self):
+        return self.name
     class Meta:
         verbose_name = "房间信息"
         verbose_name_plural = "房间信息"
 
 
 class TimeTable(models.Model):
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    class_week = models.IntegerField()
-    class_day = models.IntegerField()
-    begin = models.CharField(max_length=100, default="10:00")
-    end = models.CharField(max_length=100, default="11:00")
-    description = models.CharField(max_length=1000)
-    status = models.BooleanField(default = False)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, verbose_name='房间名')
+    class_week = models.IntegerField('周数')
+    class_day = models.IntegerField('工作日')
+    begin = models.CharField('起始时间', max_length=100, default="10:00")
+    end = models.CharField('截至时间', max_length=100, default="11:00")
+    description = models.CharField('房间描述', max_length=1000, blank=True)
+    status = models.BooleanField('开放状态', default = False)
+
+    class Meta:
+        verbose_name = "时间表"
+        verbose_name_plural = "时间表"
 
 
 class RoomAndTeacher(models.Model):
