@@ -9,6 +9,7 @@ class College(models.Model):
 
     def __str__(self):
         return self.name
+
     class Meta:
         verbose_name = "院系信息"
         verbose_name_plural = "院系信息"
@@ -16,7 +17,10 @@ class College(models.Model):
 
 class Room(models.Model):
     name = models.CharField('房间名', max_length=100)
-    college = models.ForeignKey(College, on_delete=models.CASCADE, verbose_name='所属院系')
+    college = models.ForeignKey(
+        College,
+        on_delete=models.CASCADE,
+        verbose_name='所属院系')
     password = models.CharField('房间密码', max_length=16, null=True, blank=True)
     description = models.CharField('房间描述', max_length=1000)
     is_need_whiteboard = models.BooleanField('是否有白板')
@@ -25,19 +29,23 @@ class Room(models.Model):
 
     def __str__(self):
         return self.name
+
     class Meta:
         verbose_name = "房间信息"
         verbose_name_plural = "房间信息"
 
 
 class TimeTable(models.Model):
-    room = models.ForeignKey(Room, on_delete=models.CASCADE, verbose_name='房间名')
+    room = models.ForeignKey(
+        Room,
+        on_delete=models.CASCADE,
+        verbose_name='房间名')
     class_week = models.IntegerField('周数')
     class_day = models.IntegerField('工作日')
     begin = models.CharField('起始时间', max_length=100, default="10:00")
     end = models.CharField('截至时间', max_length=100, default="11:00")
     description = models.CharField('房间描述', max_length=1000, blank=True)
-    status = models.BooleanField('开放状态', default = False)
+    status = models.BooleanField('开放状态', default=False)
 
     class Meta:
         verbose_name = "时间表"
@@ -45,9 +53,19 @@ class TimeTable(models.Model):
 
 
 class RoomAndTeacher(models.Model):
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    status = models.BooleanField()
+    room = models.ForeignKey(
+        Room,
+        on_delete=models.CASCADE,
+        verbose_name='房间名称')
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name='教师名称')
+    status = models.BooleanField('状态')
+
+    class Meta:
+        verbose_name = '教师房间信息管理'
+        verbose_name_plural = '教师房间信息管理'
 
 
 class RoomAndStudent(models.Model):
