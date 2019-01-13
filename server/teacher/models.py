@@ -69,9 +69,13 @@ class RoomAndTeacher(models.Model):
 
 
 class RoomAndStudent(models.Model):
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    status = models.IntegerField()
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, verbose_name='房间名称')
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, verbose_name='学生')
+    status = models.IntegerField('状态')
+
+    class Meta:
+        verbose_name = '学生房间信息管理'
+        verbose_name_plural = '学生房间信息管理'
     # 0 表示已通过，1 表示申请中， 2表示已移除
 
 
