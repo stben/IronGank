@@ -69,8 +69,14 @@ class RoomAndTeacher(models.Model):
 
 
 class RoomAndStudent(models.Model):
-    room = models.ForeignKey(Room, on_delete=models.CASCADE, verbose_name='房间名称')
-    student = models.ForeignKey(Student, on_delete=models.CASCADE, verbose_name='学生')
+    room = models.ForeignKey(
+        Room,
+        on_delete=models.CASCADE,
+        verbose_name='房间名称')
+    student = models.ForeignKey(
+        Student,
+        on_delete=models.CASCADE,
+        verbose_name='学生')
     status = models.IntegerField('状态')
 
     class Meta:
@@ -80,5 +86,15 @@ class RoomAndStudent(models.Model):
 
 
 class ListOfForbiddenStudents(models.Model):
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    room = models.ForeignKey(
+        Room,
+        on_delete=models.CASCADE,
+        verbose_name='房间名称')
+    user = models.ForeignKey(
+        Student,
+        on_delete=models.CASCADE,
+        verbose_name='学生')
+
+    class Meta:
+        verbose_name = "禁言学生管理"
+        verbose_name_plural = '禁言学生管理'

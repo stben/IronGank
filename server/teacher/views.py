@@ -185,8 +185,9 @@ def get_student_in_room(request):
             data = {'code': '0002', 'msg': '房间不存在或已注销'}
             return HttpResponse(json.dumps(data))
         try:
-            stu_in = RoomAndStudent.objects.get(room=room_list[0], student=stu_list[0])
-        except:
+            stu_in = RoomAndStudent.objects.get(
+                room=room_list[0], student=stu_list[0])
+        except BaseException:
             data = {'code': '0003', 'msg': '记录不存在或已注销'}
             return HttpResponse(json.dumps(data))
         if stu_in.status == 1:
