@@ -19,14 +19,10 @@
 
 <script>
 import TeacherFrame from '../components/TeacherFrame'
-import PickStuTabsAccepted from '../components/PickStuTabsAccepted'
-import Divider from 'muse-ui/lib'
 export default {
   name: 'NewRoom',
   components: {
-    Divider,
-    TeacherFrame,
-    PickStuTabsAccepted
+    TeacherFrame
   },
   data () {
     return {

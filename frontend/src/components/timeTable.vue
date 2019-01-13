@@ -26,11 +26,11 @@ export default {
     return {
       roomNo: 30150, // 要把房间号改了
       timeTableList: [
-        {roomNo: '30150', timeNo: '1682', week: '第一周', weekday: '周五', begin: '10:00', end: '12:00', description: 'vue的问题解答'},
-        {roomNo: '30150', timeNo: '1682', week: '第三周', weekday: '周二', begin: '9:00', end: '10:00', description: 'django的问题解答'},
-        {roomNo: '30150', timeNo: '1682', week: '第三周', weekday: '周三', begin: '10:00', end: '12:00', description: '前后端连接的问题解答'},
-        {roomNo: '30150', timeNo: '1682', week: '第四周', weekday: '周五', begin: '8:00', end: '10:00', description: '软件工程实训'},
-        {roomNo: '30150', timeNo: '1682', week: '第五周', weekday: '周日', begin: '10:00', end: '12:00', description: '问题反馈'}
+        { roomNo: '30150', timeNo: '1682', week: '第一周', weekday: '周五', begin: '10:00', end: '12:00', description: 'vue的问题解答' },
+        { roomNo: '30150', timeNo: '1682', week: '第三周', weekday: '周二', begin: '9:00', end: '10:00', description: 'django的问题解答' },
+        { roomNo: '30150', timeNo: '1682', week: '第三周', weekday: '周三', begin: '10:00', end: '12:00', description: '前后端连接的问题解答' },
+        { roomNo: '30150', timeNo: '1682', week: '第四周', weekday: '周五', begin: '8:00', end: '10:00', description: '软件工程实训' },
+        { roomNo: '30150', timeNo: '1682', week: '第五周', weekday: '周日', begin: '10:00', end: '12:00', description: '问题反馈' }
       ]
     }
   }

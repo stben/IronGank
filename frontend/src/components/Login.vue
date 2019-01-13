@@ -51,16 +51,16 @@ export default {
       error0: '',
       error1: '',
       usernameRules0: [
-        {validate: (val) => !!val, message: '必须填写用户名'}
+        { validate: (val) => !!val, message: '必须填写用户名' }
       ],
       passwordRules0: [
-        {validate: (val) => !!val, message: '必须填写密码'}
+        { validate: (val) => !!val, message: '必须填写密码' }
       ],
       usernameRules1: [
-        {validate: (val) => !!val, message: '必须填写用户名'}
+        { validate: (val) => !!val, message: '必须填写用户名' }
       ],
       passwordRules1: [
-        {validate: (val) => !!val, message: '必须填写密码'}
+        { validate: (val) => !!val, message: '必须填写密码' }
       ],
       validateForm0: {
         username: '',
