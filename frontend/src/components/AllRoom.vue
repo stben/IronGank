@@ -20,9 +20,8 @@
       </mu-list-item>
     </mu-list>
 </mu-menu>
-</mu-menu>
 <mu-text-field v-model="value" placeholder="请输入房间名称进行搜索"></mu-text-field>
-<mu-button color="primary">搜索</mu-button></br>
+<mu-button color="primary">搜索</mu-button>
   <mu-expansion-panel>
     <div slot="header">房间名称1</div>
     房间简介
@@ -50,10 +49,10 @@ export default {
 </script>
 
 <style scoped>
-.button-wrapper {
-  text-align: center;
+  .button-wrapper {
+    text-align: center;
+  }
   .mu-button{
     margin: 8px;
   }
-}
 </style>

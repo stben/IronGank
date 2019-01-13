@@ -19,7 +19,7 @@
           <mu-button color="primary" @click="submit">登录</mu-button>
         </mu-form-item>
         <mu-form-item class="signin">
-          <mu-button flat color="primary" @click = "jump" small>注册</mu-button>
+          <mu-button flat color="primary" to="/register" small>注册</mu-button>
         </mu-form-item>
       </mu-form>
     </div>
@@ -76,9 +76,6 @@ export default {
     submit () {
       this.$refs.form.validate().then((result) => {
       })
-    },
-    jump() {
-      window.location.href = ''
     }
   }
 }

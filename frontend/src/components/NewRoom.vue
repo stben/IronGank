@@ -1,4 +1,4 @@
-<template xmlns="http://www.w3.org/1999/html">
+<template>
   <div>
     <TeacherFrame :selected="'4'" :title="'新建房间'"></TeacherFrame>
     <mu-paper class="paper3" z-depth="4">

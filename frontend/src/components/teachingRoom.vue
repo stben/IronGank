@@ -6,7 +6,7 @@
 
 <script>
 import stuFrame from '../components/stuFrame'
-    export default {
+export default {
   name: 'teachingRoom',
   components: {
     stuFrame

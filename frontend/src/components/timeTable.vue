@@ -3,7 +3,7 @@
     <TeacherFrame :selected="'3'" :title="'房间 '+roomNo+'：直播间日历'"></TeacherFrame>
     <mu-paper class="paper">
       <mu-list class="list">
-        <mu-list-row v-for="item in timeTableList">
+        <mu-list-row v-for="item in timeTableList" :key="item.timeNo">
           <mu-list-item>
             <mu-list-item-title>{{item.week}}&nbsp;&nbsp;&nbsp;{{item.weekday}}&nbsp;&nbsp;&nbsp;{{item.begin}}-{{item.end}}：{{item.description}}</mu-list-item-title>
             <mu-button flat color="warning" to="">修改</mu-button>
