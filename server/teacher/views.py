@@ -142,7 +142,7 @@ def get_room_info(request):
             room.is_need_password = is_need_password
             room.is_need_code_editor = is_need_code_editor
             room.is_need_whiteboard = is_need_whiteboard
-            room.save
+            room.save()
             data = {'code': '0000', 'msg': '保存成功'}
             return HttpResponse(json.dumps(data))
         except BaseException:
