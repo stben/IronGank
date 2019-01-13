@@ -79,7 +79,7 @@ export default {
     }
   },
   methods: {
-    handleSortChange ({name, order}) {
+    handleSortChange ({ name, order }) {
       this.list = this.list.sort((a, b) => order === 'asc' ? a[name] - b[name] : b[name] - a[name])
     },
     f () {
