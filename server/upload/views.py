@@ -13,7 +13,8 @@ import xlrd
 
 def upload_file(request):
     if request.method == "POST":    # 请求方法为POST时，进行处理
-        my_File = request.FILES.get("my_file", None)    # 获取上传的文件，如果没有文件，则默认为None
+        my_File = request.FILES.get(
+            "my_file", None)    # 获取上传的文件，如果没有文件，则默认为None
         if not my_File:
             return HttpResponse("no files for upload!")
         filename = '%s/%s' % (settings.MEDIA_ROOT, my_File.name)
@@ -24,7 +25,6 @@ def upload_file(request):
         print(filename)
         main(filename)
         return HttpResponse("upload over!")
-
 
 
 def open_excel(file='file.xlsx'):
