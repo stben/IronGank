@@ -7,8 +7,10 @@ import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import Qs from 'qs'
 
-Vue.prototype.axios = axios
+Vue.prototype.$Qs = Qs
+Vue.prototype.$axios = axios
 Vue.use(VueAxios, axios)
 
 Vue.use(MuseUI)
