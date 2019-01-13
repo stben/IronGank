@@ -31,7 +31,6 @@
 </template>
 <script>
 import axios from 'axios'
-import qs from 'qs'
 export default {
   data () {
     return {
@@ -78,8 +77,8 @@ export default {
 <style scoped>
 .button-wrapper {
   text-align: center;
-  .mu-button {
-    margin: 8px;
-  }
+}
+.mu-button {
+  margin: 8px;
 }
 </style>

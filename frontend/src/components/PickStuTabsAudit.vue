@@ -2,11 +2,11 @@
   <mu-paper class="paper">
     <mu-tabs :value.sync="active" color="white" indicator-color="blue" center class="tabs">
       <mu-tab style="color: #03a9f4">待审核</mu-tab>
-      <mu-tab style="color: #9e9e9e" to="/teacher/pickstu/accepted">已通过</mu-tab>
+      <mu-tab style="color: #9e9e9e" to="/teacher/pickStudent/accepted">已通过</mu-tab>
     </mu-tabs>
     <div v-if="active===0" class="list">
     <mu-list>
-      <mu-list-row v-for="item in auditList">
+      <mu-list-row v-for="item in auditList" :key="item.stuNo">
         <mu-list-item>
           <mu-list-item-title>姓名：{{item.stuName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学号：{{item.stuNo}}</mu-list-item-title>
           <mu-button flat color="success" @click="agree($event)">通过</mu-button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

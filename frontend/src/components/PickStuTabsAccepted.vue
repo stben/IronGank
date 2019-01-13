@@ -1,12 +1,12 @@
 <template>
   <mu-paper class="paper">
     <mu-tabs :value.sync="active" color="white" indicator-color="blue" center class="tabs">
-      <mu-tab style="color: #9e9e9e" to="/teacher/pickstu/audit">待审核</mu-tab>
+      <mu-tab style="color: #9e9e9e" to="/teacher/pickStudent/audit">待审核</mu-tab>
       <mu-tab style="color: #03a9f4">已通过</mu-tab>
     </mu-tabs>
     <div v-if="active===1" class="list">
       <mu-list>
-        <mu-list-row v-for="item in acceptedList">
+        <mu-list-row v-for="item in acceptedList" :key="item.stuNo">
           <mu-list-item>
             <mu-list-item-title>姓名：{{item.stuName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学号：{{item.stuNo}}</mu-list-item-title>
             <mu-button flat color="error" @click="remove($event)">移除</mu-button>
@@ -55,5 +55,3 @@ export default {
     width: 80px;
   }
 </style>
-
-

@@ -1,4 +1,4 @@
-<template xmlns="http://www.w3.org/1999/html">
+<template>
   <div>
     <TeacherFrame :selected="'0'" :title="'房间 '+roomNo+'：直播信息管理'"></TeacherFrame>
     <mu-paper class="paper2" z-depth="4">

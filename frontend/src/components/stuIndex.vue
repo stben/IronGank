@@ -5,7 +5,7 @@
             <mu-form :model="form" class="mu-demo-form" :label-position="labelPosition" label-width="100">
                 <mu-form-item prop="select" label="授课老师">
                     <mu-select v-model="form.select" @change="onSelected">
-                        <mu-option v-for="option,index in options" :key="option" :label="option" :value="option"></mu-option>
+                        <mu-option v-for="option in options" :key="option" :label="option" :value="option"></mu-option>
                     </mu-select>
                  </mu-form-item>
             </mu-form>

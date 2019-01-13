@@ -1,6 +1,6 @@
 <template>
   <div>
-      <TeacherFrame :selected="''" :title="'房间 '+roomNo+''"></TeacherFrame>
+      <TeacherFrame :selected="'0'" :title="'房间 '+roomNo+''"></TeacherFrame>
       <mu-paper class="paper"  z-depth="4">
         <mu-data-table :columns="columns" :sort.sync="sort" @sort-change="handleSortChange" :data="list">
           <template slot-scope="scope">

@@ -11,43 +11,37 @@ import Login from '@/components/Login'
 import BanStu from '@/components/BanStu'
 import timeTable from '@/components/timeTable'
 import register from '@/components/register'
-import liveRoom from '@/components/liveRoom'
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/TeacherIndex',
+      path: '/teacher/index',
       name: 'TeacherIndex',
       component: TeacherIndex
     },
     {
-      path: '/RoomManage',
+      path: '/teacher/roomManage',
       name: 'RoomManage',
       component: RoomManage
     },
     {
-      path: '/liveRoom',
-      name: 'liveRoom',
-      component: liveRoom
-    },
-    {
-      path: '/NewRoom',
+      path: '/teacher/newRoom',
       name: 'NewRoom',
       component: NewRoom
     },
     {
-      path: '/teacher/pickstu/audit',
+      path: '/teacher/pickStudent/audit',
       name: 'PickStuAudit',
       component: PickStuAudit
     },
     {
-      path: '/teacher/pickstu/accepted',
+      path: '/teacher/pickStudent/accepted',
       name: 'PickStuAccepted',
       component: PickStuAccepted
     },
     {
-      path: '/stuIndex',
+      path: '/student/index',
       name: 'stuIndex',
       component: stuIndex
     },
@@ -62,17 +56,17 @@ export default new Router({
       component: teachingRoom
     },
     {
-      path: '/Login',
+      path: '/login',
       name: 'Login',
       component: Login
     },
     {
-      path: '/BanStu',
+      path: '/teacher/banStudent',
       name: 'BanStu',
       component: BanStu
     },
     {
-      path: '/timeTable',
+      path: '/teacher/timeTable',
       name: 'timeTable',
       component: timeTable
     }
