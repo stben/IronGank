@@ -22,7 +22,10 @@ class RoomAdmin(admin.ModelAdmin):
 class TimeTableAdmin(admin.ModelAdmin):
     list_display = ['room', 'class_week', 'class_day', 'begin', 'end',
                   'description', 'status']
+@admin.register(RoomAndTeacher)
+class RoomAndTeacherAdmin(admin.ModelAdmin):
+    list_display = ['room', 'user', 'status']
 
-admin.site.register(RoomAndTeacher)
+
 admin.site.register(RoomAndStudent)
 admin.site.register(ListOfForbiddenStudents)
