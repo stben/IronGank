@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <mu-list v-bind:value="selected" class="navigation">
     <mu-list-item button value="0" to="/teacher/index">
       <mu-list-item-title>直播间信息</mu-list-item-title>
