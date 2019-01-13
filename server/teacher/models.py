@@ -7,19 +7,25 @@ class College(models.Model):
     name = models.CharField('院系名', max_length=100, unique=True)
     college_id = models.CharField('院系号', max_length=100, unique=True)
 
+    def __str__(self):
+        return self.name
     class Meta:
         verbose_name = "院系信息"
         verbose_name_plural = "院系信息"
 
 
 class Room(models.Model):
-    name = models.CharField(max_length=100)
-    college = models.ForeignKey(College, on_delete=models.CASCADE)
-    password = models.CharField(max_length=16)
-    description = models.CharField(max_length=1000)
-    is_need_whiteboard = models.BooleanField()
-    is_need_code_editor = models.BooleanField()
-    is_need_password = models.BooleanField()
+    name = models.CharField('房间名', max_length=100)
+    college = models.ForeignKey(College, on_delete=models.CASCADE, verbose_name='所属院系')
+    password = models.CharField('房间密码', max_length=16, null=True, blank=True)
+    description = models.CharField('房间描述', max_length=1000)
+    is_need_whiteboard = models.BooleanField('是否有白板')
+    is_need_code_editor = models.BooleanField('是否有代码编辑器')
+    is_need_password = models.BooleanField('是否设置密码')
+
+    class Meta:
+        verbose_name = "房间信息"
+        verbose_name_plural = "房间信息"
 
 
 class TimeTable(models.Model):

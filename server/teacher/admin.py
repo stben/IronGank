@@ -13,8 +13,12 @@ class CollegeAdmin(admin.ModelAdmin):
     list_filter = ['college_id', 'name', ]
     ordering = ['college_id']
 
+@admin.register(Room)
+class RoomAdmin(admin.ModelAdmin):
+    list_display = ['name', 'college', 'password', 'description', 'is_need_whiteboard',
+                    'is_need_code_editor', 'is_need_password']
 
-admin.site.register(Room)
+
 admin.site.register(RoomAndTeacher)
 admin.site.register(RoomAndStudent)
 admin.site.register(TimeTable)
