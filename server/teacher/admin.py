@@ -27,5 +27,9 @@ class RoomAndTeacherAdmin(admin.ModelAdmin):
     list_display = ['room', 'user', 'status']
 
 
-admin.site.register(RoomAndStudent)
+@admin.register(RoomAndStudent)
+class RoomAndStudentAdmin(admin.ModelAdmin):
+    list_display = ['room', 'student', 'status']
+
+
 admin.site.register(ListOfForbiddenStudents)
