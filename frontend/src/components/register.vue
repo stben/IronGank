@@ -54,23 +54,18 @@ export default {
         'student_id': this.$refs.stuNo.value,
         'tel': this.$refs.phone.value,
         'password': this.$refs.password.value,
-        'lastname': this.$refs.stuName.value,
-        'firstname': ' '
+        'firstname': this.$refs.stuName.value
       }
-      axios.post('http://127.0.0.1:8000/student/register', {
-        params: {
-          postData
-        }
-      })
+      this.$axios.post('http://127.0.0.1:8000/student/register',
+        this.$Qs.stringify(postData)
+      )
         .then(function (response) {
-          if (response.data.code === '0000') { this.openSimpleDialog() }
-        })
-        .catch(function (error) {
-          console.log(error)
+          if (response.data.code === '0000') {
+            this.openSimpleDialog()
+          } else alert(response.data.msg)
         })
     }
   }
-
 }
 </script>
 
