@@ -103,8 +103,10 @@ def get_view_rooms(request):
 
 def get_room_info(request):
     if request.method == 'GET':
-        room_id = request.GET.get('roomId')
-        room_list = Room.objects.filter(id=room_id)
+        print(request.GET)
+        room_id = request.GET.get('roomNo')
+        print(room_id)
+        room_list = Room.objects.filter(id=int(room_id))
         if not room_list:
             data = {'code': '0001', 'msg': '你的房间不存在或已注销'}
             return HttpResponse(json.dumps(data))
@@ -120,9 +122,9 @@ def get_room_info(request):
         college_name = request.POST.get('departmentName')
         password = request.POST.get('password')
         description = request.POST.get('roomDescription')
-        is_need_whiteboard = request.POST.get('isBoard')
-        is_need_code_editor = request.POST.get('isCode')
-        is_need_password = request.POST.get('isPassword')
+        is_need_whiteboard = request.POST.get('isBoard').capitalize()
+        is_need_code_editor = request.POST.get('isCode').capitalize()
+        is_need_password = request.POST.get('isPassword').capitalize()
         if is_need_password and password == '':
             data = {'code': '0001', 'msg': '请输入房间密码'}
             return HttpResponse(json.dumps(data))

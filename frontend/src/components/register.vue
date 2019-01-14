@@ -50,7 +50,7 @@ export default {
         'password': this.$refs.password.value,
         'firstname': this.$refs.stuName.value
       }
-      this.$axios.post('http://127.0.0.1:8000/student/register',
+      this.$axios.post('/api/student/register',
         this.$Qs.stringify(postData)
       )
         .then(function (response) {

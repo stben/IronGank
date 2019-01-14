@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     submitStudent: function () {
-      if (this.validateForm0.username && this.validateForm0.password) {
+      if (!!this.validateForm0.username && !!this.validateForm0.password) {
         this.$axios.post('/api/student/studentLogin',
           this.$Qs.stringify(this.validateForm0)
         )
@@ -106,7 +106,7 @@ export default {
 </script>
 
 <style scoped>
-  .formstyle{0
+  .formstyle{
     display:flex;
     flex-direction: column;
     width:350px;
