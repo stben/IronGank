@@ -16,7 +16,7 @@
           <mu-text-field type="password" v-model="validateForm0.password" prop="password" placeholder="密码"></mu-text-field>
         </mu-form-item>
         <mu-form-item class="loginbutton">
-          <mu-button color="primary" @click="submit">登录</mu-button>
+          <mu-button color="primary" @click="submitStudent">登录</mu-button>
         </mu-form-item>
         <mu-form-item class="signin">
           <mu-button flat color="primary" to="/register" small>注册</mu-button>
@@ -29,13 +29,13 @@
      </mu-row>
      <mu-form ref="form1" :model="validateForm1" class="formstyle">
        <mu-form-item :rules="usernameRules1">
-         <mu-text-field v-model="validateForm1.username" prop="username" placeholder="工号/邮箱"></mu-text-field>
+         <mu-text-field v-model="validateForm1.username" prop="username" rules="passwordRules0" placeholder="工号/邮箱"></mu-text-field>
        </mu-form-item>
        <mu-form-item prop="password" :rules="passwordRules1">
-         <mu-text-field type="password" v-model="validateForm1.password" prop="password" placeholder="密码"></mu-text-field>
+         <mu-text-field type="password" v-model="validateForm1.password" prop="password" rules="passwordRules0" placeholder="密码"></mu-text-field>
        </mu-form-item>
        <mu-form-item class="loginbutton">
-         <mu-button color="primary" @click="submit">登录</mu-button>
+         <mu-button color="primary" @click="submitTeacher">登录</mu-button>
        </mu-form-item>
      </mu-form>
    </div>
@@ -73,9 +73,33 @@ export default {
     }
   },
   methods: {
-    submit () {
-      this.$refs.form.validate().then((result) => {
-      })
+    submitStudent: function () {
+      if (this.validateForm0.username && this.validateForm0.password) {
+        this.$axios.post('/api/student/studentLogin',
+          this.$Qs.stringify(this.validateForm0)
+        )
+          .then((response) => {
+            if (response.data.code === '0000') {
+              this.$router.push('/student/index')
+            } else {
+              alert(response.data.msg)
+            }
+          })
+      }
+    },
+    submitTeacher: function () {
+      if (this.validateForm0.username && this.validateForm0.password) {
+        this.$axios.post('/api/teacher/teacherLogin',
+          this.$Qs.stringify(this.validateForm1)
+        )
+          .then((response) => {
+            if (response.data.code === '0000') {
+              this.$router.push('/teacher/index')
+            } else {
+              alert(response.data.msg)
+            }
+          })
+      }
     }
   }
 }
