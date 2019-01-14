@@ -43,12 +43,6 @@ export default {
     }
   },
   methods: {
-    openSimpleDialog () {
-      this.openSimple = true
-    },
-    closeSimpleDialog () {
-      this.$router.push('Login')
-    },
     postRegister () {
       let postData = {
         'student_id': this.$refs.stuNo.value,

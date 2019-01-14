@@ -1,7 +1,7 @@
 <template>
   <div>
-      <TeacherFrame :selected="'0'" :title="'房间 '+''"></TeacherFrame>
-      <mu-paper class="paper" z-depth='4'>
+      <teacherIndexFrame :selected="''" :title="'主页 '"></teacherIndexFrame>
+      <mu-paper class="paper"  z-depth="4">
         <mu-data-table :columns="columns" :sort.sync="sort" @sort-change="handleSortChange" :data="list">
           <template slot-scope="scope">
             <td>{{scope.row.name}}</td>

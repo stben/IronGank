@@ -106,7 +106,7 @@ export default {
 </script>
 
 <style scoped>
-  .formstyle{
+  .formstyle{0
     display:flex;
     flex-direction: column;
     width:350px;
