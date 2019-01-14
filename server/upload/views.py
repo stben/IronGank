@@ -1,9 +1,8 @@
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 # Create your views here.
 # 用例导入
-from django.shortcuts import render
 
 
 from server import settings
@@ -13,18 +12,23 @@ import xlrd
 
 def upload_file(request):
     if request.method == "POST":    # 请求方法为POST时，进行处理
-        my_File = request.FILES.get(
+
+        myFile = request.FILES.get(
             "my_file", None)    # 获取上传的文件，如果没有文件，则默认为None
-        if not my_File:
-            return HttpResponse("no files for upload!")
-        filename = '%s/%s' % (settings.MEDIA_ROOT, my_File.name)
-        destination = open(filename, 'wb+')    # 打开特定的文件进行二进制的写操作
-        for chunk in my_File.chunks():      # 分块写入文件
-            destination.write(chunk)
-        destination.close()
-        print(filename)
-        main(filename)
-        return HttpResponse("upload over!")
+        if not myFile:
+            request.session['message'] = 'Upload error!'
+            return HttpResponseRedirect('/admin/auth/user/add/')
+        else:
+            filename = '%s/%s' % (settings.MEDIA_ROOT, myFile.name)
+
+            destination = open(filename, 'wb+')    # 打开特定的文件进行二进制的写操作
+            for chunk in myFile.chunks():      # 分块写入文件
+                destination.write(chunk)
+            destination.close()
+
+            main(filename)
+            request.session['message'] = 'Upload success!'
+            return HttpResponseRedirect('/admin/auth/user/add/')
 
 
 def open_excel(file='file.xlsx'):
@@ -75,11 +79,9 @@ def excel_table_by_name(file='', colnameindex=0, by_name=u'Sheet1'):
 
 def main(file):
     tables = excel_table_by_index(file)
-    print(tables)
     for one in tables:
         for k in one.values():
             if isinstance(k, float):
-                print(str(int(k)))
                 password = str(int(k))
             else:
                 username = str(k)
