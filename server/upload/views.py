@@ -12,6 +12,7 @@ import xlrd
 
 def upload_file(request):
     if request.method == "POST":    # 请求方法为POST时，进行处理
+
         myFile = request.FILES.get(
             "my_file", None)    # 获取上传的文件，如果没有文件，则默认为None
         if not myFile:
@@ -19,10 +20,12 @@ def upload_file(request):
             return HttpResponseRedirect('/admin/auth/user/add/')
         else:
             filename = '%s/%s' % (settings.MEDIA_ROOT, myFile.name)
+
             destination = open(filename, 'wb+')    # 打开特定的文件进行二进制的写操作
             for chunk in myFile.chunks():      # 分块写入文件
                 destination.write(chunk)
             destination.close()
+
             main(filename)
             request.session['message'] = 'Upload success!'
             return HttpResponseRedirect('/admin/auth/user/add/')
