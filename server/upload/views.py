@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 # Create your views here.
 # 用例导入
@@ -13,18 +13,22 @@ import xlrd
 
 def upload_file(request):
     if request.method == "POST":    # 请求方法为POST时，进行处理
-        my_File = request.FILES.get(
-            "my_file", None)    # 获取上传的文件，如果没有文件，则默认为None
-        if not my_File:
-            return HttpResponse("no files for upload!")
-        filename = '%s/%s' % (settings.MEDIA_ROOT, my_File.name)
-        destination = open(filename, 'wb+')    # 打开特定的文件进行二进制的写操作
-        for chunk in my_File.chunks():      # 分块写入文件
-            destination.write(chunk)
-        destination.close()
-        print(filename)
-        main(filename)
-        return HttpResponse("upload over!")
+        myFile =request.FILES.get("my_file", None)    # 获取上传的文件，如果没有文件，则默认为None
+        if not myFile:
+            print('empty\n')
+            request.session['message'] = 'Upload error!'
+            return HttpResponseRedirect('/admin/auth/user/add/')
+        else:
+            filename='%s/%s'%(settings.MEDIA_ROOT, myFile.name)
+            destination = open(filename, 'wb+')    # 打开特定的文件进行二进制的写操作
+            for chunk in myFile.chunks():      # 分块写入文件
+                destination.write(chunk)
+            destination.close()
+            print(filename)
+            main(filename)
+            request.session['message'] = 'Upload success!'
+            return HttpResponseRedirect('/admin/auth/user/add/?')
+            # return HttpResponse("upload over!")
 
 
 def open_excel(file='file.xlsx'):

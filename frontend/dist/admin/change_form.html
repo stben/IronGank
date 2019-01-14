@@ -5,6 +5,9 @@
 
 {% block object-tools %}
     {% if request.path == '/admin/auth/user/add/' %}
+        {% if request.session.message %}
+        <h1><b><span style="color:red">{{ request.session.message  }}</span></b></h1>
+        {% endif %}
         <div style = "margin: 15px; border-color: red; border-style:solid; ">
             <b>你可以直接在下面上传一个包括有老师信息的excel文件来进行注册： </b>
                 <form enctype="multipart/form-data" action="/upload/" method="post">
