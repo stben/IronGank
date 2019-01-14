@@ -1,12 +1,12 @@
 <template>
   <div>
-      <teacherIndexFrame :selected="''" :title="'房间 '+roomNo+''"></teacherIndexFrame>
-      <mu-paper class="paper"  z-depth="4">
+      <TeacherFrame :selected="'0'" :title="'房间 '+''"></TeacherFrame>
+      <mu-paper class="paper" z-depth='4'>
         <mu-data-table :columns="columns" :sort.sync="sort" @sort-change="handleSortChange" :data="list">
           <template slot-scope="scope">
             <td>{{scope.row.name}}</td>
-            <td><mu-button color="primary" @click="f">编辑</mu-button>
-              <mu-button color="primary" @click="live">开播</mu-button>
+            <td><mu-button v-bind:id="scope.row.roomId" color="primary" @click="getRoomInfo($event)">编辑</mu-button>
+             <mu-button color="primary" @click="live">开播</mu-button>
             </td>
           </template>
         </mu-data-table>
@@ -14,11 +14,11 @@
   </div>
 </template>
 <script>
-import teacherIndexFrame from '../components/teacherIndexFrame'
+import TeacherFrame from '../components/TeacherFrame'
 export default {
   name: 'TeacherIndex',
   components: {
-    teacherIndexFrame
+    TeacherFrame
   },
   data () {
     return {
@@ -31,32 +31,26 @@ export default {
         { title: '课程名称', width: 600, name: 'name' },
         { title: '操作', do: '编辑', width: 250, align: 'center', sortable: true }
       ],
-      list: [
-        {
-          name: '课程名'
-        },
-        {
-          name: '课程名'
-        },
-        {
-          name: '课程名'
-        },
-        {
-          name: '课程名'
-        }
-      ]
+      list: []
     }
+  },
+  mounted: function () {
+    this.getTeacherRooms()
   },
   methods: {
     handleSortChange ({name, order}) {
       this.list = this.list.sort((a, b) => order === 'asc' ? a[name] - b[name] : b[name] - a[name])
     },
-    f () {
-      this.$router.push('RoomManage')
+    getRoomInfo(e) {
+      this.$router.push({ name: 'RoomManage', params: {roomId: e.currentTarget.id} })
     },
-    live () {
-      this.$router.push('liveRoom')
-    }
+    getTeacherRooms: function() {
+      this.$axios.get('/api/teacher/teacherIndex')
+        .then((response) => {
+          this.list = response.data.roomList
+        })
+    },
+    live() {}
   }
 }
 </script>
