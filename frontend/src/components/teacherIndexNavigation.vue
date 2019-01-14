@@ -1,6 +1,6 @@
 <template>
   <mu-list v-bind:value="selected" class="navigation">
-    <mu-list-item button value="0" to="/NewRoom">
+    <mu-list-item button value="0" to="/teacher/newRoom">
       <mu-list-item-title>新建房间</mu-list-item-title>
     </mu-list-item>
   </mu-list>
