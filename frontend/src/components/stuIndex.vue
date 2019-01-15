@@ -13,8 +13,9 @@
                 <template slot-scope="scope">
                     <td>{{scope.row.name}}</td>
                     <td>{{scope.row.time}}</td>
-                <td>{{scope.row.teacher}}</td>
-                    <td class="is-right"><mu-button color="primary" @click="f">加入</mu-button></td>
+                    <td>{{scope.row.teacher}}</td>
+                    <td class="is-right"><mu-button v-bind:id="scope.row.roomId" color="primary" @click="getisPassword">加入提问</mu-button>
+                    <mu-button v-bind:id="scope.row.roomId" color="primary" @click="live">仅观看</mu-button></td>
                 </template>
             </mu-data-table>
         </mu-paper>
@@ -82,24 +83,39 @@ export default {
     handleSortChange ({ name, order }) {
       this.list = this.list.sort((a, b) => order === 'asc' ? a[name] - b[name] : b[name] - a[name])
     },
-    f () {
+    live () {
       this.$router.push('teachingRoom')
     },
+    getisPassword() {
+      this.$axios.request({
+        url: '/api/teacher/roomInfo',
+        params: {
+          'ispassword': this.$route.params.ispassword
+        },
+        method: 'get'
+      }).then((response) => {
+        if (isPassword == 1) {
+
+        } else {
+
+        }
+      })
+    },
     onSelected () { // 选择框改变时触发的函数
-      this.showlist.splice(0, this.showlist.length)
-      if (this.form.select === ' ') this.showlist = this.list
+      this.showList.splice(0, this.showList.length)
+      if (this.form.select === ' ') this.showList = this.list
       else {
-        for (var i = 0; i < this.list.length; i++) {
+        for (let i = 0; i < this.list.length; i++) {
           if (this.list[i].teacher === this.form.select) {
-            this.showlist.push(this.list[i])
+            this.showList.push(this.list[i])
           }
         }
       }
     }
   },
   mounted () { // 初始化展示的列表
-    for (var i = 0; i < this.list.length; i++) {
-      this.showlist.push(this.list[i])
+    for (let i = 0; i < this.list.length; i++) {
+      this.showList.push(this.list[i])
     }
   }
 }
