@@ -10,30 +10,23 @@ import json
 
 
 def register(request):
-    if request.method == 'POST':
-        try:
-            with transaction.atomic():
-                sid = request.POST.get('student_id')
-                password = request.POST.get('password')
-                tel = request.POST.get('tel')
-                first_name = request.POST.get('firstname')
-                last_name = request.POST.get('lastname')
-                if len(tel) != 11:
-                    data = {'code': '0001', 'msg': '手机号输入错误，请重新输入'}
-                    return HttpResponse(json.dumps(data))
-                if password == '':
-                    data = {'code': '0002', 'msg': '请输入密码'}
-                    return HttpResponse(json.dumps(data))
-                else:
-                    new_user = User.objects.create_user(
-                        username=tel, password=password, first_name=first_name, last_name=last_name)
-                    student = Student(sid=sid, user=new_user)
-                    student.save()
-                    data = {'code': '0000', 'msg': '注册成功'}
-                    return HttpResponse(json.dumps(data))
-        except Exception:
-            data = {'code': '0002', 'msg': '学号输入错误或已经注册，请重新输入'}
-            return HttpResponse(json.dumps(data))
+  if request.method == 'POST':
+    try:
+      with transaction.atomic():
+        sid = request.POST.get('student_id')
+        password = request.POST.get('password')
+        tel = request.POST.get('tel')
+        first_name = request.POST.get('firstName')
+        new_user = User.objects.create_user(
+          username=tel, password=password, first_name=first_name)
+        student = Student(sid=sid, user=new_user)
+        student.save()
+        data = {'code': '0000', 'msg': '注册成功'}
+        return HttpResponse(json.dumps(data))
+    except Exception:
+      data = {'code': '0001', 'msg': '手机号已注册'}
+      return HttpResponse(json.dumps(data))
+
 
 
 def student_login(request):
