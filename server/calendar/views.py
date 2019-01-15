@@ -49,18 +49,13 @@ def delete_timetable(request):
 
 def modify_timetable(request):
     if request.method == 'POST':
-        room_no = request.POST.get('roomNo')
-        time_no = request.POST.get('timeNo')
         time_table_id = request.POST.get('timeTableId')
         week = request.POST.get('week')
         weekday = request.POST.get('weekday')
         begin = request.POST.get('begin')
         end = request.POST.get('end')
         description = request.POST.get('description')
-        status = request.POST.get('status')
         new_info = {
-            'room_no': room_no,
-            'time_no': time_no,
             'time_table_id': time_table_id,
             'week': week,
             'weekday': weekday,
