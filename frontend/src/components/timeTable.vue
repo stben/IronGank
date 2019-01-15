@@ -2,31 +2,33 @@
   <div id="timeTable">
     <TeacherFrame :selected="'3'" :title="'房间 '+roomNo+'：直播间日历'"></TeacherFrame>
     <mu-button color="primary" @click="showAlert">新建</mu-button>
-    <mu-alert color="primary" @delete="isAlert = false" delete v-if="isAlert" transition="mu-scale-transition">
-       <mu-form :model="validateForm1" >
-         <mu-form-item>
-           <mu-text-field v-model="item.week" prop="week" placeholder="第几周"></mu-text-field>
-         </mu-form-item>
-         <mu-form-item>
-           <mu-text-field v-model="item.weekday" prop="weekday" placeholder="星期几"></mu-text-field>
-         </mu-form-item>
-         <mu-form-item>
-           <mu-text-field v-model="item.begin" prop="begin" placeholder="开始时间"></mu-text-field>
-         </mu-form-item>
-         <mu-form-item>
-           <mu-text-field v-model="item.end" prop="end" placeholder="结束时间"></mu-text-field>
-         </mu-form-item>
-         <mu-form-item>
-           <mu-text-field v-model="item.description" prop="description" placeholder="描述"></mu-text-field>
-         </mu-form-item>
-         <mu-form-item>
-           <mu-button color="success">新建</mu-button>
-         </mu-form-item>
-       </mu-form>
+    <mu-alert color="primary" @delete="isAlert = false" delete v-if="isAlert" transition="mu-scale-transition" class="alert">
+      <mu-paper>
+        <mu-form :model="validateForm1">
+          <mu-form-item>
+            <mu-text-field prop="week" placeholder="第几周"></mu-text-field>
+          </mu-form-item>
+          <mu-form-item>
+            <mu-text-field prop="weekday" placeholder="星期几"></mu-text-field>
+          </mu-form-item>
+          <mu-form-item>
+            <mu-text-field prop="begin" placeholder="开始时间"></mu-text-field>
+          </mu-form-item>
+          <mu-form-item>
+            <mu-text-field prop="end" placeholder="结束时间"></mu-text-field>
+          </mu-form-item>
+          <mu-form-item>
+            <mu-text-field prop="description" placeholder="描述"></mu-text-field>
+          </mu-form-item>
+          <mu-form-item>
+            <mu-button color="success">新建</mu-button>
+          </mu-form-item>
+        </mu-form>
+      </mu-paper>
     </mu-alert>
     <mu-expansion-panel v-for="item in timeTableList" :key="item.timeNo">
       <div slot="header">{{item.week}}&nbsp;&nbsp;&nbsp;{{item.weekday}}&nbsp;&nbsp;&nbsp;{{item.begin}}-{{item.end}}：{{item.description}}</div>
-      <mu-form :model="validateForm1" >
+      <mu-form :model="validateForm1">
         <mu-form-item>
           <mu-text-field v-model="item.week" prop="week" placeholder="第几周"></mu-text-field>
         </mu-form-item>
@@ -85,5 +87,9 @@ export default {
   .list{
     width: 600px;
     margin: 250px auto;
+  }
+  .alert{
+    width: 500px;
+    height: 400px;
   }
 </style>
