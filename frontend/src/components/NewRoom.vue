@@ -1,9 +1,13 @@
 <template>
   <div>
-    <TeacherBar :selected="'0'" :title="'房间 '+roomNo+'：房间信息管理'"></TeacherBar>
+    <TeacherFrame :selected="'0'" :title="'新建房间'"></TeacherFrame>
     <mu-paper class="paper2" z-depth="4">
       <mu-text-field v-model="roomName" placeholder="请输入房间名称" ref="roomName"></mu-text-field><br/>
       <mu-text-field v-model="password" placeholder="请输入房间密码" ref="password"></mu-text-field><br/>
+      <mu-select v-model="form.select" ref="departmentName">
+          <mu-option v-for="option in options" :key="option" :label="option" :value="option">
+          </mu-option>
+      </mu-select>
       <mu-flex class="select-control-row">
         <mu-switch v-model="switchVal.isBoard" label="白板" ref="isBoard" ></mu-switch>
       </mu-flex>
@@ -15,31 +19,32 @@
       </mu-flex>
       <mu-text-field v-model="roomDescription" placeholder="房间简介" multi-line :rows="3" :rows-max="6" ref="roomDescription">
       </mu-text-field><br/>
-      <mu-button color="primary" @click="postNewRoom">创建新房间</mu-button>
+      <mu-button color="primary" @click="postRoomInfo">确认</mu-button>
     </mu-paper>
   </div>
 </template>
 
 <script>
-import TeacherBar from '../components/TeacherBar'
+import TeacherFrame from '../components/TeacherFrame'
 export default {
-  name: 'RoomManage',
+  name: 'NewRoom',
   components: {
-    TeacherBar
+    TeacherFrame
   },
   data () {
     return {
-      options:[
+      options: [
         '计算机',
         '软件工程',
-        '人工智能'
+        '通讯'
       ],
       form: {
         select: ''
       },
       roomName: '',
-      password: '',
       roomDescription: '',
+      departmentName: '',
+      password: '',
       switchVal: {
         isBoard: false,
         isCode: false,
@@ -52,7 +57,7 @@ export default {
     this.getRoomInfo()
   },
   methods: {
-    postNewRoom() {
+    postRoomInfo() {
       let postData = {
         'roomName': this.$refs.roomName.value,
         'password': this.$refs.password.value,
@@ -60,7 +65,8 @@ export default {
         'isPassword': this.switchVal.isPassword,
         'roomDescription': this.$refs.roomDescription.value,
         'isCode': this.switchVal.isCode,
-        'roomId': this.roomNo
+        'roomId': this.roomNo,
+        'departmentName': this.$refs.departmentName.value
       }
       this.$axios.post('api/teacher/newRoom',
         this.$Qs.stringify(postData)
@@ -85,6 +91,7 @@ export default {
         this.switchVal.isBoard = response.data.isWhiteboard
         this.switchVal.isCode = response.data.isCode
         this.switchVal.isPassword = response.data.isPassword
+        this.departmentName = response.data.departmentName
       })
     }
   }
@@ -93,6 +100,6 @@ export default {
 
 <style scoped>
 .paper2{
-    margin: 150px 300px;
+    margin: -200px 300px;
   }
 </style>
