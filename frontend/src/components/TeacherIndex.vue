@@ -14,11 +14,11 @@
   </div>
 </template>
 <script>
-import TeacherFrame from '../components/TeacherFrame'
+import teacherIndexFrame from '../components/teacherIndexFrame'
 export default {
   name: 'TeacherIndex',
   components: {
-    TeacherFrame
+    teacherIndexFrame
   },
   data () {
     return {
