@@ -4,6 +4,10 @@
     <mu-paper class="paper2" z-depth="4">
       <mu-text-field v-model="roomName" placeholder="请输入房间名称" ref="roomName"></mu-text-field><br/>
       <mu-text-field v-model="password" placeholder="请输入房间密码" ref="password"></mu-text-field><br/>
+      <mu-select v-model="form.select" ref="departmentName">
+          <mu-option v-for="option in options" :key="option" :label="option" :value="option">
+          </mu-option>
+      </mu-select>
       <mu-flex class="select-control-row">
         <mu-switch v-model="switchVal.isBoard" label="白板" ref="isBoard" ></mu-switch>
       </mu-flex>
@@ -29,9 +33,18 @@ export default {
   },
   data () {
     return {
+      options: [
+        '计算机',
+        '软件工程',
+        '通讯'
+      ],
+      form: {
+        select: ''
+      },
       roomName: '',
-      password: '',
       roomDescription: '',
+      departmentName: '',
+      password: '',
       switchVal: {
         isBoard: false,
         isCode: false,
@@ -52,7 +65,8 @@ export default {
         'isPassword': this.switchVal.isPassword,
         'roomDescription': this.$refs.roomDescription.value,
         'isCode': this.switchVal.isCode,
-        'roomId': this.roomNo
+        'roomId': this.roomNo,
+        'departmentName': this.$refs.departmentName.value
       }
       this.$axios.post('api/teacher/roomInfo',
         this.$Qs.stringify(postData)
@@ -77,6 +91,7 @@ export default {
         this.switchVal.isBoard = response.data.isWhiteboard
         this.switchVal.isCode = response.data.isCode
         this.switchVal.isPassword = response.data.isPassword
+        this.departmentName = response.data.departmentName
       })
     }
   }
