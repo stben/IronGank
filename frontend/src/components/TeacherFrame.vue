@@ -1,7 +1,7 @@
 <template>
   <div id="TeacherFrame">
     <TeacherBar v-bind:title="title"></TeacherBar>
-    <TeacherNavigation v-bind:selected="selected"></TeacherNavigation>
+    <TeacherNavigation v-bind:selected="selected" :roomNo="roomNo"></TeacherNavigation>
   </div>
 </template>
 
@@ -14,7 +14,7 @@ export default {
     TeacherBar,
     TeacherNavigation
   },
-  props: ['selected', 'title']
+  props: ['selected', 'title', 'roomNo']
 }
 </script>
 

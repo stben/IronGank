@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TeacherFrame :selected="'0'" :title="'房间 '+roomNo+'：房间信息管理'"></TeacherFrame>
+    <TeacherFrame :selected="'0'" :title="'房间 '+roomNo+'：房间信息管理'" :roomNo="roomNo"></TeacherFrame>
     <mu-paper class="paper2" z-depth="4">
       <mu-text-field v-model="roomName" placeholder="请输入房间名称" ref="roomName"></mu-text-field><br/>
       <mu-text-field v-model="password" placeholder="请输入房间密码" ref="password"></mu-text-field><br/>
@@ -50,7 +50,7 @@ export default {
         isCode: false,
         isPassword: false
       },
-      roomNo: this.$route.params.roomId
+      roomNo: this.$route.params.roomNo
     }
   },
   mounted () {
@@ -81,7 +81,7 @@ export default {
       this.$axios.request({
         url: '/api/teacher/roomInfo',
         params: {
-          'roomNo': this.$route.params.roomId
+          'roomNo': this.$route.params.roomNo
         },
         method: 'get'
       }).then((response) => {

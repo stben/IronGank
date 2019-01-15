@@ -1,12 +1,12 @@
 <template>
   <div id="BanStu">
-    <TeacherFrame :selected="'2'" :title="'房间 '+roomNo+'：禁言学生列表'"></TeacherFrame>
+    <TeacherFrame :selected="'2'" :title="'房间 '+roomNo+'：禁言学生列表'" :roomNo="roomNo"></TeacherFrame>
     <mu-paper class="paper">
       <mu-list class="list">
         <mu-list-row v-for="item in banList" :key="item.stuNo">
           <mu-list-item>
             <mu-list-item-title>姓名：{{item.stuName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学号：{{item.stuNo}}</mu-list-item-title>
-            <mu-button flat color="error" @click="remove($event)">解除</mu-button>
+            <mu-button flat color="error" v-bind:id="item.stuNo" @click="remove($event)">解除</mu-button>
             <span class="removehint">已解除</span>
           </mu-list-item>
           <mu-divider></mu-divider>
@@ -25,16 +25,41 @@ export default {
   },
   data() {
     return {
-      roomNo: 30150, // 要把房间号改了
+      roomNo: this.$route.params.roomNo,
       banList: [
-        { stuName: '张三', stuNo: '20162358' }, { stuName: '李四', stuNo: '20162362' }, { stuName: '王五', stuNo: '20162351' }
       ]
     }
   },
+  mounted () {
+    this.getBanStudents()
+  },
   methods: {
     remove(e) {
-      e.currentTarget.style.display = 'none'
-      e.currentTarget.nextElementSibling.style.display = 'inline'
+      let postData = {
+        'stuNo': e.currentTarget.id,
+        'roomNo': this.roomNo
+      }
+      let et = e.currentTarget
+      this.$axios.post('api/teacher/banStudent',
+        this.$Qs.stringify(postData)
+      )
+        .then((response) => {
+          if (response.data.code === '0000') {
+            et.style.display = 'none'
+            et.nextElementSibling.style.display = 'inline'
+          } else alert(response.data.msg)
+        })
+    },
+    getBanStudents() {
+      this.$axios.request({
+        url: '/api/teacher/banStudent',
+        params: {
+          'roomNo': this.$route.params.roomNo
+        },
+        method: 'get'
+      }).then((response) => {
+        this.banList = response.data.banList
+      })
     }
   }
 }
