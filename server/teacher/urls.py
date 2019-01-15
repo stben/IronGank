@@ -9,7 +9,7 @@ urlpatterns = [
     path('allRoom', all_room),
     path('teacherIndex', get_view_rooms),
     path('roomInfo', get_room_info),
-    path('pickRoomStudent', get_student_in_room),
+    path('pickStudent', get_student_in_room),
 
     path('timeTable', get_list_of_timetable),
     path('newTimeTable', add_new_timetable),
