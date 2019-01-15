@@ -3,6 +3,7 @@ from django.http import HttpResponse
 import re
 import json
 from teacher.models import *
+from student.models import Student
 from django.db import transaction
 from django.http import JsonResponse
 # Create your views here.
@@ -103,9 +104,7 @@ def get_view_rooms(request):
 
 def get_room_info(request):
     if request.method == 'GET':
-        print(request.GET)
         room_id = request.GET.get('roomNo')
-        print(room_id)
         room_list = Room.objects.filter(id=int(room_id))
         if not room_list:
             data = {'code': '0001', 'msg': '你的房间不存在或已注销'}
@@ -217,31 +216,28 @@ def get_student_in_room(request):
 def ban_stu_list(request):
     if request.method == 'GET':
         try:
-            ban_student_lists = ListOfForbiddenStudents.objects.all()
+            room_id = request.GET.get('roomNo')
+            room = Room.objects.filter(id=int(room_id))
+            ban_student_lists = ListOfForbiddenStudents.objects.filter(room=room[0])
             ban_list = []
             for i in ban_student_lists:
-                student = Student.objects.get(user=i.user)
-                ban_list.append({"stuNo": student.sid,
-                                 "stuName": i.user.get_full_name(),
+                ban_list.append({"stuNo": i.user.sid,
+                                 "stuName": i.user.user.first_name,
                                  })
             data = {'code': '0000', 'sum': len(ban_list), 'banList': ban_list}
             return JsonResponse(data)
         except Exception:
-            print(Exception.message)
             data = {'code': '0001', 'msg': '未知错误'}
-            return data
-    if request.method == 'POST':
-        try:
-            room_id = int(request.POST.get('roomNo'))
-            user_id = request.POST.get('stuNo')
-            its_student = Student.objects.get(sid=user_id)
-            its_room = Room.objects.get(id=room_id)
-            re_user = its_student.user
-            ListOfForbiddenStudents.objects.filter(
-                room_id=its_room, user_id=re_user).delete()
-            data = {'code': '0000', 'msg': '删除成功'}
             return JsonResponse(data)
-        except Exception:
-            print(Exception.message)
-            data = {'code': '0001', 'msg': '未知错误'}
-            return data
+    if request.method == 'POST':
+        print(request.POST)
+        room_id = int(request.POST.get('roomNo'))
+        print(room_id)
+        user_id = request.POST.get('stuNo')
+        print(user_id)
+        its_student = Student.objects.filter(sid=user_id)[0]
+        its_room = Room.objects.filter(id=room_id)[0]
+        ListOfForbiddenStudents.objects.filter(
+            room=its_room, user=its_student).delete()
+        data = {'code': '0000', 'msg': '删除成功'}
+        return JsonResponse(data)
