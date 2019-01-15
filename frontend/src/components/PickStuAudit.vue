@@ -1,7 +1,7 @@
 <template>
   <div id="PickStuAudit">
-    <TeacherFrame :selected="'1'" :title="'房间 '+roomNo+'：可排队学生列表'"></TeacherFrame>
-    <PickStuTabsAudit v-bind:auditList="auditList"></PickStuTabsAudit>
+    <TeacherFrame :selected="'1'" :title="'房间 '+roomNo+'：可排队学生列表'" :roomNo="roomNo"></TeacherFrame>
+    <PickStuTabsAudit v-bind:auditList="auditList" :roomNo="roomNo"></PickStuTabsAudit>
   </div>
 </template>
 
@@ -16,10 +16,24 @@ export default {
   },
   data() {
     return {
-      roomNo: 30150, // 要把房间号改了
-      auditList: [
-        { stuName: '张三', stuNo: '20162358' }, { stuName: '李四', stuNo: '20162362' }, { stuName: '王五', stuNo: '20162351' }
-      ]
+      roomNo: this.$route.params.roomNo,
+      auditList: []
+    }
+  },
+  mounted () {
+    this.getPickAudit()
+  },
+  methods: {
+    getPickAudit() {
+      this.$axios.request({
+        url: '/api/teacher/pickStudent',
+        params: {
+          'roomNo': this.$route.params.roomNo
+        },
+        method: 'get'
+      }).then((response) => {
+        this.auditList = response.data.auditList
+      })
     }
   }
 }
