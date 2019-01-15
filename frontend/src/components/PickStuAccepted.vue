@@ -1,7 +1,7 @@
 <template>
   <div id="PickStuAccepted">
-    <TeacherFrame :selected="'1'" :title="'房间 '+roomNo+'：可排队学生列表'"></TeacherFrame>
-    <PickStuTabsAccepted v-bind:acceptedList="acceptedList"></PickStuTabsAccepted>
+    <TeacherFrame :selected="'1'" :title="'房间 '+roomNo+'：可排队学生列表'" :roomNo="roomNo"></TeacherFrame>
+    <PickStuTabsAccepted v-bind:acceptedList="acceptedList" :roomNo="roomNo"></PickStuTabsAccepted>
   </div>
 </template>
 
@@ -16,11 +16,24 @@ export default {
   },
   data() {
     return {
-      roomNo: 30150, // 要把房间号改了
-      acceptedList: [
-        { stuName: '赵六', stuNo: '20162853' }, { stuName: '钱七', stuNo: '20162971' }, { stuName: '孙八', stuNo: '20162142' },
-        { stuName: '杨九', stuNo: '20162031' }, { stuName: '吴十', stuNo: '20162672' }
-      ]
+      roomNo: this.$route.params.roomNo,
+      acceptedList: []
+    }
+  },
+  mounted () {
+    this.getPickStudents()
+  },
+  methods: {
+    getPickStudents() {
+      this.$axios.request({
+        url: '/api/teacher/pickStudent',
+        params: {
+          'roomNo': this.$route.params.roomNo
+        },
+        method: 'get'
+      }).then((response) => {
+        this.acceptedList = response.data.acceptedList
+      })
     }
   }
 }
