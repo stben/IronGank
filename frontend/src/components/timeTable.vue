@@ -1,34 +1,34 @@
 <template>
   <div id="timeTable">
-    <TeacherFrame :selected="'3'" :title="'房间 '+roomNo+'：直播间日历'"></TeacherFrame>
+    <TeacherFrame :selected="'3'" :title="'房间 '+roomNo+'：直播间日历'" :roomNo="roomNo"></TeacherFrame>
     <mu-button color="primary" @click="showAlert">新建</mu-button>
     <mu-alert color="primary" @delete="isAlert = false" delete v-if="isAlert" transition="mu-scale-transition" class="alert">
       <mu-paper>
-        <mu-form :model="validateForm1">
+        <mu-form :model="validateForm">
           <mu-form-item>
-            <mu-text-field prop="week" placeholder="第几周"></mu-text-field>
+            <mu-text-field v-model="validateForm.week" prop="week" placeholder="第几周"></mu-text-field>
           </mu-form-item>
           <mu-form-item>
-            <mu-text-field prop="weekday" placeholder="星期几"></mu-text-field>
+            <mu-text-field v-model="validateForm.weekday" prop="weekday" placeholder="星期几"></mu-text-field>
           </mu-form-item>
           <mu-form-item>
-            <mu-text-field prop="begin" placeholder="开始时间"></mu-text-field>
+            <mu-text-field v-model="validateForm.begin" prop="begin" placeholder="开始时间"></mu-text-field>
           </mu-form-item>
           <mu-form-item>
-            <mu-text-field prop="end" placeholder="结束时间"></mu-text-field>
+            <mu-text-field v-model="validateForm.end" prop="end" placeholder="结束时间"></mu-text-field>
           </mu-form-item>
           <mu-form-item>
-            <mu-text-field prop="description" placeholder="描述"></mu-text-field>
+            <mu-text-field v-model="validateForm.description" prop="description" placeholder="描述"></mu-text-field>
           </mu-form-item>
           <mu-form-item>
-            <mu-button color="success">新建</mu-button>
+            <mu-button color="success" @click="createTimeInfo">新建</mu-button>
           </mu-form-item>
         </mu-form>
       </mu-paper>
     </mu-alert>
     <mu-expansion-panel v-for="item in timeTableList" :key="item.timeNo">
       <div slot="header">{{item.week}}&nbsp;&nbsp;&nbsp;{{item.weekday}}&nbsp;&nbsp;&nbsp;{{item.begin}}-{{item.end}}：{{item.description}}</div>
-      <mu-form :model="validateForm1">
+      <mu-form >
         <mu-form-item>
           <mu-text-field v-model="item.week" prop="week" placeholder="第几周"></mu-text-field>
         </mu-form-item>
@@ -45,7 +45,7 @@
           <mu-text-field v-model="item.description" prop="description" placeholder="描述"></mu-text-field>
         </mu-form-item>
         <mu-form-item>
-          <mu-button color="warning">修改</mu-button>
+          <mu-button color="warning"  v-bind:id="item.timeNo" @click="postTimeInfo">修改</mu-button>
         </mu-form-item>
       </mu-form>
     </mu-expansion-panel>
@@ -61,20 +61,50 @@ export default {
   },
   data() {
     return {
-      roomNo: 30150, // 要把房间号改了
+      roomNo: this.$route.params.roomNo,
       isAlert: false,
-      timeTableList: [
-        { roomNo: '30150', timeNo: '1682', week: '第一周', weekday: '周五', begin: '10:00', end: '12:00', description: 'vue的问题解答' },
-        { roomNo: '30150', timeNo: '1682', week: '第三周', weekday: '周二', begin: '9:00', end: '10:00', description: 'django的问题解答' },
-        { roomNo: '30150', timeNo: '1682', week: '第三周', weekday: '周三', begin: '10:00', end: '12:00', description: '前后端连接的问题解答' },
-        { roomNo: '30150', timeNo: '1682', week: '第四周', weekday: '周五', begin: '8:00', end: '10:00', description: '软件工程实训' },
-        { roomNo: '30150', timeNo: '1682', week: '第五周', weekday: '周日', begin: '10:00', end: '12:00', description: '问题反馈' }
-      ]
+      timeTableList: [],
+      validateForm: {
+        'roomNo': this.$route.params.roomNo,
+        'week': '',
+        'weekday': '',
+        'begin': '',
+        'end': '',
+        'description': ''
+      }
     }
   },
+  mounted() {
+    this.getRoomTime()
+  },
   methods: {
-    showAlert () {
+    showAlert() {
       this.isAlert = !this.isAlert
+    },
+    getRoomTime() {
+      let postData = {
+        'roomNo': this.$route.params.roomNo
+      }
+      this.$axios.post('api/teacher/timeTable',
+        this.$Qs.stringify(postData)
+      ).then((response) => {
+        this.timeTableList = response.data.timeTableList
+      })
+    },
+    postTimeInfo(e) {
+      let postdata = this.timeTableList[e.currentTarget.id - 1]
+      this.$axios.post('api/teacher/modifyTimeTable',
+        this.$Qs.stringify(postdata)
+      ).then((response) => {
+        alert(response.data.msg)
+      })
+    },
+    createTimeInfo() {
+      this.$axios.post('api/teacher/newTimeTable',
+        this.$Qs.stringify(this.validateForm)
+      ).then((response) => {
+        alert(response.data.msg)
+      })
     }
   }
 }
