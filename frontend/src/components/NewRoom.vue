@@ -1,21 +1,21 @@
 <template>
   <div>
-    <TeacherBar  :title="'新建房间'"></TeacherBar>
-    <mu-paper class="paper3" z-depth="4">
-      <mu-text-field v-model="value1" placeholder="请输入房间名称" ref="roomName"></mu-text-field><br/>
-      <mu-text-field v-model="value2" placeholder="请输入房间密码" ref="password"></mu-text-field><br/>
+    <TeacherBar :selected="'0'" :title="'房间 '+roomNo+'：房间信息管理'"></TeacherBar>
+    <mu-paper class="paper2" z-depth="4">
+      <mu-text-field v-model="roomName" placeholder="请输入房间名称" ref="roomName"></mu-text-field><br/>
+      <mu-text-field v-model="password" placeholder="请输入房间密码" ref="password"></mu-text-field><br/>
       <mu-flex class="select-control-row">
-        <mu-switch v-model="switchVal.value1" label="白板" ref="isBoard" ></mu-switch>
+        <mu-switch v-model="switchVal.isBoard" label="白板" ref="isBoard" ></mu-switch>
       </mu-flex>
       <mu-flex class="select-control-row">
-        <mu-switch v-model="switchVal.value2" label="代码编译区" ref="isCode"></mu-switch>
+        <mu-switch v-model="switchVal.isCode" label="代码编译区" ref="isCode"></mu-switch>
       </mu-flex>
       <mu-flex class="select-control-row">
-        <mu-switch v-model="switchVal.value3" label="密码" ref="isPassword"></mu-switch>
+        <mu-switch v-model="switchVal.isPassword" label="密码" ref="isPassword"></mu-switch>
       </mu-flex>
-      <mu-text-field v-model="value3" placeholder="房间简介" multi-line :rows="3" :rows-max="6" ref="roomDescription">
+      <mu-text-field v-model="roomDescription" placeholder="房间简介" multi-line :rows="3" :rows-max="6" ref="roomDescription">
       </mu-text-field><br/>
-      <mu-button color="primary" @click="postNewRoom">确认创建房间</mu-button>
+      <mu-button color="primary" @click="postNewRoom">创建新房间</mu-button>
     </mu-paper>
   </div>
 </template>
@@ -23,46 +23,76 @@
 <script>
 import TeacherBar from '../components/TeacherBar'
 export default {
-  name: 'NewRoom',
+  name: 'RoomManage',
   components: {
     TeacherBar
   },
   data () {
     return {
-      value1: '',
-      value2: '',
-      value3: '',
+      options:[
+        '计算机',
+        '软件工程',
+        '人工智能'
+      ],
+      form: {
+        select: ''
+      },
+      roomName: '',
+      password: '',
+      roomDescription: '',
       switchVal: {
-        value1: false,
-        value2: false,
-        value3: false
-      }
+        isBoard: false,
+        isCode: false,
+        isPassword: false
+      },
+      roomNo: this.$route.params.roomId
     }
+  },
+  mounted () {
+    this.getRoomInfo()
   },
   methods: {
     postNewRoom() {
       let postData = {
         'roomName': this.$refs.roomName.value,
         'password': this.$refs.password.value,
-        'isBoard': this.$refs.isBoard.value,
-        'isPassword': this.$refs.isPassword.value,
-        'roomDescription': this.$refs.roomDescription.value
+        'isBoard': this.switchVal.isBoard,
+        'isPassword': this.switchVal.isPassword,
+        'roomDescription': this.$refs.roomDescription.value,
+        'isCode': this.switchVal.isCode,
+        'roomId': this.roomNo
       }
-      this.$axios.post('http://127.0.0.1:8000/teacher/newRoom',
+      this.$axios.post('api/teacher/newRoom',
         this.$Qs.stringify(postData)
       )
         .then((response) => {
-          if (response.data.code === '0000') {
-            this.$router.push('/teacher/index')
-          } else alert(response.data.msg)
+          if (response.data.code !== '0000') {
+            alert(response.data.msg)
+          }
         })
+    },
+    getRoomInfo() {
+      this.$axios.request({
+        url: '/api/teacher/newRoom',
+        params: {
+          'roomNo': this.$route.params.roomId
+        },
+        method: 'get'
+      }).then((response) => {
+        this.roomName = response.data.roomName
+        this.roomDescription = response.data.roomDescription
+        this.password = response.data.password
+        this.switchVal.isBoard = response.data.isWhiteboard
+        this.switchVal.isCode = response.data.isCode
+        this.switchVal.isPassword = response.data.isPassword
+      })
     }
   }
 }
 </script>
 
 <style scoped>
-.paper3{
+.paper2{
     margin: 150px 300px;
   }
 </style>
