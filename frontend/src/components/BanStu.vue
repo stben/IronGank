@@ -1,17 +1,17 @@
 <template>
   <div id="BanStu">
     <TeacherFrame :selected="'2'" :title="'房间 '+roomNo+'：禁言学生列表'" :roomNo="roomNo"></TeacherFrame>
-    <mu-paper class="paper">
-      <mu-list class="list">
-        <mu-list-row v-for="item in banList" :key="item.stuNo">
-          <mu-list-item>
-            <mu-list-item-title>姓名：{{item.stuName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学号：{{item.stuNo}}</mu-list-item-title>
-            <mu-button flat color="error" v-bind:id="item.stuNo" @click="remove($event)">解除</mu-button>
+    <mu-paper :z-depth="2" class="paper">
+      <mu-data-table :columns="columns" :data="banList">
+        <template slot-scope="item">
+          <td>{{item.row.stuNo}}</td>
+          <td>{{item.row.stuName}}</td>
+          <td>
+            <mu-button flat color="error" v-bind:id="item.row.stuNo" class="removebutton" @click="remove($event)">解除禁言</mu-button>
             <span class="removehint">已解除</span>
-          </mu-list-item>
-          <mu-divider></mu-divider>
-        </mu-list-row>
-      </mu-list>
+          </td>
+        </template>
+      </mu-data-table>
     </mu-paper>
   </div>
 </template>
@@ -27,6 +27,9 @@ export default {
     return {
       roomNo: this.$route.params.roomNo,
       banList: [
+      ],
+      columns: [
+        { title: '学号', name: 'stuNo' }, { title: '姓名', name: 'stuName' }, { title: '操作', name: '', align: 'center' }
       ]
     }
   },
@@ -67,15 +70,16 @@ export default {
 
 <style scoped>
   .paper{
-    margin: -430px 300px;
+    margin: 120px auto;
+    width: 770px;
   }
-  .list{
-    width: 600px;
-    margin: 250px auto;
+  .removebutton{
+    margin: 0 60px;
   }
   .removehint{
     display: none;
     color: #f44336;
     width: 80px;
+    margin: 0 80px;
   }
 </style>
