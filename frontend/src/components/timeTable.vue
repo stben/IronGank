@@ -1,6 +1,6 @@
 <template>
   <div id="timeTable">
-    <TeacherFrame :selected="'3'" :title="'房间 '+roomNo+'：直播间日历'" :roomNo="roomNo"></TeacherFrame>
+    <TeacherFrame :selected="'4'" :title="'房间 '+roomNo+'：直播间日历'" :roomNo="roomNo"></TeacherFrame>
     <mu-button color="primary" @click="showAlert">新建</mu-button>
     <mu-alert color="primary" @delete="isAlert = false" delete v-if="isAlert" transition="mu-scale-transition" class="alert">
       <mu-paper>

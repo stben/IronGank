@@ -11,7 +11,10 @@
         <mu-list-item button value="2" :to="{ name: 'BanStu', params: {roomNo: roomNo}}">
           <mu-list-item-title class="title">被禁言学生列表</mu-list-item-title>
         </mu-list-item>
-        <mu-list-item button value="3" :to="{ name: 'timeTable', params: {roomNo: roomNo}}">
+        <mu-list-item button value="3" :to="{ name: 'pickTeacherAudit', params: {roomNo: roomNo}}">
+          <mu-list-item-title class="title">助教列表</mu-list-item-title>
+        </mu-list-item>
+        <mu-list-item button value="4" :to="{ name: 'timeTable', params: {roomNo: roomNo}}">
           <mu-list-item-title class="title">直播间日历</mu-list-item-title>
         </mu-list-item>
       </mu-list>
