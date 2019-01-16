@@ -1,8 +1,8 @@
 <template>
-  <mu-appbar class="bar" color="primary">
+  <mu-appbar color="primary" class="bar">
     <mu-button flat slot="left" to="/teacher/index">教师直播系统</mu-button>
     <mu-button flat slot="right" to="/login">退出</mu-button>
-    {{title}}
+    <div style="font-size: 20px">{{title}}</div>
   </mu-appbar>
 </template>
 
@@ -15,7 +15,10 @@ export default {
 
 <style scoped>
   .bar{
-    margin: -60px 0;
+    position:fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
   }
 
 </style>
