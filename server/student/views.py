@@ -72,19 +72,25 @@ def add_student_room(request):
         try:
             room_id = request.GET.get('roomNo')
             user = request.user
-            students = Student.objects.filter(user=user)
-            if not students:
+            if not user:
                 data = {'code': '0001', 'msg': '你已经登出或未登录'}
                 return HttpResponse(json.dumps(data))
             rooms = Room.objects.filter(id=int(room_id))
             if not rooms:
                 data = {'code': '0002', 'msg': '房间不存在'}
                 return HttpResponse(json.dumps(data))
-            student_room = RoomAndStudent(
-                student=students[0], room=rooms[0], status=1)
-            student_room.save()
-            data = {'code': '0000', 'msg': '申请成功'}
-            return HttpResponse(json.dumps(data))
+            students = Student.objects.filter(user=user)
+            if students:
+                student_rooms = RoomAndStudent.objects.filter(
+                    student=students[0], room=rooms[0])
+                if student_rooms:
+                    data = {'code': '0003', 'msg': '你已经申请'}
+                    return HttpResponse(json.dumps(data))
+                student_room = RoomAndStudent(
+                    student=students[0], room=rooms[0], status=1)
+                student_room.save()
+                data = {'code': '0000', 'msg': '申请成功'}
+                return HttpResponse(json.dumps(data))
         except:
             data = {'code': '0003', 'msg': '未知错误'}
             return HttpResponse(json.dumps(data))

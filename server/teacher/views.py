@@ -36,24 +36,23 @@ def teacher_logout(request):
 def create_new_room(request):
     if request.method == 'POST':
         room_name = request.POST.get('roomName')
-        college_id = request.POST.get('departmentId')
+        college_name = request.POST.get('departmentName')
         password = request.POST.get('password')
         description = request.POST.get('roomDescription')
-        is_need_whiteboard = request.POST.get('isBoard')
-        is_need_code_editor = request.POST.get('isCode')
-        is_need_password = request.POST.get('isPassword')
+        is_need_whiteboard = request.POST.get('isBoard').capitalize()
+        is_need_code_editor = request.POST.get('isCode').capitalize()
+        is_need_password = request.POST.get('isPassword').capitalize()
         if is_need_password and password == '':
             data = {'code': '0001', 'msg': '请输入房间密码'}
             return HttpResponse(json.dumps(data))
         if room_name == '':
             data = {'code': '0002', 'msg': '请输入房间名称'}
             return HttpResponse(json.dumps(data))
-        college = College.objects.filter(college_id=college_id)
+        college = College.objects.filter(name=college_name)
         if not college:
             data = {'code': '0003', 'msg': '请输入正确院系'}
             return HttpResponse(json.dumps(data))
-        username = request.user.username
-        user = User.objects.filter(username=username)
+        user = request.user
         if not user:
             data = {'code': '0004', 'msg': '你的账号已注销或未登录'}
             return HttpResponse(json.dumps(data))
