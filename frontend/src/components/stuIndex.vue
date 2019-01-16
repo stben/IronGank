@@ -22,6 +22,11 @@
                     </mu-button></td>
                 </template>
             </mu-data-table>
+            <mu-dialog title="请输入密码" width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="alert">
+               <mu-text-field v-model="password" placeholder="请输入房间密码" ref="password"></mu-text-field>
+               <mu-button slot="actions" flat color="primary" @click="closeAlertDialog">取消</mu-button>
+               <mu-button slot="actions" flat color="primary" @click="passwordConfirm">确定</mu-button>
+            </mu-dialog>
         </mu-paper>
     </div>
 </template>
@@ -35,9 +40,13 @@ export default {
   },
   data () {
     return {
+      indexRoom: '',
+      alert: false,
+      wrongPassword: false,
       options: [
         '软件工程', '计算机', '通信', ' '
       ],
+      password: '',
       form: {
         select: ''
       },
@@ -57,8 +66,36 @@ export default {
     this.getRooms()
   },
   methods: {
-    live () {
-      this.$router.push('teachingRoom')
+    live (e) {
+      let roomNo = e.currentTarget.id
+      for (let item of this.list) {
+        if (item.roomNo + '' === roomNo) {
+          if (item.isPassword === true) {
+            this.indexRoom = roomNo
+            this.alert = true
+          } else {
+            this.$router.push('/student/teachingRoom')
+          }
+        }
+      }
+    },
+    passwordConfirm() {
+      let roomNo = this.indexRoom
+      console.log(roomNo)
+      for (let item of this.list) {
+        console.log(item)
+        if (item.roomNo + '' === roomNo) {
+          console.log('1')
+          if (this.password === item.password) {
+            this.$router.push('/student/teachingRoom')
+          } else {
+            alert('密码错误')
+          }
+        }
+      }
+    },
+    closeAlertDialog() {
+      this.alert = false
     },
     enterRoom(e) {
       let ec = e.currentTarget
