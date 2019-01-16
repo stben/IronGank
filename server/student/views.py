@@ -10,23 +10,22 @@ import json
 
 
 def register(request):
-  if request.method == 'POST':
-    try:
-      with transaction.atomic():
-        sid = request.POST.get('student_id')
-        password = request.POST.get('password')
-        tel = request.POST.get('tel')
-        first_name = request.POST.get('firstName')
-        new_user = User.objects.create_user(
-          username=tel, password=password, first_name=first_name)
-        student = Student(sid=sid, user=new_user)
-        student.save()
-        data = {'code': '0000', 'msg': '注册成功'}
-        return HttpResponse(json.dumps(data))
-    except Exception:
-      data = {'code': '0001', 'msg': '手机号已注册'}
-      return HttpResponse(json.dumps(data))
-
+    if request.method == 'POST':
+        try:
+            with transaction.atomic():
+                sid = request.POST.get('student_id')
+                password = request.POST.get('password')
+                tel = request.POST.get('tel')
+                first_name = request.POST.get('firstName')
+                new_user = User.objects.create_user(
+                  username=tel, password=password, first_name=first_name)
+                student = Student(sid=sid, user=new_user)
+                student.save()
+                data = {'code': '0000', 'msg': '注册成功'}
+                return HttpResponse(json.dumps(data))
+        except Exception:
+            data = {'code': '0001', 'msg': '手机号已注册'}
+            return HttpResponse(json.dumps(data))
 
 
 def student_login(request):
@@ -53,34 +52,40 @@ def student_logout(request):
 
 
 def get_rooms(request):
-    if request.methid == 'GET':
-        rooms = Room.objects.filter()
-        all_rooms = []
-        for i in rooms:
-            all_rooms.append({"roomNo": i.id, "roomName": i.name, "departmentName": i.college.name,
-                              "roomDescription": i.description})
-        data = {'code': '0000', 'msg': '获取成功', 'allRooms': all_rooms}
-        return JsonResponse(data)
+    if request.method == 'GET':
+        try:
+            rooms = Room.objects.filter()
+            all_rooms = []
+            for i in rooms:
+                teacher = RoomAndTeacher.objects.get(room=i)
+                all_rooms.append({"roomNo": i.id, "name": i.name, "departmentName": i.college.name,
+                                  "description": i.description, 'teacherName': teacher.user.first_name})
+            data = {'code': '0000', 'msg': '获取成功', 'allRooms': all_rooms}
+            return JsonResponse(data)
+        except:
+            data = {'code': '0001', 'msg': '未知错误'}
+            return JsonResponse(data)
 
 
 def add_student_room(request):
-    if request.method == 'POST':
-        room_id = request.POST.get('roomNo')
-        user = request.user
-        students = Student.objects.filter(user=user)
-        if not students:
-            data = {'code': '0001', 'msg': '你已经登出或未登录'}
-            return HttpResponse(json.dumps(data))
-        rooms = Room.objects.filter(id=int(room_id))
-        if not rooms:
-            data = {'code': '0002', 'msg': '房间不存在'}
-            return HttpResponse(json.dumps(data))
+    if request.method == 'GET':
         try:
+            room_id = request.GET.get('roomNo')
+            user = request.user
+            students = Student.objects.filter(user=user)
+            if not students:
+                data = {'code': '0001', 'msg': '你已经登出或未登录'}
+                return HttpResponse(json.dumps(data))
+            rooms = Room.objects.filter(id=int(room_id))
+            if not rooms:
+                data = {'code': '0002', 'msg': '房间不存在'}
+                return HttpResponse(json.dumps(data))
             student_room = RoomAndStudent(
                 student=students[0], room=rooms[0], status=1)
             student_room.save()
             data = {'code': '0000', 'msg': '申请成功'}
             return HttpResponse(json.dumps(data))
-        except BaseException:
+        except:
             data = {'code': '0003', 'msg': '未知错误'}
             return HttpResponse(json.dumps(data))
+
