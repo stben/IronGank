@@ -217,7 +217,8 @@ def ban_stu_list(request):
         try:
             room_id = request.GET.get('roomNo')
             room = Room.objects.filter(id=int(room_id))
-            ban_student_lists = ListOfForbiddenStudents.objects.filter(room=room[0])
+            ban_student_lists = ListOfForbiddenStudents.objects.filter(
+                room=room[0])
             ban_list = []
             for i in ban_student_lists:
                 ban_list.append({"stuNo": i.user.sid,
@@ -240,3 +241,62 @@ def ban_stu_list(request):
             room=its_room, user=its_student).delete()
         data = {'code': '0000', 'msg': '删除成功'}
         return JsonResponse(data)
+
+
+def teacher_room(request):
+    if request.method == "GET":
+        room_id = request.GET.get('roomNo')
+        rooms = Room.objects.filter(id=int(room_id))
+        if not rooms:
+            data = {'code': '0001', 'msg': '学生不存在或已注销'}
+            return HttpResponse(json.dumps(data))
+        teacher_applictions = RoomAndTeacher.objects.filter(
+            room=rooms[0], status=3)
+        list_applictions = []
+        for item in teacher_applictions:
+            list_applictions.append(
+                {'username': item.user.username, 'name': item.user.first_name})
+        teacher_acceptions = RoomAndTeacher.objects.filter(
+            room=rooms[0], status=2)
+        list_acceptions = []
+        for item in teacher_acceptions:
+            list_acceptions.append(
+                {'username': item.user.username, 'name': item.user.first_name})
+        data = {
+            'code': '0001',
+            'listAccept': list_acceptions,
+            'listAppliction': list_applictions}
+        return HttpResponse(json.dumps(data))
+    if request.method == 'POST':
+        room_id = request.POST.get('roomNo')
+        is_done = request.POST.get('isAccept')
+        rooms = Room.objects.filter(id=int(room_id))
+        if not rooms:
+            data = {'code': '0001', 'msg': '学生不存在或已注销'}
+            return HttpResponse(json.dumps(data))
+        teachers = RoomAndTeacher.objects.filter(
+            room=rooms[0], user=request.user)
+        if not teachers:
+            data = {'code': '0002', 'msg': '记录不存在'}
+            return HttpResponse(json.dumps(data))
+        stu_in = teachers[0]
+        if stu_in.status == 3:
+            if is_done == '1':
+                stu_in.status = 2  # 如果申请通过，变成在助教
+                stu_in.save()
+                data = {'code': '0000', 'msg': '通过申请'}
+                return HttpResponse(json.dumps(data))
+            else:
+                stu_in.status = 4  # 如果申请不通过，注销
+                stu_in.save()
+                data = {'code': '0000', 'msg': '拒绝申请'}
+                return HttpResponse(json.dumps(data))
+        if stu_in.status == 2:
+            if is_done == '0':
+                stu_in.status = 4  # 如果已在班级，移除
+                stu_in.save()
+                data = {'code': '0000', 'msg': '成功移除'}
+                return HttpResponse(json.dumps(data))
+            else:
+                data = {'code': '0003', 'msg': '已通过或已移除'}
+                return HttpResponse(json.dumps(data))
