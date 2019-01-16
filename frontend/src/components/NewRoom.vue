@@ -36,7 +36,7 @@ export default {
       options: [
         '计算机',
         '软件工程',
-        '通讯'
+        '通信'
       ],
       form: {
         select: ''

@@ -36,7 +36,7 @@ export default {
       options: [
         '计算机',
         '软件工程',
-        '通讯'
+        '通信'
       ],
       form: {
         select: ''
@@ -91,7 +91,7 @@ export default {
         this.switchVal.isBoard = response.data.isWhiteboard
         this.switchVal.isCode = response.data.isCode
         this.switchVal.isPassword = response.data.isPassword
-        this.departmentName = response.data.departmentName
+        this.form.select = response.data.departmentName
       })
     }
   }
