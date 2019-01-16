@@ -4,6 +4,7 @@ from teacher.models import *
 
 
 class Calendar():
+
     def start_bigger_than_end(self, start_time, end_time):
         start_int = int(start_time.split(":")[0])
         end_int = int(end_time.split(":")[0])
@@ -24,10 +25,9 @@ class Calendar():
                                         'begin': time_table.begin,
                                         'end': time_table.end,
                                         'description': time_table.description,
-                                        'status': time_table.status,
                                         })
                 time_no = time_no + 1
-            data = {'code': '0000', 'time_table_list': time_table_list}
+            data = {'code': '0000', 'timeTableList': time_table_list}
             return data
         except Exception:
             data = {'code': '0001', 'msg': '未知错误'}
@@ -73,7 +73,6 @@ class Calendar():
             data = {'code': '0000', 'msg': '删除成功'}
             return data
         except Exception:
-            print(Exception.message)
             data = {'code': '0001', 'msg': '课程安排不存在，请重试'}
             return data
 
@@ -81,21 +80,22 @@ class Calendar():
         try:
             if self.start_bigger_than_end(
                     new_info.get('begin'), new_info.get('end')):
-                data = {'code': '0001', 'msg': '创建失败，课程起始时间出错'}
+                data = {'code': '0001', 'msg': '修改失败，课程起始时间出错'}
                 return data
             old_timetable = TimeTable.objects.get(
                 id=int(new_info.get('time_table_id')),
             )
-            old_timetable.week = new_info.get('week')
-            old_timetable.weekday = new_info.get('weekday')
+            if not old_timetable:
+                data = {'code': '0002', 'msg': '修改失败，时间表不存在'}
+                return data
+            old_timetable.class_week = int(new_info.get('week'))
+            old_timetable.class_day = int(new_info.get('weekday'))
             old_timetable.begin = new_info.get('begin')
             old_timetable.end = new_info.get('end')
             old_timetable.description = new_info.get('description')
             old_timetable.save()
-            data = Calendar.get_list_of_timetable(
-                self, new_info.get('room_no'))
+            data = {'code': '0000', 'msg': '修改成功'}
             return data
-        except Exception:
-            print(Exception.message)
-            data = {'code': '0001', 'msg': '未知错误'}
+        except:
+            data = {'code': '0003', 'msg': '修改失败，未知错误'}
             return data
