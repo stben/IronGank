@@ -4,7 +4,7 @@
     <mu-paper class="paper2" z-depth="4">
       <mu-text-field v-model="roomName" placeholder="请输入房间名称" ref="roomName"></mu-text-field><br/>
       <mu-text-field v-model="password" placeholder="请输入房间密码" ref="password"></mu-text-field><br/>
-      <mu-select v-model="form.select" ref="departmentName">
+      <mu-select v-model="form.select">
           <mu-option v-for="option in options" :key="option" :label="option" :value="option">
           </mu-option>
       </mu-select>
@@ -34,16 +34,13 @@ export default {
   data () {
     return {
       options: [
-        '计算机',
-        '软件工程',
-        '通信'
+        '计算机', '软件工程', '通信'
       ],
       form: {
         select: ''
       },
       roomName: '',
       roomDescription: '',
-      departmentName: '',
       password: '',
       switchVal: {
         isBoard: false,
@@ -52,9 +49,6 @@ export default {
       },
       roomNo: this.$route.params.roomId
     }
-  },
-  mounted () {
-    this.getRoomInfo()
   },
   methods: {
     postRoomInfo() {
@@ -66,34 +60,19 @@ export default {
         'roomDescription': this.$refs.roomDescription.value,
         'isCode': this.switchVal.isCode,
         'roomId': this.roomNo,
-        'departmentName': this.$refs.departmentName.value
+        'departmentName': this.form.select
       }
       this.$axios.post('api/teacher/newRoom',
         this.$Qs.stringify(postData)
       )
         .then((response) => {
-          if (response.data.code !== '0000') {
+          if (response.data.code === '0000') {
+            this.$router.push('index')
+          } else {
             alert(response.data.msg)
           }
         })
     },
-    getRoomInfo() {
-      this.$axios.request({
-        url: '/api/teacher/newRoom',
-        params: {
-          'roomNo': this.$route.params.roomId
-        },
-        method: 'get'
-      }).then((response) => {
-        this.roomName = response.data.roomName
-        this.roomDescription = response.data.roomDescription
-        this.password = response.data.password
-        this.switchVal.isBoard = response.data.isWhiteboard
-        this.switchVal.isCode = response.data.isCode
-        this.switchVal.isPassword = response.data.isPassword
-        this.departmentName = response.data.departmentName
-      })
-    }
   }
 }
 </script>
