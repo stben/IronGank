@@ -1,6 +1,6 @@
 <template>
     <div>
-        <stuFrame :selected="''" :title="'学生'"></stuFrame>
+        <stuFrame :selected="''" :title="'首页'"></stuFrame>
         <mu-paper class="paperstu"  z-depth="4">
             <mu-form :model="form" class="mu-demo-form" :label-position="labelPosition" label-width="100">
                 <mu-form-item prop="select" label="专业院系">
