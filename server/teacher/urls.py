@@ -15,5 +15,6 @@ urlpatterns = [
     path('newTimeTable', add_new_timetable),
     path('deleteTimeTable', delete_timetable),
     path('modifyTimeTable', modify_timetable),
-    path('banStudent', ban_stu_list)
+    path('banStudent', ban_stu_list),
+    path('pickTeacher', teacher_room)
 ]

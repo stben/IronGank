@@ -21,12 +21,12 @@ export default {
     }
   },
   mounted () {
-    this.getPickStudents()
+    this.getPickTeachers()
   },
   methods: {
-    getPickStudents() {
+    getPickTeachers() {
       this.$axios.request({
-        url: '/api/teacher/pickStudent',
+        url: '/api/teacher/pickTeacher',
         params: {
           'roomNo': this.$route.params.roomNo
         },
