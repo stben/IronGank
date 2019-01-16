@@ -3,6 +3,9 @@
     <mu-list-item button value="0" to="/teacher/newRoom">
       <mu-list-item-title>新建房间</mu-list-item-title>
     </mu-list-item>
+    <mu-list-item button value="1" to="/student/stuIndex">
+      <mu-list-item-title>可排队学生列表</mu-list-item-title>
+    </mu-list-item>
   </mu-list>
 </template>
 
