@@ -7,11 +7,10 @@
     <mu-paper :z-depth="2" v-if="active===0" class="paper">
       <mu-data-table :columns="columns" :data="auditList">
         <template slot-scope="item">
-          <td>{{item.row.stuNo}}</td>
-          <td>{{item.row.stuName}}</td>
+          <td>{{item.row.username}}</td>
           <td>
-            <mu-button flat color="success" v-bind:id="item.row.stuNo" @click="agree($event)">通过</mu-button>
-            <mu-button flat color="error" v-bind:id="item.row.stuNo" @click="disagree($event)">拒绝</mu-button>
+            <mu-button flat color="success" v-bind:id="item.row.username" @click="agree($event)" class="agreebutton">通过</mu-button>
+            <mu-button flat color="error" v-bind:id="item.row.username" @click="disagree($event)" class="disagreebutton">拒绝</mu-button>
             <span class="agreehint">已通过</span>
             <span class="disagreehint">未通过</span>
           </td>
@@ -29,7 +28,7 @@ export default {
     return {
       active: 0,
       columns: [
-        { title: '学号', name: 'stuNo' }, { title: '姓名', name: 'stuName' }, { title: '操作', name: '', align: 'center' }
+        { title: '账号', name: 'username' }, { title: '操作', name: '', align: 'center' }
       ]
     }
   },
@@ -37,11 +36,11 @@ export default {
     agree(e) {
       let postData = {
         'roomNo': this.roomNo,
-        'stuNo': e.currentTarget.id,
+        'teacherNo': e.currentTarget.id,
         'isAccepted': '1'
       }
       let ec = e.currentTarget
-      this.$axios.post('api/teacher/pickStudent',
+      this.$axios.post('api/teacher/pickTeacher',
         this.$Qs.stringify(postData)
       )
         .then((response) => {
@@ -55,11 +54,11 @@ export default {
     disagree(e) {
       let postData = {
         'roomNo': this.roomNo,
-        'stuNo': e.currentTarget.id,
+        'teacherNo': e.currentTarget.id,
         'isAccepted': '0'
       }
       let ec = e.currentTarget
-      this.$axios.post('api/teacher/pickStudent',
+      this.$axios.post('api/teacher/pickTeacher',
         this.$Qs.stringify(postData)
       )
         .then((response) => {
@@ -83,16 +82,22 @@ export default {
     margin: -80px auto;
     width: 750px;
   }
+  .agreebutton{
+    margin: 0 50px;
+  }
+  .disagreebutton{
+    margin: 0 0;
+  }
   .agreehint{
     display: none;
     color: #4caf50;
     width: 80px;
-    margin: 0 80px;
+    margin: 0 140px;
   }
   .disagreehint{
     display: none;
     color: #f44336;
     width: 80px;
-    margin: 0 80px;
+    margin: 0 140px;
   }
 </style>

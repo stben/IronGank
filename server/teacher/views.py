@@ -250,11 +250,11 @@ def teacher_room(request):
         if not rooms:
             data = {'code': '0001', 'msg': '学生不存在或已注销'}
             return HttpResponse(json.dumps(data))
-        teacher_applictions = RoomAndTeacher.objects.filter(
+        teacher_application = RoomAndTeacher.objects.filter(
             room=rooms[0], status=3)
-        list_applictions = []
-        for item in teacher_applictions:
-            list_applictions.append(
+        list_application = []
+        for item in teacher_application:
+            list_application.append(
                 {'username': item.user.username, 'name': item.user.first_name})
         teacher_acceptions = RoomAndTeacher.objects.filter(
             room=rooms[0], status=2)
@@ -264,18 +264,20 @@ def teacher_room(request):
                 {'username': item.user.username, 'name': item.user.first_name})
         data = {
             'code': '0001',
-            'listAccept': list_acceptions,
-            'listAppliction': list_applictions}
+            'acceptedList': list_acceptions,
+            'auditList': list_application}
         return HttpResponse(json.dumps(data))
     if request.method == 'POST':
         room_id = request.POST.get('roomNo')
-        is_done = request.POST.get('isAccept')
+        username = request.POST.get('teacherNo')
+        is_done = request.POST.get('isAccepted')
         rooms = Room.objects.filter(id=int(room_id))
         if not rooms:
-            data = {'code': '0001', 'msg': '学生不存在或已注销'}
+            data = {'code': '0001', 'msg': '房间不存在或已注销'}
             return HttpResponse(json.dumps(data))
+        user = User.objects.filter(username=username)
         teachers = RoomAndTeacher.objects.filter(
-            room=rooms[0], user=request.user)
+            room=rooms[0], user=user[0])
         if not teachers:
             data = {'code': '0002', 'msg': '记录不存在'}
             return HttpResponse(json.dumps(data))

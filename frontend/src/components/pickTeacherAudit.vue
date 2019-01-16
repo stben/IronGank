@@ -26,7 +26,7 @@ export default {
   methods: {
     getPickAudit() {
       this.$axios.request({
-        url: '/api/teacher/pickStudent',
+        url: '/api/teacher/pickTeacher',
         params: {
           'roomNo': this.$route.params.roomNo
         },

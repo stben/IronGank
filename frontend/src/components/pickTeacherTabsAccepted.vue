@@ -7,10 +7,9 @@
     <mu-paper :z-depth="2" v-if="active===1" class="paper">
       <mu-data-table :columns="columns" :data="acceptedList">
         <template slot-scope="item">
-          <td>{{item.row.stuNo}}</td>
-          <td>{{item.row.stuName}}</td>
+          <td>{{item.row.username}}</td>
           <td>
-            <mu-button flat color="error" v-bind:id="item.stuNo" @click="remove($event)" class="removebutton">移除</mu-button>
+            <mu-button flat color="error" v-bind:id="item.row.username" @click="remove($event)" class="removebutton">移除</mu-button>
             <span class="removehint">已移除</span>
           </td>
         </template>
@@ -27,19 +26,20 @@ export default {
     return {
       active: 1,
       columns: [
-        { title: '学号', name: 'stuNo' }, { title: '姓名', name: 'stuName' }, { title: '操作', name: '', align: 'center' }
+        { title: '账号', name: 'username' }, { title: '操作', name: '', align: 'center' }
       ]
     }
   },
   methods: {
     remove(e) {
+      console.log(this.roomNo)
       let postData = {
         'roomNo': this.roomNo,
-        'stuNo': e.currentTarget.id,
+        'teacherNo': e.currentTarget.id,
         'isAccepted': '0'
       }
       let ec = e.currentTarget
-      this.$axios.post('api/teacher/pickStudent',
+      this.$axios.post('api/teacher/pickTeacher',
         this.$Qs.stringify(postData)
       )
         .then((response) => {
@@ -63,12 +63,12 @@ export default {
     width: 750px;
   }
   .removebutton{
-    margin: 0 60px;
+    margin: 0 120px;
   }
   .removehint{
     display: none;
     color: #f44336;
     width: 80px;
-    margin: 0 80px;
+    margin: 0 140px;
   }
 </style>
