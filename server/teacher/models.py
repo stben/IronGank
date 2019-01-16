@@ -61,7 +61,7 @@ class RoomAndTeacher(models.Model):
         User,
         on_delete=models.CASCADE,
         verbose_name='教师名称')
-    status = models.BooleanField('状态')
+    status = models.IntegerField('状态')
 
     class Meta:
         verbose_name = '教师房间信息管理'
