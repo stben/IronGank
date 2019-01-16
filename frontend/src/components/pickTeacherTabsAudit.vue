@@ -2,7 +2,7 @@
   <div id="pickTeacherTabsAudit">
     <mu-tabs :value.sync="active" inverse color="blue" indicator-color="blue" center class="tabs">
       <mu-tab>待审核</mu-tab>
-      <mu-tab :to="{ name: '', params: {roomNo: roomNo}}">已通过</mu-tab>
+      <mu-tab :to="{ name: 'pickTeacherAccepted', params: {roomNo: roomNo}}">已通过</mu-tab>
     </mu-tabs>
     <mu-paper :z-depth="2" v-if="active===0" class="paper">
       <mu-data-table :columns="columns" :data="auditList">

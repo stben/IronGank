@@ -5,7 +5,7 @@
       <mu-tab :to="{ name: 'PickStuAccepted', params: {roomNo: roomNo}}">已通过</mu-tab>
     </mu-tabs>
     <mu-paper :z-depth="2" v-if="active===0" class="paper">
-        <mu-data-table :columns="columns" :data="auditList1">
+        <mu-data-table :columns="columns" :data="auditList">
           <template slot-scope="item">
             <td>{{item.row.stuNo}}</td>
             <td>{{item.row.stuName}}</td>
