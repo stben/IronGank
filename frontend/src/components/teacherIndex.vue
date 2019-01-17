@@ -16,7 +16,7 @@
 <script>
 import teacherIndexFrame from '../components/teacherIndexFrame'
 export default {
-  name: 'TeacherIndex',
+  name: 'teacherIndex',
   components: {
     teacherIndexFrame
   },
