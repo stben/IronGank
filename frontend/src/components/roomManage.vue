@@ -100,6 +100,6 @@ export default {
 
 <style scoped>
 .paper2{
-    margin: -200px 300px;
+    margin: 150px 300px;
   }
 </style>

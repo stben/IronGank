@@ -1,7 +1,7 @@
 <template>
   <div id="teacherFrame">
-    <TeacherBar v-bind:title="title"></TeacherBar>
-    <TeacherNavigation v-bind:selected="selected" :roomNo="roomNo"></TeacherNavigation>
+    <teacherBar v-bind:title="title"></teacherBar>
+    <teacherNavigation v-bind:selected="selected" :roomNo="roomNo"></teacherNavigation>
   </div>
 </template>
 

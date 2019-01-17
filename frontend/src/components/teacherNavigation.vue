@@ -5,10 +5,10 @@
         <mu-list-item button value="0" :to="{ name: 'roomManage', params: {roomNo: roomNo}}">
           <mu-list-item-title class="title">直播间信息</mu-list-item-title>
         </mu-list-item>
-        <mu-list-item button value="1" :to="{ name: 'pickStuAudit', params: {roomNo: roomNo}}">
+        <mu-list-item button value="1" :to="{ name: 'pickStudentAudit', params: {roomNo: roomNo}}">
           <mu-list-item-title class="title">可排队学生列表</mu-list-item-title>
         </mu-list-item>
-        <mu-list-item button value="2" :to="{ name: 'banStu', params: {roomNo: roomNo}}">
+        <mu-list-item button value="2" :to="{ name: 'banStudent', params: {roomNo: roomNo}}">
           <mu-list-item-title class="title">被禁言学生列表</mu-list-item-title>
         </mu-list-item>
         <mu-list-item button value="3" :to="{ name: 'pickTeacherAudit', params: {roomNo: roomNo}}">
