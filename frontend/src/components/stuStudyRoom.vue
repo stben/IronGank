@@ -2,49 +2,51 @@
   <div>
     <div>
       <stuFrame :selected="''"
-                :title="'教师 ' + ''"></stuFrame>
+                :title="'学生 ' + ''"></stuFrame>
     </div>
-    <chattingRoom></chattingRoom>
     <div class="video-div">
-      <teacherVideo v-bind:stuList="stuList"
+      <studentVideo v-bind:videoStatus="videoStatus"
+                    v-bind:stuList="stuList"
+                    v-bind:myName="myName"
+                    v-bind:myNo="myNo"
                     v-bind:roomNo="roomNo"
                     v-bind:roomName="roomName" />
     </div>
-    <codemirror :roomNo='123'
-                v-bind:status="status" />
   </div>
 </template>
 
 <script>
 import stuFrame from '../components/studentFrame'
-import chattingRoom from '../components/chattingRoom'
-import teacherVideo from '../components/teacherVideo'
-import AgoraRTC from 'agora-rtc-sdk'
-import codemirror from '../components/codemirror'
+import studentVideo from '../components/studentVideo'
 
-if (!AgoraRTC.checkSystemRequirements()) {
-  alert('Your browser does not support WebRTC!')
-}
 export default {
-  name: 'teachingRoom',
+  name: 'stuStudyRoom',
+  created: function () {
+    if (this.myStatus) {
+      this.videoStatus = false
+      this.queueStatus = false
+    }
+  },
+  mounted () {
+  },
   components: {
     stuFrame,
-    chattingRoom,
-    teacherVideo
+    studentVideo
   },
   data () {
     return {
-      stuList: ['123123'],
+      stuList: ['小明1', '小明2', '小明3', '小明4', '小明5', '小明6', '小明7123'],
       videoStatus: true,
       queueStatus: true,
       myNo: 123,
-      myName: 'asdsad',
+      myName: '小明1',
       myStatus: false,
       roomNo: 12332113,
-      roomName: '123123',
-      codemirror,
-      status: false
+      roomName: '123123'
     }
+  },
+  /*  props: ['stuList', 'myName', 'myNo', 'roomNo', 'roomName', 'queueStatus'], */
+  methods: {
   }
 }
 </script>
@@ -65,6 +67,5 @@ export default {
   position: absolute;
   top: 368px;
   left: 0;
-  overflow: auto;
 }
 </style>

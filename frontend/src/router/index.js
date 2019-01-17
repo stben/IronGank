@@ -14,20 +14,22 @@ import pickTeacherAudit from '@/components/pickTeacherAudit'
 import pickTeacherAccepted from '@/components/pickTeacherAccepted'
 import teacherLogin from '@/components/teacherLogin'
 import studentLogin from '@/components/studentLogin'
+import stuStudyRoom from '@/components/stuStudyRoom'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/teacher/index',
       name: 'teacherIndex',
       component: teacherIndex
     },
-    {
-      path: '/',
-      name: 'login',
-      component: login
-    },
+    // {
+    //   path: '/',
+    //   name: 'login',
+    //   component: login
+    // },
     {
       path: '/teacher/roomManage',
       name: 'roomManage',
@@ -49,12 +51,17 @@ export default new Router({
       component: studentIndex
     },
     {
+      path: '/student/studyRoom',
+      name: 'studentStudyRoom',
+      component: stuStudyRoom
+    },
+    {
       path: '/register',
       name: 'register',
       component: register
     },
     {
-      path: '/teachingRoom',
+      path: '/teacher/teachingRoom',
       name: 'teachingRoom',
       component: teachingRoom
     },
