@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.test import Client
 
 from teacher.models import *
-from calendar.models import *
+from calendarFunc.models import *
 
 
 class CalendarTestCase(TestCase):

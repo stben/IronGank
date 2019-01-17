@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from calendar.models import Calendar
+from calendarFunc.models import Calendar
 # Create your views here.
 
 

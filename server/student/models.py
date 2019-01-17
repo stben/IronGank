@@ -17,13 +17,13 @@ class Student(models.Model):
 class YunPian(object):
     def __init__(self):
         self.APIKEY = "2c5f71b0dcda3c494893430c577b5225"
-        self.single_send_url = "https://sms.yunpian.com/v2/sms/single_send.json"
+        self.single_send_url = 'https://sms.yunpian.com/v2/sms/single_send.json'
 
     def send_sms(self, code, mobile):
         parmas = {
             'apikey': self.APIKEY,
             'mobile': mobile,
-            'text': '【郑绪祺】您的验证码是{code}。如非本人操作，请忽略本短信'
+            'text': '【郑绪祺】您的验证码是' + code + '。如非本人操作，请忽略本短信'
         }
         response = requests.post(self.single_send_url, data=parmas)
         re_dict = json.loads(response.text)
@@ -37,8 +37,10 @@ class SendMsg(object):
         for i in range(4):
             random_str.append(choice(seeds))
         code = "".join(random_str)
+        print(code)
         yun_pian = YunPian()
         sms_status = yun_pian.send_sms(code, mobile)
+        print(sms_status)
         if sms_status['code'] == 0:
             data = {'code': '0000', 'msg': code}
         else:

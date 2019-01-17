@@ -18,7 +18,7 @@ from django.contrib import admin
 from . import views
 from student.views import *
 from teacher.views import *
-from calendar.views import *
+from calendarFunc.views import *
 
 urlpatterns = [
     path('', views.index),
@@ -26,7 +26,7 @@ urlpatterns = [
         path('random/', views.random)]
     )),
     path('admin/', admin.site.urls),
-    path('sendMsg/', send_msg),
+    path('sendMsg', send_msg),
     path('upload/', include('upload.urls')),
     path('student/', include('student.urls')),
     path('teacher/', include('teacher.urls')),
