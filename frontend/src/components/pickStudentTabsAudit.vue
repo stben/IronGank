@@ -10,10 +10,10 @@
             <td>{{item.row.stuNo}}</td>
             <td>{{item.row.stuName}}</td>
             <td>
-              <mu-button flat color="success" v-bind:id="item.row.stuNo" @click="agree($event)">通过</mu-button>
+              <mu-button flat color="success" v-bind:id="item.row.stuNo" @click="agree($event)" class="agree">通过</mu-button>
               <mu-button flat color="error" v-bind:id="item.row.stuNo" @click="disagree($event)">拒绝</mu-button>
-              <span class="agreehint">已通过</span>
-              <span class="disagreehint">未通过</span>
+              <span class="agree-hint">已通过</span>
+              <span class="disagree-hint">未通过</span>
             </td>
           </template>
         </mu-data-table>
@@ -76,23 +76,26 @@ export default {
 
 <style scoped>
   .tabs{
-    margin: 100px auto;
+    margin: 100px 680px;
     width: 300px;
   }
   .paper{
-       margin: -80px auto;
-       width: 750px;
+       margin: -80px 400px;
+       width: 900px;
      }
-  .agreehint{
+  .agree{
+    margin-left: 20px;
+  }
+  .agree-hint{
     display: none;
     color: #4caf50;
     width: 80px;
-    margin: 0 80px;
+    margin: 0 105px;
   }
-  .disagreehint{
+  .disagree-hint{
     display: none;
     color: #f44336;
     width: 80px;
-    margin: 0 80px;
+    margin: 0 105px;
   }
 </style>

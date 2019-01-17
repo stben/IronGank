@@ -32,7 +32,6 @@ export default {
   },
   methods: {
     remove(e) {
-      console.log(this.roomNo)
       let postData = {
         'roomNo': this.roomNo,
         'teacherNo': e.currentTarget.id,
@@ -55,20 +54,20 @@ export default {
 
 <style scoped>
   .tabs{
-    margin: 100px auto;
+    margin: 100px 680px;
     width: 300px;
   }
   .paper{
-    margin: -80px auto;
-    width: 750px;
+    margin: -80px 400px;
+    width: 900px;
   }
   .removebutton{
-    margin: 0 120px;
+    margin: 0 155px;
   }
   .removehint{
     display: none;
     color: #f44336;
     width: 80px;
-    margin: 0 140px;
+    margin: 0 180px;
   }
 </style>

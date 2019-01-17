@@ -23,6 +23,7 @@
         </mu-form>
       </mu-paper>
     </mu-alert>
+    <mu-list class="nodata"><mu-list-item>暂无数据</mu-list-item></mu-list>
     <mu-expansion-panel v-for="item in timeTableList" :key="item.timeNo" class="list">
       <div slot="header" class="text">第{{item.week}}周：星期{{item.weekday}}&nbsp;&nbsp;&nbsp;{{item.begin}}-{{item.end}}：{{item.description}}</div>
       <mu-form class="form2">
@@ -114,23 +115,30 @@ export default {
     margin: 0 auto;
   }
   .list{
-    margin: 0 auto;
+    margin: 0 480px;
     width: 750px;
   }
   .button1{
     margin-top: 30px;
-    margin-left: -950px;
+    margin-left: -750px;
   }
   .button2{
     margin-top: 0px;
     margin-left: 300px;
   }
   .alert{
-    margin-left: 390px;
+    margin-left: 480px;
     margin-top: -20px;
     margin-bottom: 50px;
     width: 700px;
     height: 200px;
+  }
+  .nodata{
+    position: absolute;
+    margin: 0 800px;
+    width: 100px;
+    font-size: 15px;
+    z-index: -1;
   }
   .paper{
     margin-left: -20px;

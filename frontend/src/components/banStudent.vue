@@ -7,8 +7,8 @@
           <td>{{item.row.stuNo}}</td>
           <td>{{item.row.stuName}}</td>
           <td>
-            <mu-button flat color="error" v-bind:id="item.row.stuNo" class="removebutton" @click="remove($event)">解除禁言</mu-button>
-            <span class="removehint">已解除</span>
+            <mu-button flat color="error" v-bind:id="item.row.stuNo" class="remove-button" @click="remove($event)">解除禁言</mu-button>
+            <span class="remove-hint">已解除</span>
           </td>
         </template>
       </mu-data-table>
@@ -70,16 +70,16 @@ export default {
 
 <style scoped>
   .paper{
-    margin: 120px auto;
-    width: 770px;
+    margin: 120px 400px;
+    width: 900px;
   }
-  .removebutton{
-    margin: 0 60px;
+  .remove-button{
+    margin: 0 80px;
   }
-  .removehint{
+  .remove-hint{
     display: none;
     color: #f44336;
     width: 80px;
-    margin: 0 80px;
+    margin: 0 105px;
   }
 </style>

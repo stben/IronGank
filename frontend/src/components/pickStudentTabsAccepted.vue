@@ -10,8 +10,8 @@
           <td>{{item.row.stuNo}}</td>
           <td>{{item.row.stuName}}</td>
           <td>
-            <mu-button flat color="error" v-bind:id="item.row.stuNo" class="removebutton" @click="remove($event)">移除</mu-button>
-            <span class="removehint">已移除</span>
+            <mu-button flat color="error" v-bind:id="item.row.stuNo" class="remove-button" @click="remove($event)">移除</mu-button>
+            <span class="remove-hint">已移除</span>
           </td>
         </template>
       </mu-data-table>
@@ -33,8 +33,6 @@ export default {
   },
   methods: {
     remove(e) {
-      e.currentTarget.style.display = 'none'
-      e.currentTarget.nextElementSibling.style.display = 'inline'
       let postData = {
         'roomNo': this.roomNo,
         'stuNo': e.currentTarget.id,
@@ -57,20 +55,20 @@ export default {
 
 <style scoped>
   .tabs{
-    margin: 100px auto;
+    margin: 100px 680px;
     width: 300px;
   }
   .paper{
-    margin: -80px auto;
-    width: 750px;
+    margin: -80px 400px;
+    width: 900px;
   }
-  .removebutton{
-    margin: 0 60px;
+  .remove-button{
+    margin: 0 80px;
   }
-  .removehint{
+  .remove-hint{
     display: none;
     color: #f44336;
     width: 80px;
-    margin: 0 80px;
+    margin: 0 105px;
   }
 </style>
