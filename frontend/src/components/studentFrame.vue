@@ -1,6 +1,6 @@
 <template>
   <div id="studentFrame">
-    <stuBar v-bind:title="title"></stuBar>
+    <studentBar v-bind:title="title"></studentBar>
   </div>
 </template>
 

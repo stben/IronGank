@@ -70,7 +70,7 @@ export default {
     postRoomInfo() {
       let postData = {
         'roomName': this.$refs.roomName.value,
-        'password': this.$refs.password.value,
+        'password': this.password,
         'isBoard': this.switchVal.isBoard,
         'isPassword': this.switchVal.isPassword,
         'roomDescription': this.$refs.roomDescription.value,
