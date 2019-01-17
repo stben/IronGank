@@ -1,18 +1,18 @@
 <template>
   <div id="PickStuAudit">
-    <TeacherFrame :selected="'1'" :title="'房间 '+roomNo+'：可排队学生列表'" :roomNo="roomNo"></TeacherFrame>
-    <PickStuTabsAudit v-bind:auditList="auditList" :roomNo="roomNo"></PickStuTabsAudit>
+    <teacherFrame :selected="'1'" :title="'房间 '+roomNo+'：可排队学生列表'" :roomNo="roomNo"></teacherFrame>
+    <pickStudentTabsAudit v-bind:auditList="auditList" :roomNo="roomNo"></pickStudentTabsAudit>
   </div>
 </template>
 
 <script>
-import TeacherFrame from '../components/TeacherFrame'
-import PickStuTabsAudit from './PickStuTabsAudit'
+import teacherFrame from './teacherFrame'
+import pickStudentTabsAudit from './pickStudentTabsAudit'
 export default {
-  name: 'PickStuAudit',
+  name: 'pickStudentAudit',
   components: {
-    TeacherFrame,
-    PickStuTabsAudit
+    teacherFrame,
+    pickStudentTabsAudit
   },
   data() {
     return {

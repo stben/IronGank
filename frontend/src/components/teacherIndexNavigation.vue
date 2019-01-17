@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'TeacherNavigation',
+  name: 'teacherNavigation',
   props: ['selected']
 }
 </script>

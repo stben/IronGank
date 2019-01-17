@@ -1,18 +1,18 @@
 <template>
-  <div id="TeacherFrame">
+  <div id="teacherFrame">
     <TeacherBar v-bind:title="title"></TeacherBar>
     <TeacherNavigation v-bind:selected="selected" :roomNo="roomNo"></TeacherNavigation>
   </div>
 </template>
 
 <script>
-import TeacherBar from '../components/TeacherBar'
-import TeacherNavigation from '../components/TeacherNavigation'
+import teacherBar from './teacherBar'
+import teacherNavigation from './teacherNavigation'
 export default {
   name: 'TeacherFrame',
   components: {
-    TeacherBar,
-    TeacherNavigation
+    teacherBar,
+    teacherNavigation
   },
   props: ['selected', 'title', 'roomNo']
 }

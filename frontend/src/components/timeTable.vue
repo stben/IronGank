@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import TeacherFrame from './TeacherFrame'
+import TeacherFrame from './teacherFrame'
 export default {
   name: 'timeTable',
   components: {

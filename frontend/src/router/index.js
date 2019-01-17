@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import RoomManage from '@/components/RoomManage'
-import NewRoom from '@/components/NewRoom'
-import TeacherIndex from '@/components/TeacherIndex'
-import PickStuAudit from '@/components/PickStuAudit'
-import PickStuAccepted from '@/components/PickStuAccepted'
-import stuIndex from '@/components/stuIndex'
+import roomManage from '@/components/roomManage'
+import newRoom from '@/components/newRoom'
+import teacherIndex from '@/components/teacherIndex'
+import pickStudentAudit from '@/components/pickStudentAudit'
+import pickStudentAccepted from '@/components/pickStudentAccepted'
+import studentIndex from '@/components/studentIndex'
 import teachingRoom from '@/components/teachingRoom'
-import Login from '@/components/Login'
-import BanStu from '@/components/BanStu'
+import login from '@/components/login'
+import banStudent from '@/components/banStudent'
 import timeTable from '@/components/timeTable'
 import register from '@/components/register'
 import pickTeacherAudit from '@/components/pickTeacherAudit'
@@ -19,33 +19,33 @@ export default new Router({
   routes: [
     {
       path: '/teacher/index',
-      name: 'TeacherIndex',
-      component: TeacherIndex
+      name: 'teacherIndex',
+      component: teacherIndex
     },
     {
       path: '/teacher/roomManage',
-      name: 'RoomManage',
-      component: RoomManage
+      name: 'roomManage',
+      component: roomManage
     },
     {
       path: '/teacher/newRoom',
-      name: 'NewRoom',
-      component: NewRoom
+      name: 'newRoom',
+      component: newRoom
     },
     {
       path: '/teacher/pickStudent/audit',
-      name: 'PickStuAudit',
-      component: PickStuAudit
+      name: 'pickStudentAudit',
+      component: pickStudentAudit
     },
     {
       path: '/teacher/pickStudent/accepted',
-      name: 'PickStuAccepted',
-      component: PickStuAccepted
+      name: 'pickStudentAccepted',
+      component: pickStudentAccepted
     },
     {
       path: '/student/index',
-      name: 'stuIndex',
-      component: stuIndex
+      name: 'studentIndex',
+      component: studentIndex
     },
     {
       path: '/register',
@@ -59,13 +59,13 @@ export default new Router({
     },
     {
       path: '/login',
-      name: 'Login',
-      component: Login
+      name: 'login',
+      component: login
     },
     {
       path: '/teacher/banStudent',
-      name: 'BanStu',
-      component: BanStu
+      name: 'banStudent',
+      component: banStudent
     },
     {
       path: '/teacher/timeTable',

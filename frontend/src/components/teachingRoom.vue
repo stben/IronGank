@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import stuFrame from '../components/stuFrame'
+import stuFrame from './studentFrame'
 import chattingRoom from '../components/chattingRoom'
 export default {
   name: 'teachingRoom',

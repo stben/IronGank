@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import stuFrame from '../components/stuFrame'
+import stuFrame from './studentFrame'
 export default {
   name: 'stuIndex',
   components: {
