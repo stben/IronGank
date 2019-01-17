@@ -3,7 +3,7 @@
     <div class="wrap-main">
       <div class="msg-list">
         <ul class="msg-cont">
-          <li v-for="item in getNewMsg" >
+          <li v-for= "item in getNewMsg" >
             <span>{{item.myName}}</span>
             <span class="msg-cont-item" >{{item.msg}}</span>
           </li>
