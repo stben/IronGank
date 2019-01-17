@@ -42,7 +42,7 @@ export default {
       this.list = this.list.sort((a, b) => order === 'asc' ? a[name] - b[name] : b[name] - a[name])
     },
     getRoomInfo(e) {
-      this.$router.push({ name: 'RoomManage', params: {roomNo: e.currentTarget.id} })
+      this.$router.push({ name: 'roomManage', params: {roomNo: e.currentTarget.id} })
     },
     getTeacherRooms: function() {
       this.$axios.get('/api/teacher/teacherIndex')
