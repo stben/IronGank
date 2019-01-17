@@ -10,8 +10,13 @@
                     v-bind:roomNo="roomNo"
                     v-bind:roomName="roomName" />
     </div>
-    <codemirror :roomNo='123'
+    <codemirror :roomNo="roomNo"
                 v-bind:status="status" />
+    <div class="queue-div">
+      <teacherQueue v-bind:stuList="stuList"
+                    v-bind:roomNo="roomNo"
+                    v-bind:roomName="roomName" />
+    </div>
   </div>
 </template>
 
@@ -21,6 +26,7 @@ import chattingRoom from '../components/chattingRoom'
 import teacherVideo from '../components/teacherVideo'
 import AgoraRTC from 'agora-rtc-sdk'
 import codemirror from '../components/codemirror'
+import teacherQueue from '../components/teacherQueue'
 
 if (!AgoraRTC.checkSystemRequirements()) {
   alert('Your browser does not support WebRTC!')
@@ -30,22 +36,21 @@ export default {
   components: {
     stuFrame,
     chattingRoom,
-    teacherVideo
+    teacherVideo,
+    teacherQueue
   },
   data () {
     return {
-      stuList: ['123123'],
       videoStatus: true,
       queueStatus: true,
       myNo: 123,
       myName: 'asdsad',
       myStatus: false,
-      roomNo: 12332113,
-      roomName: '123123',
       codemirror,
       status: false
     }
-  }
+  },
+  props: ['stuList', 'roomNo', 'roomName']
 }
 </script>
 
@@ -60,11 +65,12 @@ export default {
   right: auto;
 }
 .queue-div {
-  width: 210px;
-  height: 280px;
+  width: 220px;
+  height: 385px;
   position: absolute;
   top: 368px;
   left: 0;
   overflow: auto;
+  border: 1px solid black;
 }
 </style>
