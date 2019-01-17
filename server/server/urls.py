@@ -26,6 +26,7 @@ urlpatterns = [
         path('random/', views.random)]
     )),
     path('admin/', admin.site.urls),
+    path('sendMsg/', send_msg),
     path('upload/', include('upload.urls')),
     path('student/', include('student.urls')),
     path('teacher/', include('teacher.urls')),
