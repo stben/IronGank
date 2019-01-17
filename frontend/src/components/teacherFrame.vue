@@ -9,7 +9,7 @@
 import teacherBar from './teacherBar'
 import teacherNavigation from './teacherNavigation'
 export default {
-  name: 'TeacherFrame',
+  name: 'teacherFrame',
   components: {
     teacherBar,
     teacherNavigation

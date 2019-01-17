@@ -1,5 +1,5 @@
 <template>
-  <div id="TeacherFrame">
+  <div id="teacherIndexFrame">
     <teacherBar v-bind:title="title"></teacherBar>
     <teacherIndexNavigation v-bind:selected="selected"></teacherIndexNavigation>
   </div>
@@ -9,7 +9,7 @@
 import teacherBar from './teacherBar'
 import teacherIndexNavigation from '../components/teacherIndexNavigation'
 export default {
-  name: 'teacherFrame',
+  name: 'teacherIndexFrame',
   components: {
     teacherBar,
     teacherIndexNavigation
