@@ -12,12 +12,21 @@
                     v-bind:roomNo="roomNo"
                     v-bind:roomName="roomName" />
     </div>
+    <div class="queue-div">
+      <studentQueue v-bind:queueStatus="queueStatus"
+                    v-bind:stuList="stuList"
+                    v-bind:myName="myName"
+                    v-bind:myNo="myNo"
+                    v-bind:roomNo="roomNo"
+                    v-bind:roomName="roomName" />
+    </div>
   </div>
 </template>
 
 <script>
 import stuFrame from '../components/studentFrame'
 import studentVideo from '../components/studentVideo'
+import studentQueue from '../components/studentQueue'
 
 export default {
   name: 'stuStudyRoom',
@@ -31,21 +40,16 @@ export default {
   },
   components: {
     stuFrame,
-    studentVideo
+    studentVideo,
+    studentQueue
   },
   data () {
     return {
-      stuList: ['小明1', '小明2', '小明3', '小明4', '小明5', '小明6', '小明7123'],
       videoStatus: true,
-      queueStatus: true,
-      myNo: 123,
-      myName: '小明1',
-      myStatus: false,
-      roomNo: 12332113,
-      roomName: '123123'
+      queueStatus: true
     }
   },
-  /*  props: ['stuList', 'myName', 'myNo', 'roomNo', 'roomName', 'queueStatus'], */
+  props: ['stuList', 'myName', 'myNo', 'roomNo', 'roomName', 'myStatus'],
   methods: {
   }
 }
