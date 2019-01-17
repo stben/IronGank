@@ -1,24 +1,24 @@
 <template>
   <div id="queue">
     <mu-list v-for="(item, index) in stuInfoList"
-             :key="index">
+             :key="item">
       <mu-paper :z-depth="3"
                 class="box">
         <mu-list-item-title>
           {{item}}<mu-badge :content=index+1
                     class="tag"></mu-badge>
         </mu-list-item-title>
-        <mu-button @click="upThisStudent"
+        <mu-button @click="upThisStudent(item)"
                    fab
                    small
                    class="up-button">上</mu-button>
-        <mu-button @click="downThisStudent"
+        <mu-button @click="downThisStudent(item)"
                    fab
                    small>下</mu-button>
-        <mu-button @click="removeThisStudent"
+        <mu-button @click="removeThisStudent(item)"
                    fab
                    small>出</mu-button>
-        <mu-button @click="goTopThisStudent"
+        <mu-button @click="goTopThisStudent(item)"
                    fab
                    small>顶</mu-button>
       </mu-paper>
@@ -88,11 +88,10 @@ export default {
     goTopThisStudent (stuName) {
       let hisIndex = this.stuInfoList.indexOf(stuName)
       this.stuInfoList.splice(hisIndex, 1)
-      this.stuInfoList = this.stuInfoList.reverse.push(stuName).reverse
-      this.updateOurList()
+      this.stuInfoList.unshift(stuName)
     },
     removeThisStudent (stuName) {
-      let hisIndex = this.stuInfoList.indexOf(self.myName)
+      let hisIndex = this.stuInfoList.indexOf(stuName)
       this.stuInfoList.splice(hisIndex, 1)
       this.updateOurList()
     }
@@ -109,7 +108,8 @@ export default {
   height: 15px;
 }
 .tag {
-  margin-left: 130px;
+  position: absolute;
+  right: 5px;
 }
 .up-button {
   margin-left: -20px;

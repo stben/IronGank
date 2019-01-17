@@ -10,10 +10,9 @@ io.on('connection', function (socket) {
     socket.on('disconnect', function () {
         console.log('user disconnected')
     })
-
+    
     socket.on('chat message', function (msg) {
         io.broadcast.emit('chat message', msg)
-        
     })
 
     socket.on('joinRoom', function (roomNo) { // 加入以roomNo命名的房间
@@ -56,6 +55,23 @@ io.on('connection', function (socket) {
             }
         }
         return []
+    })
+    
+    socket.on('codeMsg', function (msg) { 
+        io.broadcast.emit('codeMsg', msg)
+    })
+    
+    socket.on('sendCode', function(data) {
+        socket.broadcast.to(data.roomNo).emit('getCode', data.msg)
+        }
+    )
+    
+    socket.on('sendChatMsg', function (data) {
+        if(data!==''){
+            socket.broadcast.to(data.roomNo).emit('getChatMsg', data)
+            //socket.to('others').emit('an event', { some: 'data' })
+            console.log(data); // [ <socket.id>, 'room 237' ]
+        }
     })
 })
 

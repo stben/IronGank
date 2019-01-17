@@ -1,7 +1,8 @@
 <template>
   <div id="teacherFrame">
     <teacherBar v-bind:title="title"></teacherBar>
-    <teacherNavigation v-bind:selected="selected" :roomNo="roomNo"></teacherNavigation>
+    <teacherNavigation v-bind:selected="selected"
+                       :roomNo="roomNo"></teacherNavigation>
   </div>
 </template>
 
@@ -12,12 +13,12 @@ export default {
   name: 'teacherFrame',
   components: {
     teacherBar,
-    teacherNavigation
+    teacherNavigation,
+    title: '阿萨德'
   },
-  props: ['selected', 'title', 'roomNo']
+  props: ['selected', 'roomNo']
 }
 </script>
 
 <style scoped>
-
 </style>

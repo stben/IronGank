@@ -39,6 +39,7 @@ export default {
     }
   },
   mounted () {
+    SocketInsatnce.emit('updateMyList', this.roomNo)
     let self = this
     this.buttonInfo = this.inQueue ? '离开队列' : '加入队列'
     // this.stuList = this.stuList
