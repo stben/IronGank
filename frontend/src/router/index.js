@@ -25,6 +25,11 @@ export default new Router({
       component: teacherIndex
     },
     {
+      path: '/',
+      name: 'login',
+      component: login
+    },
+    {
       path: '/teacher/roomManage',
       name: 'roomManage',
       component: roomManage
