@@ -44,7 +44,7 @@
       <mu-list-item v-for="item in list" :key="item.roomId">
         <span class="point">●</span> 房间&nbsp;{{item.roomId}}：{{item.name}}
         <mu-button v-bind:id="item.roomId" color="primary" @click="getRoomInfo($event)" class="list-button1" flat>编辑</mu-button>
-        <mu-button color="success" v-bind:id="item.roomId" @click="live" class="list-button2" flat>开播</mu-button>
+        <mu-button color="success" v-bind:id="item.roomId" v-bind:name="item.name" @click="live($event)" class="list-button2" flat>开播</mu-button>
       </mu-list-item>
     </mu-list>
   </div>
@@ -86,9 +86,6 @@ export default {
     showAlert() {
       this.isAlert = !this.isAlert
     },
-    handleSortChange ({name, order}) {
-      this.list = this.list.sort((a, b) => order === 'asc' ? a[name] - b[name] : b[name] - a[name])
-    },
     getRoomInfo(e) {
       this.$router.push({ name: 'roomManage', params: {roomNo: e.currentTarget.id} })
     },
@@ -118,7 +115,10 @@ export default {
           alert(response.data.msg)
         })
     },
-    live() {}
+    live(e) {
+      console.log(e.currentTarget.id + ' ' + e.currentTarget.name)
+      this.$router.push({ name: 'teacher/teachingRoom', params: {roomNo: e.currentTarget.id, roomName: e.currentTarget.name} })
+    }
   }
 }
 </script>
