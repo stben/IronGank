@@ -96,6 +96,6 @@ class Calendar():
             old_timetable.save()
             data = {'code': '0000', 'msg': '修改成功'}
             return data
-        except:
+        except BaseException:
             data = {'code': '0003', 'msg': '修改失败，未知错误'}
             return data

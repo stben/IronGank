@@ -1,6 +1,6 @@
 from django.urls import path
 from teacher.views import *
-from calendar.views import *
+from calendarFunc.views import *
 
 urlpatterns = [
     path('teacherLogin', teacher_login),

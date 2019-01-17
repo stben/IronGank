@@ -137,11 +137,11 @@ def student_enter(request):
 
 def send_msg(request):
     if request.method == 'POST':
-            mobile = request.POST.get('mobile')
-            if mobile != '':
-                print(1)
-                sendClass = SendMsg()
-                data = sendClass.send_msg(mobile)
-            else:
-                data = {'code': '0001', 'msg': '手机号格式有误！'}
-            return JsonResponse(data)
+        mobile = request.POST.get('mobile')
+        if mobile != '':
+            print(1)
+            sendClass = SendMsg()
+            data = sendClass.send_msg(mobile)
+        else:
+            data = {'code': '0001', 'msg': '手机号格式有误！'}
+        return JsonResponse(data)

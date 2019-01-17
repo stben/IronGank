@@ -167,3 +167,4 @@ CORS_ALLOW_HEADERS = (
 )
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/upload/'
+APPEND_SLASH = False
