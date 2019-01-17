@@ -32,7 +32,7 @@
        <div style="width:350px">
          <div style="float:left"><mu-text-field class="tel-text" v-model="validateForm.tel" prop="tel"
                                                 ref="phone" placeholder="请输入手机号码"></mu-text-field></div>
-         <div style="float:right"><mu-button color="#29b6f6" class="button-wrapper">发送验证码</mu-button></div>
+         <div style="float:right"><mu-button color="#29b6f6" class="button-wrapper" @click="postCode">发送验证码</mu-button></div>
        </div>
     </mu-form-item>
     <mu-form-item prop="verificationCode" :rules="verificationCodeRules">
@@ -69,7 +69,8 @@ export default {
         {validate: (val) => val.length === 11, message: '请输入正确的电话号码'}
       ],
       verificationCodeRules: [
-        {validate: (val) => !!val, message: '必须填写验证码'}
+        {validate: (val) => !!val, message: '必须填写验证码'},
+        {validate: (val) => val === this.code, message: '请输入正确的验证码'}
       ],
       validateForm: {
         firstName: '',
@@ -78,7 +79,8 @@ export default {
         tel: '',
         verificationCode: ''
       },
-      visibility: false
+      visibility: false,
+      code: ''
     }
   },
   methods: {
@@ -103,6 +105,20 @@ export default {
             })
         }
       })
+    },
+    postCode() {
+      let postData = {
+        'mobile': this.validateForm.tel
+      }
+      this.$axios.post('/api/sendMsg', this.$Qs.stringify(postData)
+      )
+        .then((response) => {
+          if (response.data.code === '0000') {
+            this.validateForm.code = response.data.msg
+          } else {
+            alert(response.data.msg)
+          }
+        })
     },
     clear () {
       this.$refs.form.clear()
