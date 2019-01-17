@@ -1,15 +1,15 @@
 <template>
-  <div id="stuFrame">
+  <div id="studentFrame">
     <stuBar v-bind:title="title"></stuBar>
   </div>
 </template>
 
 <script>
-import stuBar from '../components/stuBar'
+import studentBar from './studentBar'
 export default {
   name: 'stuFrame',
   components: {
-    stuBar
+    studentBar
   },
   props: ['selected', 'title']
 }

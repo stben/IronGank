@@ -1,6 +1,6 @@
 <template>
-  <div id="BanStu">
-    <TeacherFrame :selected="'2'" :title="'房间 '+roomNo+'：禁言学生列表'" :roomNo="roomNo"></TeacherFrame>
+  <div id="banStudent">
+    <teacherFrame :selected="'2'" :title="'房间 '+roomNo+'：禁言学生列表'" :roomNo="roomNo"></teacherFrame>
     <mu-paper :z-depth="2" class="paper">
       <mu-data-table :columns="columns" :data="banList">
         <template slot-scope="item">
@@ -17,11 +17,11 @@
 </template>
 
 <script>
-import TeacherFrame from './TeacherFrame'
+import teacherFrame from './teacherFrame'
 export default {
-  name: 'BanStu',
+  name: 'banStudent',
   components: {
-    TeacherFrame
+    teacherFrame
   },
   data() {
     return {

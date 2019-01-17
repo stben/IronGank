@@ -1,17 +1,17 @@
 <template>
   <div id="pickTeacherAccepted">
-    <TeacherFrame :selected="'3'" :title="'房间 '+roomNo+'：助教列表'" :roomNo="roomNo"></TeacherFrame>
+    <teacherFrame :selected="'3'" :title="'房间 '+roomNo+'：助教列表'" :roomNo="roomNo"></teacherFrame>
     <pickTeacherTabsAccepted v-bind:acceptedList="acceptedList" :roomNo="roomNo"></pickTeacherTabsAccepted>
   </div>
 </template>
 
 <script>
-import TeacherFrame from '../components/TeacherFrame'
+import teacherFrame from './teacherFrame'
 import pickTeacherTabsAccepted from '../components/pickTeacherTabsAccepted'
 export default {
   name: 'pickTeacherAccepted',
   components: {
-    TeacherFrame,
+    teacherFrame,
     pickTeacherTabsAccepted
   },
   data() {
