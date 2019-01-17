@@ -42,10 +42,10 @@ def create_new_room(request):
         is_need_whiteboard = request.POST.get('isBoard').capitalize()
         is_need_code_editor = request.POST.get('isCode').capitalize()
         is_need_password = request.POST.get('isPassword').capitalize()
-        if is_need_password and password == '':
+        if is_need_password == 'True' and password == '':
             data = {'code': '0001', 'msg': '请输入房间密码'}
             return HttpResponse(json.dumps(data))
-        if room_name == '':
+        if room_name == '' or not room_name:
             data = {'code': '0002', 'msg': '请输入房间名称'}
             return HttpResponse(json.dumps(data))
         college = College.objects.filter(name=college_name)
@@ -198,13 +198,13 @@ def get_student_in_room(request):
                 return HttpResponse(json.dumps(data))
             else:
                 stu_in.status = 2  # 如果申请不通过，变成注销班级学生
-                stu_in.save()
+                stu_in.delete()
                 data = {'code': '0000', 'msg': '拒绝申请'}
                 return HttpResponse(json.dumps(data))
         else:
             if is_done == '0':
                 stu_in.status = 2   # 如果已在班级，移除学生
-                stu_in.save()
+                stu_in.delete()
                 data = {'code': '0000', 'msg': '成功移除'}
                 return HttpResponse(json.dumps(data))
             else:
