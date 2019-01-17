@@ -3,21 +3,25 @@
     <div class="wrap-main">
       <div class="msg-list">
         <ul class="msg-cont">
-          <li v-for= "item in getNewMsg" >
+          <li v-for="item in getNewMsg">
             <span>{{item.myName}}</span>
-            <span class="msg-cont-item" >{{item.msg}}</span>
+            <span class="msg-cont-item">{{item.msg}}</span>
           </li>
         </ul>
       </div>
       <div class="msg-input">
-        <div style="height: 100%; position: relative;" >
+        <div style="height: 100%; position: relative;">
           <mu-text-field v-model='myMsg'
                          placeholder="在这儿发射弹幕"
                          autocomplete="off"
                          onkeyup.enter="sendMsg"
-          ></mu-text-field>
-          <div class="btn-group btn-group-custom" >
-            <mu-button type="button" class="btn btn-primary" @click='sendMsg' >发送</mu-button>
+                         multi-line
+                         :rows="3"
+                         :rows-max="6"></mu-text-field>
+          <div class="btn-group btn-group-custom">
+            <mu-button type="button"
+                       class="btn btn-primary"
+                       @click='sendMsg'>发送</mu-button>
             <mu-button @click="joinRoom">joinARoom</mu-button>
           </div>
         </div>
@@ -69,50 +73,50 @@ export default {
 </script>
 
 <style scoped >
-  .wrap{
-    height: 300px;
-  }
+.wrap {
+  height: 300px;
+}
 
-  .wrap-main{
-    float:right;
-    padding-left: 200px;
-    height:300px;
-    width:500px;
-    text-align:left;
-    margin-top: 60px;
-    margin-left: 100px;
-  }
-  .msg-list{
-    height: 600px;
-    border: 10px solid #58B7FF;
-    overflow: auto;
-  }
-  .msg-input{
-    height: 100px;
-    border: 10px solid #58B7FF;
-  }
-  .btn-group-custom{
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    left: 0;
-    padding: 10px;
-  }
-  .btn-group-custom .btn {
-    float: right;
-  }
-  .msg-cont{
-    list-style-type: none;
-    margin: 0px;
-    padding: 0px;
-  }
-  .msg-cont > li{
-    margin: 0px;
-    padding: 5px;
-  }
-  .msg-cont-item{
-    background: #8492A6;
-    padding: 5px 10px;
-    border-radius: 2px;
-  }
+.wrap-main {
+  float: right;
+  padding-left: 200px;
+  height: 300px;
+  width: 500px;
+  text-align: left;
+  margin-top: 60px;
+  margin-left: 100px;
+}
+.msg-list {
+  height: 450px;
+  border: 10px solid #58b7ff;
+  overflow: auto;
+}
+.msg-input {
+  height: 160px;
+  border: 10px solid #58b7ff;
+}
+.btn-group-custom {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  padding: 10px;
+}
+.btn-group-custom .btn {
+  float: right;
+}
+.msg-cont {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+}
+.msg-cont > li {
+  margin: 0px;
+  padding: 5px;
+}
+.msg-cont-item {
+  background: #8492a6;
+  padding: 5px 10px;
+  border-radius: 2px;
+}
 </style>

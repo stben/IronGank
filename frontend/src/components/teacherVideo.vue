@@ -30,7 +30,6 @@ export default {
   created: function () {
     SocketInsatnce.emit('joinRoom', this.roomNo)
     SocketInsatnce.emit('updateMyList', this.roomNo)
-    this.join()
   },
   methods: {
     join () {

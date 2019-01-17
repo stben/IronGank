@@ -1,32 +1,40 @@
 <template>
   <div>
-    <div>
-      <stuFrame :selected="''"
-                :title="'教师 ' + ''"></stuFrame>
-    </div>
-    <chattingRoom></chattingRoom>
+    <teacherBar :title="'直播'"></teacherBar>
     <div class="video-div">
       <teacherVideo v-bind:stuList="stuList"
                     v-bind:roomNo="roomNo"
                     v-bind:roomName="roomName" />
     </div>
+    <mu-switch v-model="isCode"
+               class="code-switch"></mu-switch>
     <codemirror :roomNo="roomNo"
-                v-bind:status="status" />
+                v-bind:status="status"
+                v-if="isCode===true"
+                class="code-mirror" />
+    <mu-switch v-model="isBoard"
+               class="board-switch"></mu-switch>
+    <div v-if="isBoard===true"
+         class="board-div">
+    </div>
     <div class="queue-div">
       <teacherQueue v-bind:stuList="stuList"
                     v-bind:roomNo="roomNo"
                     v-bind:roomName="roomName" />
     </div>
+    <div class="chat-div">
+      <chattingRoom></chattingRoom>
+    </div>
   </div>
 </template>
 
 <script>
-import stuFrame from '../components/studentFrame'
 import chattingRoom from '../components/chattingRoom'
 import teacherVideo from '../components/teacherVideo'
 import AgoraRTC from 'agora-rtc-sdk'
 import codemirror from '../components/codemirror'
 import teacherQueue from '../components/teacherQueue'
+import teacherBar from '../components/teacherBar'
 
 if (!AgoraRTC.checkSystemRequirements()) {
   alert('Your browser does not support WebRTC!')
@@ -34,43 +42,75 @@ if (!AgoraRTC.checkSystemRequirements()) {
 export default {
   name: 'teachingRoom',
   components: {
-    stuFrame,
+    teacherBar,
     chattingRoom,
     teacherVideo,
-    teacherQueue
+    teacherQueue,
+    codemirror
   },
   data () {
     return {
       videoStatus: true,
       queueStatus: true,
-      myNo: 123,
-      myName: 'asdsad',
       myStatus: false,
       codemirror,
-      status: false
+      status: false,
+      isCode: true,
+      isBoard: true
     }
   },
-  props: ['stuList', 'roomNo', 'roomName']
+  props: ['stuList', 'roomName', 'roomNo']
 }
 </script>
 
 <style scoped>
 .video-div {
   width: 210px;
-  height: 304px;
-  float: left;
-  position: absolute;
-  top: 64px;
-  left: auto;
-  right: auto;
+  height: 285px;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  background-color: black;
 }
 .queue-div {
-  width: 220px;
-  height: 385px;
-  position: absolute;
-  top: 368px;
+  width: 210px;
+  height: 325px;
+  position: fixed;
+  top: 345px;
   left: 0;
   overflow: auto;
   border: 1px solid black;
+}
+.code-mirror {
+  position: fixed;
+  top: 60px;
+  left: 210px;
+  height: 290px;
+  width: 855px;
+  z-index: -1;
+}
+.chat-div {
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+.board-div {
+  position: fixed;
+  top: 360px;
+  left: 210px;
+  width: 855px;
+  height: 310px;
+  z-index: -1;
+  background-color: gray;
+}
+.code-switch {
+  position: fixed;
+  top: 65px;
+  left: 210px;
+}
+.board-switch {
+  position: fixed;
+  top: 360px;
+  left: 210px;
 }
 </style>
