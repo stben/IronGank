@@ -1,5 +1,5 @@
 <template>
-  <div id="PickStuAudit">
+  <div id="pickStudentAudit">
     <teacherFrame :selected="'1'" :title="'房间 '+roomNo+'：可排队学生列表'" :roomNo="roomNo"></teacherFrame>
     <pickStudentTabsAudit v-bind:auditList="auditList" :roomNo="roomNo"></pickStudentTabsAudit>
   </div>

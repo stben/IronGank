@@ -1,5 +1,5 @@
 <template>
-  <div id="PickStuTabsAudit">
+  <div id="pickStudentTabsAudit">
     <mu-tabs :value.sync="active" inverse color="blue" indicator-color="blue" center class="tabs">
       <mu-tab>待审核</mu-tab>
       <mu-tab :to="{ name: 'PickStuAccepted', params: {roomNo: roomNo}}">已通过</mu-tab>
@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  name: 'PickStuTabsAudit',
+  name: 'pickStudentTabsAudit',
   props: ['auditList', 'roomNo'],
   data() {
     return {

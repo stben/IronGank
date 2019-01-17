@@ -1,5 +1,5 @@
 <template>
-  <div id="PickStuAccepted">
+  <div id="pickStudentAccepted">
     <teacherFrame :selected="'1'" :title="'房间 '+roomNo+'：可排队学生列表'" :roomNo="roomNo"></teacherFrame>
     <pickStudentTabsAccepted v-bind:acceptedList="acceptedList" :roomNo="roomNo"></pickStudentTabsAccepted>
   </div>
