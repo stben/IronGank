@@ -74,20 +74,17 @@ export default {
             this.indexRoom = roomNo
             this.alert = true
           } else {
-            this.$router.push('/student/teachingRoom')
+            this.$router.push({ name: '/student/teachingRoom', params: {roomNo: this.indexRoom} })
           }
         }
       }
     },
     passwordConfirm() {
       let roomNo = this.indexRoom
-      console.log(roomNo)
       for (let item of this.list) {
-        console.log(item)
         if (item.roomNo + '' === roomNo) {
-          console.log('1')
           if (this.password === item.password) {
-            this.$router.push('/student/teachingRoom')
+            this.$router.push({ name: '/student/teachingRoom', params: {roomNo: this.indexRoom} })
           } else {
             alert('密码错误')
           }
