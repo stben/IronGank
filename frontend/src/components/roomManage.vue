@@ -35,77 +35,77 @@
 </template>
 
 <script>
-  import teacherFrame from '../components/teacherFrame'
-  export default {
-    name: 'roomManage',
-    components: {
-      teacherFrame
-    },
-    data () {
-      return {
-        options: [
-          '计算机',
-          '软件工程',
-          '通信'
-        ],
-        form: {
-          select: ''
-        },
-        roomName: '',
-        roomDescription: '',
-        departmentName: '',
-        password: '',
-        switchVal: {
-          isBoard: false,
-          isCode: false,
-          isPassword: false
-        },
-        roomNo: this.$route.params.roomNo
-      }
-    },
-    mounted () {
-      this.getRoomInfo()
-    },
-    methods: {
-      postRoomInfo() {
-        let postData = {
-          'roomName': this.$refs.roomName.value,
-          'password': this.$refs.password.value,
-          'isBoard': this.switchVal.isBoard,
-          'isPassword': this.switchVal.isPassword,
-          'roomDescription': this.$refs.roomDescription.value,
-          'isCode': this.switchVal.isCode,
-          'roomId': this.roomNo,
-          'departmentName': this.$refs.departmentName.value
-        }
-        this.$axios.post('api/teacher/roomInfo',
-          this.$Qs.stringify(postData)
-        )
-          .then((response) => {
-            if (response.data.code !== '0000') {
-              alert(response.data.msg)
-            }
-          })
+import teacherFrame from '../components/teacherFrame'
+export default {
+  name: 'roomManage',
+  components: {
+    teacherFrame
+  },
+  data () {
+    return {
+      options: [
+        '计算机',
+        '软件工程',
+        '通信'
+      ],
+      form: {
+        select: ''
       },
-      getRoomInfo() {
-        this.$axios.request({
-          url: '/api/teacher/roomInfo',
-          params: {
-            'roomNo': this.$route.params.roomNo
-          },
-          method: 'get'
-        }).then((response) => {
-          this.roomName = response.data.roomName
-          this.roomDescription = response.data.roomDescription
-          this.password = response.data.password
-          this.switchVal.isBoard = response.data.isWhiteboard
-          this.switchVal.isCode = response.data.isCode
-          this.switchVal.isPassword = response.data.isPassword
-          this.form.select = response.data.departmentName
-        })
+      roomName: '',
+      roomDescription: '',
+      departmentName: '',
+      password: '',
+      switchVal: {
+        isBoard: false,
+        isCode: false,
+        isPassword: false
+      },
+      roomNo: this.$route.params.roomNo
+    }
+  },
+  mounted () {
+    this.getRoomInfo()
+  },
+  methods: {
+    postRoomInfo() {
+      let postData = {
+        'roomName': this.$refs.roomName.value,
+        'password': this.$refs.password.value,
+        'isBoard': this.switchVal.isBoard,
+        'isPassword': this.switchVal.isPassword,
+        'roomDescription': this.$refs.roomDescription.value,
+        'isCode': this.switchVal.isCode,
+        'roomId': this.roomNo,
+        'departmentName': this.$refs.departmentName.value
       }
+      this.$axios.post('api/teacher/roomInfo',
+        this.$Qs.stringify(postData)
+      )
+        .then((response) => {
+          if (response.data.code !== '0000') {
+            alert(response.data.msg)
+          }
+        })
+    },
+    getRoomInfo() {
+      this.$axios.request({
+        url: '/api/teacher/roomInfo',
+        params: {
+          'roomNo': this.$route.params.roomNo
+        },
+        method: 'get'
+      }).then((response) => {
+        this.roomName = response.data.roomName
+        this.roomDescription = response.data.roomDescription
+        this.password = response.data.password
+        this.switchVal.isBoard = response.data.isWhiteboard
+        this.switchVal.isCode = response.data.isCode
+        this.switchVal.isPassword = response.data.isPassword
+        this.form.select = response.data.departmentName
+      })
     }
   }
+}
 </script>
 
 <style scoped>
