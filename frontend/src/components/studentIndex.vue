@@ -1,6 +1,6 @@
 <template>
     <div>
-        <stuFrame :selected="''" :title="'首页'"></stuFrame>
+        <studentFrame :selected="''" :title="'首页'"></studentFrame>
         <mu-paper class="paperstu"  z-depth="4">
             <mu-form :model="form" class="mu-demo-form" :label-position="labelPosition" label-width="100">
                 <mu-form-item prop="select" label="专业院系">
@@ -11,8 +11,8 @@
             </mu-form>
             <mu-data-table :columns="columns"  v-bind:data="showList">
                 <template slot-scope="scope">
-                    <td>{{scope.row.name}}</td>
-                    <td>{{scope.row.description}}</td>
+                    <td>{{scope.row.roomName}}</td>
+                    <td>{{scope.row.roomDescription}}</td>
                     <td>{{scope.row.departmentName}}</td>
                     <td><mu-button v-bind:id="scope.row.roomNo" color="primary" @click="enterRoom">
                         加入房间
@@ -32,11 +32,11 @@
 </template>
 
 <script>
-import stuFrame from './studentFrame'
+import studentFrame from './studentFrame'
 export default {
-  name: 'stuIndex',
+  name: 'studentIndex',
   components: {
-    stuFrame
+    studentFrame
   },
   data () {
     return {
@@ -44,7 +44,7 @@ export default {
       alert: false,
       wrongPassword: false,
       options: [
-        '软件工程', '计算机', '通信', ' '
+        '软件工程', '计算机', '通信', '所有课程'
       ],
       password: '',
       form: {
@@ -120,7 +120,7 @@ export default {
     },
     onSelected () { // 选择框改变时触发的函数
       this.showList = []
-      if (this.form.select === ' ') this.showList = this.list
+      if (this.form.select === '所有课程') this.showList = this.list
       else {
         for (let i = 0; i < this.list.length; i++) {
           if (this.list[i].departmentName === this.form.select) {

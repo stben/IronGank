@@ -41,7 +41,7 @@
     </mu-alert>
     <mu-list class="list">
       <mu-list-item v-for="item in list" :key="item.roomId">
-        <span class="point">●</span> 房间&nbsp;{{item.roomId}}：{{item.roomName}}
+        <span class="point">●</span> 房间&nbsp;{{item.roomId}}：{{item.name}}
         <mu-button v-bind:id="item.roomId" color="primary" @click="getRoomInfo($event)" class="list-button1" flat>编辑</mu-button>
         <mu-button color="success" v-bind:id="item.roomId" @click="live" class="list-button2" flat>开播</mu-button>
       </mu-list-item>
@@ -67,7 +67,7 @@ export default {
       form: {
         select: ''
       },
-      roomName: '',
+      name: '',
       roomDescription: '',
       password: '',
       switchVal: {
