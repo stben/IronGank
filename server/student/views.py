@@ -57,12 +57,8 @@ def get_rooms(request):
             rooms = Room.objects.filter()
             all_rooms = []
             for i in rooms:
-                all_rooms.append({"roomNo": i.id,
-                                  "roomName": i.name,
-                                  "departmentName": i.college.name,
-                                  "roomDescription": i.description,
-                                  'isPassword': i.is_need_password,
-                                  'password': i.password})
+                all_rooms.append({"roomNo": i.id, "roomName": i.name, "departmentName": i.college.name,
+                                  "roomDescription": i.description, 'isPassword': i.is_need_password, 'password': i.password})
             data = {'code': '0000', 'msg': '获取成功', 'allRooms': all_rooms}
             return JsonResponse(data)
         except BaseException:
@@ -122,13 +118,8 @@ def student_enter(request):
                 return HttpResponse(json.dumps(data))
             student_in = RoomAndStudent.objects.filter(
                 room=rooms[0], student=students[0])
-            data = {
-                'code': '0000',
-                'myNo': students[0].sid,
-                'myName': students[0].user.first_name,
-                'myStatus': student_in[0].status,
-                'roomNo': room_id,
-                'roomName': rooms[0].name}
+            data = {'code': '0000', 'myNo': students[0].sid, 'myName': students[0].user.first_name,
+                    'myStatus': student_in[0].status, 'roomNo': room_id, 'roomName': rooms[0].name}
             return HttpResponse(json.dumps(data))
         except BaseException:
             data = {'code': '0002', 'msg': '未知错误'}
@@ -137,11 +128,14 @@ def student_enter(request):
 
 def send_msg(request):
     if request.method == 'POST':
+        try:
             mobile = request.POST.get('mobile')
             if mobile != '':
-                print(1)
                 sendClass = SendMsg()
                 data = sendClass.send_msg(mobile)
             else:
                 data = {'code': '0001', 'msg': '手机号格式有误！'}
+            return JsonResponse(data)
+        except Exception:
+            data = {'code': '0001', 'msg': '手机号格式有误！'}
             return JsonResponse(data)

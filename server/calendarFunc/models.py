@@ -51,14 +51,7 @@ class Calendar():
                 description=new_timetable_info.get('description'),
                 status=False,
             )
-            data = {'code': '0000',
-                    'roomNo': new_timetable_info.get('room_no'),
-                    'week': new_timetable_info.get('week'),
-                    'weekday': new_timetable_info.get('weekday'),
-                    'begin': new_timetable_info.get('begin'),
-                    'end': new_timetable_info.get('end'),
-                    'description': new_timetable_info.get('description'),
-                    }
+            data = {'code': '0000', 'msg': '创建成功'}
             return data
         except Exception:
             data = {'code': '0001', 'msg': '创建失败'}

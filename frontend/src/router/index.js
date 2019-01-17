@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import roomManage from '@/components/roomManage'
-import newRoom from '@/components/newRoom'
 import teacherIndex from '@/components/teacherIndex'
 import pickStudentAudit from '@/components/pickStudentAudit'
 import pickStudentAccepted from '@/components/pickStudentAccepted'
@@ -33,11 +32,6 @@ export default new Router({
       path: '/teacher/roomManage',
       name: 'roomManage',
       component: roomManage
-    },
-    {
-      path: '/teacher/newRoom',
-      name: 'newRoom',
-      component: newRoom
     },
     {
       path: '/teacher/pickStudent/audit',
