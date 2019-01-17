@@ -33,7 +33,7 @@
           </mu-row>
           <mu-row>
             <mu-form-item class="button">
-              <mu-button color="primary" @click="postRoomInfo" flat>创建</mu-button>
+              <mu-button color="primary" @click="createRoomInfo" flat>创建</mu-button>
             </mu-form-item>
           </mu-row>
         </mu-form>
@@ -68,7 +68,7 @@ export default {
       form: {
         select: ''
       },
-      name: '',
+      roomName: '',
       roomDescription: '',
       password: '',
       switchVal: {
@@ -81,9 +81,6 @@ export default {
   },
   mounted: function () {
     this.getTeacherRooms()
-    if (this.list.length === 0) {
-      this.style = 'position: absolute;margin: 10px 700px;width: 100px;font-size: 15px;z-index: -1;'
-    }
   },
   methods: {
     showAlert() {
@@ -99,28 +96,26 @@ export default {
       this.$axios.get('/api/teacher/teacherIndex')
         .then((response) => {
           this.list = response.data.roomList
+          if (this.list.length === 0) {
+            this.style = 'position: absolute;margin: 10px 700px;width: 100px;font-size: 15px;z-index: -1;'
+          }
         })
     },
-    postRoomInfo() {
+    createRoomInfo() {
       let postData = {
         'roomName': this.$refs.roomName.value,
-        'password': this.$refs.password.value,
+        'password': this.password,
         'isBoard': this.switchVal.isBoard,
         'isPassword': this.switchVal.isPassword,
         'roomDescription': this.$refs.roomDescription.value,
         'isCode': this.switchVal.isCode,
-        'roomId': this.roomNo,
         'departmentName': this.form.select
       }
       this.$axios.post('api/teacher/newRoom',
         this.$Qs.stringify(postData)
       )
         .then((response) => {
-          if (response.data.code === '0000') {
-            this.$router.push('index')
-          } else {
-            alert(response.data.msg)
-          }
+          alert(response.data.msg)
         })
     },
     live() {}
