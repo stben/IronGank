@@ -9,10 +9,10 @@
         <template slot-scope="item">
           <td>{{item.row.username}}</td>
           <td>
-            <mu-button flat color="success" v-bind:id="item.row.username" @click="agree($event)" class="agreebutton">通过</mu-button>
-            <mu-button flat color="error" v-bind:id="item.row.username" @click="disagree($event)" class="disagreebutton">拒绝</mu-button>
-            <span class="agreehint">已通过</span>
-            <span class="disagreehint">未通过</span>
+            <mu-button flat color="success" v-bind:id="item.row.username" @click="agree($event)" class="agree-button">通过</mu-button>
+            <mu-button flat color="error" v-bind:id="item.row.username" @click="disagree($event)">拒绝</mu-button>
+            <span class="agree-hint">已通过</span>
+            <span class="disagree-hint">未通过</span>
           </td>
         </template>
       </mu-data-table>
@@ -75,29 +75,26 @@ export default {
 
 <style scoped>
   .tabs{
-    margin: 100px auto;
+    margin: 100px 680px;
     width: 300px;
   }
   .paper{
-    margin: -80px auto;
-    width: 750px;
+    margin: -80px 400px;
+    width: 900px;
   }
-  .agreebutton{
-    margin: 0 50px;
+  .agree-button{
+    margin-left: 110px;
   }
-  .disagreebutton{
-    margin: 0 0;
-  }
-  .agreehint{
+  .agree-hint{
     display: none;
     color: #4caf50;
     width: 80px;
-    margin: 0 140px;
+    margin: 0 180px;
   }
-  .disagreehint{
+  .disagree-hint{
     display: none;
     color: #f44336;
     width: 80px;
-    margin: 0 140px;
+    margin: 0 180px;
   }
 </style>

@@ -39,6 +39,7 @@
         </mu-form>
       </mu-paper>
     </mu-alert>
+    <mu-list v-bind:style="style"><mu-list-item>暂无数据</mu-list-item></mu-list>
     <mu-list class="list">
       <mu-list-item v-for="item in list" :key="item.roomId">
         <span class="point">●</span> 房间&nbsp;{{item.roomId}}：{{item.name}}
@@ -74,11 +75,15 @@ export default {
         isBoard: false,
         isCode: false,
         isPassword: false
-      }
+      },
+      style: 'display:none'
     }
   },
   mounted: function () {
     this.getTeacherRooms()
+    if (this.list.length === 0) {
+      this.style = 'position: absolute;margin: 10px 700px;width: 100px;font-size: 15px;z-index: -1;'
+    }
   },
   methods: {
     showAlert() {

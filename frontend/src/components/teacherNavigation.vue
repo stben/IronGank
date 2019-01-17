@@ -18,11 +18,6 @@
           <mu-list-item-title class="title">直播间日历</mu-list-item-title>
         </mu-list-item>
       </mu-list>
-      <mu-list>
-        <mu-list-item button value="0" to="/teacher/index" class="return">
-          <mu-list-item-title class="title">返回首页</mu-list-item-title>
-        </mu-list-item>
-      </mu-list>
     </mu-paper>
   </div>
 </template>
@@ -44,8 +39,5 @@ export default {
   }
   .title{
     font-size: 13px;
-  }
-  .return{
-    margin-top: 400px;
   }
 </style>
