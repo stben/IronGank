@@ -10,6 +10,8 @@
                     v-bind:roomNo="roomNo"
                     v-bind:roomName="roomName" />
     </div>
+    <codemirror :roomNo='123'
+                v-bind:status="status" />
   </div>
 </template>
 
@@ -18,6 +20,7 @@ import stuFrame from '../components/studentFrame'
 import chattingRoom from '../components/chattingRoom'
 import teacherVideo from '../components/teacherVideo'
 import AgoraRTC from 'agora-rtc-sdk'
+import codemirror from '../components/codemirror'
 
 if (!AgoraRTC.checkSystemRequirements()) {
   alert('Your browser does not support WebRTC!')
@@ -38,7 +41,9 @@ export default {
       myName: 'asdsad',
       myStatus: false,
       roomNo: 12332113,
-      roomName: '123123'
+      roomName: '123123',
+      codemirror,
+      status: false
     }
   }
 }
