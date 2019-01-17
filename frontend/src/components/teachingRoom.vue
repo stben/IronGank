@@ -1,6 +1,6 @@
 <template>
   <div>
-    <stuFrame :selected="''" :title="'学生 '+stuNo+''"></stuFrame>
+    <stuFrame :selected="''" :title="直播间"></stuFrame>
     <chattingRoom></chattingRoom>
   </div>
 </template>

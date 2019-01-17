@@ -4,7 +4,8 @@
       <div class="msg-list">
         <ul class="msg-cont">
           <li v-for="item in getNewMsg" >
-            <span class="msg-cont-item" >{{item}}</span>
+            <span>{{item.myName}}</span>
+            <span class="msg-cont-item" >{{item.msg}}</span>
           </li>
         </ul>
       </div>
@@ -33,7 +34,7 @@ export default {
   components: {
   },
   mounted () {
-    SocketInsatnce.on('getMsg', (msg) => {
+    SocketInsatnce.on('getChatMsg', (msg) => {
       this.getNewMsg.push(msg)
       console.log(this.getNewMsg)
     })
@@ -44,7 +45,8 @@ export default {
       getNewMsg: [],
       roomNo: '123',
       myMsg: '',
-      stuNo: 1
+      stuNo: 1,
+      myName: 'name'
     }
   },
   methods: {
@@ -53,9 +55,13 @@ export default {
       e.preventDefault() // prevents page reloading
     },
     sendMsg: function (e) {
-      SocketInsatnce.emit('sendMsg', { 'roomNo': this.roomNo, 'msg': this.myMsg })
+      SocketInsatnce.emit('sendChatMsg', { 'roomNo': this.roomNo, 'myName': this.myName, 'msg': this.myMsg })
       e.preventDefault() // prevents page reloading
-      this.getNewMsg.push(this.myMsg)
+      let data = {
+        'myName': this.myName + '1',
+        'msg': this.myMsg
+      }
+      this.getNewMsg.push(data)
       console.log(this.getNewMsg)
     }
   }
@@ -79,6 +85,7 @@ export default {
   .msg-list{
     height: 600px;
     border: 10px solid #58B7FF;
+    overflow: auto;
   }
   .msg-input{
     height: 100px;
