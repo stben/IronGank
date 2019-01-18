@@ -1,8 +1,10 @@
-from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.models import User, auth
-from .models import *
-from teacher.models import *
+from .models import SendMsg
+from .models import Student
+from teacher.models import Room
+from teacher.models import RoomAndTeacher
+from teacher.models import RoomAndStudent
 from django.db import transaction
 import json
 
@@ -131,8 +133,8 @@ def send_msg(request):
         try:
             mobile = request.POST.get('mobile')
             if mobile != '':
-                sendClass = SendMsg()
-                data = sendClass.send_msg(mobile)
+                send_class = SendMsg()
+                data = send_class.send_msg(mobile)
             else:
                 data = {'code': '0001', 'msg': '手机号格式有误！'}
             return JsonResponse(data)

@@ -1,6 +1,10 @@
 from django.contrib import admin
-from teacher.models import *
-
+from teacher.models import College
+from teacher.models import Room
+from teacher.models import TimeTable
+from teacher.models import RoomAndTeacher
+from teacher.models import RoomAndStudent
+from teacher.models import ListOfForbiddenStudents
 
 admin.site.site_title = '后台管理'
 admin.site.site_header = '后台管理'

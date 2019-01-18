@@ -2,7 +2,12 @@ from django.contrib.auth.models import auth
 from django.http import HttpResponse
 import re
 import json
-from teacher.models import *
+from teacher.models import ListOfForbiddenStudents
+from teacher.models import RoomAndStudent
+from teacher.models import RoomAndTeacher
+from teacher.models import User
+from teacher.models import Room
+from teacher.models import College
 from student.models import Student
 from django.db import transaction
 from django.http import JsonResponse

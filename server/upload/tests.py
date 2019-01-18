@@ -2,6 +2,7 @@ from django.test import TestCase
 
 # Create your tests here.
 
+
 class UploadTest(TestCase):
     def test_redirects_after_POST(self):
         response = self.client.post('/upload/')
@@ -10,4 +11,4 @@ class UploadTest(TestCase):
 
     def test_upload_no_file(self):
         response = self.client.post('/upload/')
-        self.assertTrue(self.client.session['message'],'Upload error!')
+        self.assertTrue(self.client.session['message'], 'Upload error!')
