@@ -116,7 +116,6 @@ export default {
         })
     },
     live(e) {
-      console.log(e.currentTarget.id + ' ' + e.currentTarget.name)
       this.$router.push({ name: 'teachingRoom', params: {roomNo: e.currentTarget.id, roomName: e.currentTarget.name} })
     }
   }

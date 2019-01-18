@@ -79,7 +79,7 @@ export default {
       let postData = {
         'roomNo': this.$route.params.roomNo
       }
-      this.$axios.post('api/teacher/timeTable',
+      this.$axios.post('/api/teacher/timeTable',
         this.$Qs.stringify(postData)
       ).then((response) => {
         this.timeTableList = response.data.timeTableList
@@ -87,14 +87,14 @@ export default {
     },
     postTimeInfo(e) {
       let postdata = this.timeTableList[e.currentTarget.id - 1]
-      this.$axios.post('api/teacher/modifyTimeTable',
+      this.$axios.post('/api/teacher/modifyTimeTable',
         this.$Qs.stringify(postdata)
       ).then((response) => {
         alert(response.data.msg)
       })
     },
     createTimeInfo() {
-      this.$axios.post('api/teacher/newTimeTable',
+      this.$axios.post('/api/teacher/newTimeTable',
         this.$Qs.stringify(this.validateForm)
       ).then((response) => {
         alert(response.data.msg)
