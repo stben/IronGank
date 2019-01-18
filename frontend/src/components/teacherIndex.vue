@@ -108,7 +108,7 @@ export default {
         'isCode': this.switchVal.isCode,
         'departmentName': this.form.select
       }
-      this.$axios.post('api/teacher/newRoom',
+      this.$axios.post('/api/teacher/newRoom',
         this.$Qs.stringify(postData)
       )
         .then((response) => {
