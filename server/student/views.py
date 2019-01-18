@@ -20,7 +20,9 @@ def register(request):
                 tel = request.POST.get('tel')
                 first_name = request.POST.get('firstName')
                 new_user = User.objects.create_user(
-                    username=tel, password=password, first_name=first_name)
+                    username=tel,
+                    password=password,
+                    first_name=first_name)
                 student = Student(sid=sid, user=new_user)
                 student.save()
                 data = {'code': '0000', 'msg': '注册成功'}
@@ -34,10 +36,12 @@ def student_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         if len(username) != 11:
-            data = {'code': '0002', 'msg': '请输入正确格式的用户名（手机号）'}
+            data = {'code': '0002',
+                    'msg': '请输入正确格式的用户名（手机号）'}
             return HttpResponse(json.dumps(data))
         password = request.POST.get('password')
-        user = auth.authenticate(username=username, password=password)
+        user = auth.authenticate(username=username,
+                                 password=password)
         if user is not None and user.is_active:
             auth.login(request, user)
             data = {'code': '0000', 'msg': '登录成功'}
@@ -59,9 +63,14 @@ def get_rooms(request):
             rooms = Room.objects.filter()
             all_rooms = []
             for i in rooms:
-                all_rooms.append({"roomNo": i.id, "roomName": i.name, "departmentName": i.college.name,
-                                  "roomDescription": i.description, 'isPassword': i.is_need_password, 'password': i.password})
-            data = {'code': '0000', 'msg': '获取成功', 'allRooms': all_rooms}
+                all_rooms.append({"roomNo": i.id, "roomName": i.name,
+                                  "departmentName": i.college.name,
+                                  "roomDescription": i.description,
+                                  'isPassword': i.is_need_password,
+                                  'password': i.password})
+            data = {'code': '0000',
+                    'msg': '获取成功',
+                    'allRooms': all_rooms}
             return JsonResponse(data)
         except BaseException:
             data = {'code': '0001', 'msg': '未知错误'}
@@ -120,8 +129,10 @@ def student_enter(request):
                 return HttpResponse(json.dumps(data))
             student_in = RoomAndStudent.objects.filter(
                 room=rooms[0], student=students[0])
-            data = {'code': '0000', 'myNo': students[0].sid, 'myName': students[0].user.first_name,
-                    'myStatus': student_in[0].status, 'roomNo': room_id, 'roomName': rooms[0].name}
+            data = {'code': '0000', 'myNo': students[0].sid,
+                    'myName': students[0].user.first_name,
+                    'myStatus': student_in[0].status,
+                    'roomNo': room_id, 'roomName': rooms[0].name}
             return HttpResponse(json.dumps(data))
         except BaseException:
             data = {'code': '0002', 'msg': '未知错误'}
