@@ -121,7 +121,7 @@ export default {
   methods: {
     postRegister: function () {
       this.$refs.form.validate().then((result) => {
-        if (result !== 'false') {
+        if (result === true) {
           let postData = {
             'student_id': this.validateForm.sid,
             'tel': this.validateForm.tel,
