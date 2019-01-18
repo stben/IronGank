@@ -65,17 +65,12 @@ export default {
           console.log('User ' + uid + ' join channel successfully')
 
           let localStream = AgoraRTC.createStream({ streamID: uid, audio: true, video: true, screen: false })
-
-          // The user has granted access to the camera and mic.
           localStream.on('accessAllowed', function () {
             console.log('accessAllowed')
           })
-
-          // The user has denied access to the camera and mic.
           localStream.on('accessDenied', function () {
             console.log('accessDenied')
           })
-
           localStream.init(function () {
             console.log('getUserMedia successfully')
             localStream.play('agora_local')

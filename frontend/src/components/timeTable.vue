@@ -44,7 +44,6 @@
     </mu-expansion-panel>
   </div>
 </template>
-
 <script>
 import teacherFrame from './teacherFrame'
 export default {

@@ -42,7 +42,6 @@ export default {
     SocketInsatnce.emit('updateMyList', this.roomNo)
     let self = this
     this.buttonInfo = this.inQueue ? '离开队列' : '加入队列'
-    // this.stuList = this.stuList
     SocketInsatnce.emit('joinRoom', this.roomNo)
     SocketInsatnce.on('updateList', (data) => {
       if (data.indexOf(self.myName) !== -1) {
@@ -64,9 +63,7 @@ export default {
       if (this.inQueue) {
         let index = this.stuList.indexOf(this.myName)
         if (index > -1) {
-          // console.log(this.stuList)
           this.stuList.splice(index, 1)
-          // console.log(this.stuList)
         }
         this.inQueue = !this.inQueue
       } else {

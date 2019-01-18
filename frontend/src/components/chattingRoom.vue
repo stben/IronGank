@@ -3,7 +3,7 @@
     <div class="wrap-main">
       <div class="msg-list">
         <ul class="msg-cont">
-          <li v-for="item in getNewMsg">
+          <li v-for="item in getNewMsg" :key="item">
             <span>{{item.myName}}</span>
             <span class="msg-cont-item">{{item.msg}}</span>
           </li>
@@ -43,7 +43,6 @@ export default {
       console.log(this.getNewMsg)
     })
   },
-  /* props: [, 'myName', 'myNo', 'roomNo', 'roomName', 'videoStatus'], */
   data () {
     return {
       getNewMsg: [],
@@ -56,11 +55,11 @@ export default {
   methods: {
     joinRoom: function (e) {
       SocketInsatnce.emit('joinRoom', this.roomNo)
-      e.preventDefault() // prevents page reloading
+      e.preventDefault()
     },
     sendMsg: function (e) {
       SocketInsatnce.emit('sendChatMsg', { 'roomNo': this.roomNo, 'myName': this.myName, 'msg': this.myMsg })
-      e.preventDefault() // prevents page reloading
+      e.preventDefault()
       let data = {
         'myName': this.myName + '1',
         'msg': this.myMsg
