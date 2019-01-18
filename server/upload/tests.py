@@ -1,9 +1,11 @@
+"""the test of upload exl"""
 from django.test import TestCase
 
 # Create your tests here.
 
 
 class UploadTest(TestCase):
+    """the function of uploading test"""
     def test_redirects_after_POST(self):
         response = self.client.post('/upload/')
         self.assertEqual(response.status_code, 302)

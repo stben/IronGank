@@ -1,12 +1,13 @@
+"""student models"""
 from django.db import models
 from random import choice
 import requests
 import json
-
 from django.contrib.auth.models import User
 
 
 class Student(models.Model):
+    """the class of student"""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     sid = models.CharField(max_length=20)
 
@@ -15,6 +16,7 @@ class Student(models.Model):
 
 
 class YunPian(object):
+    """the class of yun pian"""
     def __init__(self):
         self.APIKEY = "2c5f71b0dcda3c494893430c577b5225"
         self.single_send_url =\
@@ -32,7 +34,9 @@ class YunPian(object):
 
 
 class SendMsg(object):
+    """the class of send message"""
     def send_msg(self, mobile):
+        """the function of sending message"""
         seeds = "1234567890"
         random_str = []
         for i in range(4):

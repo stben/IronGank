@@ -1,15 +1,18 @@
+"""calendarFunc models"""
 from teacher.models import TimeTable
 from teacher.models import Room
 
 
 class Calendar:
-
+    """the class of calendar"""
     def start_bigger_than_end(self, start_time, end_time):
+        """the function of comparing start time and end time"""
         start_int = int(start_time.split(":")[0])
         end_int = int(end_time.split(":")[0])
         return start_int > end_int
 
     def get_list_of_timetable(self, room_no):
+        """the function of getting list of timetable"""
         try:
             room = Room.objects.get(id=int(room_no))
             list_of_timetable = TimeTable.objects.filter(room=room)
@@ -33,6 +36,7 @@ class Calendar:
             return data
 
     def add_new_timetable(self, new_timetable_info):
+        """the function of adding new timetable"""
         try:
             its_room_id = int(new_timetable_info.get('room_no'))
             its_room = Room.objects.get(id=its_room_id)
@@ -57,6 +61,7 @@ class Calendar:
             return data
 
     def delete_timetable(self, delete_timetable_info):
+        """the function of deleting timetable"""
         try:
             delete_timetable_id = int(
                 delete_timetable_info.get('time_table_id'))
@@ -69,6 +74,7 @@ class Calendar:
             return data
 
     def modify_timetable(self, new_info):
+        """the function  of  modifying timetable"""
         try:
             if self.start_bigger_than_end(
                     new_info.get('begin'), new_info.get('end')):

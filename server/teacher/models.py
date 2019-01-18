@@ -1,9 +1,11 @@
+"""teacher models"""
 from django.db import models
 from django.contrib.auth.models import User
 from student.models import Student
 
 
 class College(models.Model):
+    """the class of College"""
     name = models.CharField('院系名', max_length=100, unique=True)
     college_id = models.CharField('院系号', max_length=100, unique=True)
 
@@ -16,6 +18,7 @@ class College(models.Model):
 
 
 class Room(models.Model):
+    """the class of room"""
     name = models.CharField('房间名', max_length=100)
     college = models.ForeignKey(
         College,
@@ -39,6 +42,7 @@ class Room(models.Model):
 
 
 class TimeTable(models.Model):
+    """the class of timetable"""
     room = models.ForeignKey(
         Room,
         on_delete=models.CASCADE,
@@ -62,6 +66,7 @@ class TimeTable(models.Model):
 
 
 class RoomAndTeacher(models.Model):
+    """the class of room and teacher"""
     room = models.ForeignKey(
         Room,
         on_delete=models.CASCADE,
@@ -78,6 +83,7 @@ class RoomAndTeacher(models.Model):
 
 
 class RoomAndStudent(models.Model):
+    """the class of room and student"""
     room = models.ForeignKey(
         Room,
         on_delete=models.CASCADE,
@@ -95,6 +101,7 @@ class RoomAndStudent(models.Model):
 
 
 class ListOfForbiddenStudents(models.Model):
+    """the class of ListOfForbiddenStudents"""
     room = models.ForeignKey(
         Room,
         on_delete=models.CASCADE,
