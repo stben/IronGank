@@ -59,7 +59,7 @@ export default {
         { title: '直播', width: 120, align: 'center' }
       ],
       list: [],
-      showList: [] // 需要展示出来的列表
+      showList: []
     }
   },
   mounted() {
@@ -115,7 +115,7 @@ export default {
         this.showList = response.data.allRooms
       })
     },
-    onSelected () { // 选择框改变时触发的函数
+    onSelected () {
       this.showList = []
       if (this.form.select === '所有课程') this.showList = this.list
       else {

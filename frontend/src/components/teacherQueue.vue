@@ -55,7 +55,7 @@ export default {
   methods: {
     sendMsg (data, e) {
       SocketInsatnce.emit('sendMsg', { 'roomNo': this.roomNo, 'msg': this.myMsg, 'command': data.command })
-      e.preventDefault() // prevents page reloading
+      e.preventDefault()
     },
     updateOurList: function () {
       let data = { 'roomNo': this.roomNo, 'msg': this.stuInfoList }
@@ -64,12 +64,10 @@ export default {
     upThisStudent (stuName) {
       let hisIndex = this.stuInfoList.indexOf(stuName)
       if (hisIndex !== 0) {
-        // 交换第x个和第y个元素
-        // x < y
         let x = hisIndex
         let y = hisIndex + 1
         this.stuInfoList.splice(x - 1, 1, ...this.stuInfoList.splice(y - 1, 1, this.stuInfoList[x - 1]))
-        console.log(this.stuInfoList) /// [1,2,4,3,5]
+        console.log(this.stuInfoList)
         this.updateOurList()
       } else {
         this.goTopThisStudent(stuName)
@@ -77,12 +75,10 @@ export default {
     },
     downThisStudent (stuName) {
       let hisIndex = this.stuInfoList.indexOf(stuName)
-      // 交换第x个和第y个元素
-      // x < y
       let x = hisIndex + 1
       let y = hisIndex + 2
       this.stuInfoList.splice(x - 1, 1, ...this.stuInfoList.splice(y - 1, 1, this.stuInfoList[x - 1]))
-      console.log(this.stuInfoList) /// [1,2,4,3,5]
+      console.log(this.stuInfoList)
       this.updateOurList()
     },
     goTopThisStudent (stuName) {

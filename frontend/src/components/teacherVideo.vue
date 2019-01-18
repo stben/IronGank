@@ -45,17 +45,12 @@ export default {
           console.log('User ' + uid + ' join channel successfully')
 
           let localStream = AgoraRTC.createStream({ streamID: uid, audio: true, video: true, screen: false })
-
-          // The user has granted access to the camera and mic.
           localStream.on('accessAllowed', function () {
             console.log('accessAllowed')
           })
-
-          // The user has denied access to the camera and mic.
           localStream.on('accessDenied', function () {
             console.log('accessDenied')
           })
-
           localStream.init(function () {
             console.log('getUserMedia successfully')
             localStream.play('agora_local')
@@ -66,7 +61,6 @@ export default {
             client.publish(localStream, function (err) {
               console.log('Publish local stream error: ' + err)
             })
-
             client.on('stream-published', function (evt) {
               console.log('Publish local stream successfully')
             })
@@ -79,7 +73,6 @@ export default {
       }, function (err) {
         console.log('AgoraRTC client init failed', err)
       })
-
       channelKey = ''
       client.on('error', function (err) {
         console.log('Got error msg:', err.reason)
@@ -91,7 +84,6 @@ export default {
           })
         }
       })
-
       client.on('stream-added', function (evt) {
         var stream = evt.stream
         console.log('New stream added: ' + stream.getId())
@@ -100,7 +92,6 @@ export default {
           console.log('Subscribe stream failed', err)
         })
       })
-
       client.on('stream-subscribed', function (evt) {
         var stream = evt.stream
         console.log('Subscribe remote stream successfully: ' + stream.getId())
@@ -110,13 +101,11 @@ export default {
           videos[i].style.left = '0'
         }
       })
-
       client.on('stream-removed', function (evt) {
         var stream = evt.stream
         stream.stop()
         console.log('Remote stream is removed ' + stream.getId())
       })
-
       client.on('peer-leave', function (evt) {
         var stream = evt.stream
         if (stream) {
