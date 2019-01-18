@@ -1,6 +1,18 @@
 from django.urls import path
-from teacher.views import *
-from calendarFunc.views import *
+from teacher.views import teacher_login
+from teacher.views import teacher_logout
+from teacher.views import create_new_room
+from teacher.views import all_room
+from teacher.views import get_view_rooms
+from teacher.views import get_room_info
+from teacher.views import get_student_in_room
+from teacher.views import ban_stu_list
+from teacher.views import teacher_room
+
+from calendarFunc.views import get_list_of_timetable
+from calendarFunc.views import add_new_timetable
+from calendarFunc.views import delete_timetable
+from calendarFunc.views import modify_timetable
 
 urlpatterns = [
     path('teacherLogin', teacher_login),

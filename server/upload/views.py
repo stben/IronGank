@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 # 用例导入

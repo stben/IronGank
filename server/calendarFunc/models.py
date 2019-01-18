@@ -1,9 +1,8 @@
-from teacher.models import *
+from teacher.models import TimeTable
+from teacher.models import Room
 
-# Create your models here.
 
-
-class Calendar():
+class Calendar:
 
     def start_bigger_than_end(self, start_time, end_time):
         start_int = int(start_time.split(":")[0])

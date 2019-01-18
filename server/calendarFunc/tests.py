@@ -1,8 +1,9 @@
 from django.test import TestCase
-from django.test import Client
 
-from teacher.models import *
-from calendarFunc.models import *
+from teacher.models import College
+from teacher.models import Room
+from teacher.models import TimeTable
+from calendarFunc.models import Calendar
 
 
 class CalendarTestCase(TestCase):
