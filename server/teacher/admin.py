@@ -21,8 +21,13 @@ class CollegeAdmin(admin.ModelAdmin):
 
 @admin.register(Room)
 class RoomAdmin(admin.ModelAdmin):
-    list_display = ['name', 'college', 'password', 'description', 'is_need_whiteboard',
-                    'is_need_code_editor', 'is_need_password']
+    list_display = ['name',
+                    'college',
+                    'password',
+                    'description',
+                    'is_need_whiteboard',
+                    'is_need_code_editor',
+                    'is_need_password']
 
 
 @admin.register(TimeTable)

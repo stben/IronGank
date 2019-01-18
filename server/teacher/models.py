@@ -21,7 +21,10 @@ class Room(models.Model):
         College,
         on_delete=models.CASCADE,
         verbose_name='所属院系')
-    password = models.CharField('房间密码', max_length=16, null=True, blank=True)
+    password = models.CharField('房间密码',
+                                max_length=16,
+                                null=True,
+                                blank=True)
     description = models.CharField('房间描述', max_length=1000)
     is_need_whiteboard = models.BooleanField('是否有白板')
     is_need_code_editor = models.BooleanField('是否有代码编辑器')
@@ -42,9 +45,15 @@ class TimeTable(models.Model):
         verbose_name='房间名')
     class_week = models.IntegerField('周数')
     class_day = models.IntegerField('工作日')
-    begin = models.CharField('起始时间', max_length=100, default="10:00")
-    end = models.CharField('截至时间', max_length=100, default="11:00")
-    description = models.CharField('房间描述', max_length=1000, blank=True)
+    begin = models.CharField('起始时间',
+                             max_length=100,
+                             default="10:00")
+    end = models.CharField('截至时间',
+                           max_length=100,
+                           default="11:00")
+    description = models.CharField('房间描述',
+                                   max_length=1000,
+                                   blank=True)
     status = models.BooleanField('开放状态', default=False)
 
     class Meta:

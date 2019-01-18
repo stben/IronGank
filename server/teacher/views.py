@@ -63,8 +63,12 @@ def create_new_room(request):
             return HttpResponse(json.dumps(data))
         try:
             with transaction.atomic():
-                room = Room(name=room_name, college=college[0], password=password, description=description,
-                            is_need_whiteboard=is_need_whiteboard, is_need_password=is_need_password,
+                room = Room(name=room_name,
+                            college=college[0],
+                            password=password,
+                            description=description,
+                            is_need_whiteboard=is_need_whiteboard,
+                            is_need_password=is_need_password,
                             is_need_code_editor=is_need_code_editor)
                 room.save()
                 owner = RoomAndTeacher(user=user, room=room, status=1)
@@ -114,9 +118,15 @@ def get_room_info(request):
             data = {'code': '0001', 'msg': '你的房间不存在或已注销'}
             return HttpResponse(json.dumps(data))
         room = room_list[0]
-        data = {'code': '0000', 'msg': '获取成功', 'roomName': room.name, 'roomId': room.id,
-                'departmentName': room.college.name, 'password': room.password, 'roomDescription': room.description,
-                'isWhiteboard': room.is_need_code_editor, 'isCode': room.is_need_code_editor,
+        data = {'code': '0000',
+                'msg': '获取成功',
+                'roomName': room.name,
+                'roomId': room.id,
+                'departmentName': room.college.name,
+                'password': room.password,
+                'roomDescription': room.description,
+                'isWhiteboard': room.is_need_code_editor,
+                'isCode': room.is_need_code_editor,
                 'isPassword': room.is_need_password}
         return HttpResponse(json.dumps(data))
     if request.method == 'POST':
@@ -168,10 +178,12 @@ def get_student_in_room(request):
         for stu in stu_list:
             if stu.status == 1:
                 audit_list.append(
-                    {'stuName': stu.student.user.get_full_name(), 'stuNo': stu.student.sid})
+                    {'stuName': stu.student.user.get_full_name(),
+                     'stuNo': stu.student.sid})
             if stu.status == 0:
                 accept_list.append(
-                    {'stuName': stu.student.user.get_full_name(), 'stuNo': stu.student.sid})
+                    {'stuName': stu.student.user.get_full_name(),
+                     'stuNo': stu.student.sid})
         data = {
             'code': '0000',
             'auditList': audit_list,
@@ -260,13 +272,15 @@ def teacher_room(request):
         list_application = []
         for item in teacher_application:
             list_application.append(
-                {'username': item.user.username, 'name': item.user.first_name})
+                {'username': item.user.username,
+                 'name': item.user.first_name})
         teacher_acceptions = RoomAndTeacher.objects.filter(
             room=rooms[0], status=2)
         list_acceptions = []
         for item in teacher_acceptions:
             list_acceptions.append(
-                {'username': item.user.username, 'name': item.user.first_name})
+                {'username': item.user.username,
+                 'name': item.user.first_name})
         data = {
             'code': '0001',
             'acceptedList': list_acceptions,

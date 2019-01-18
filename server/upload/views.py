@@ -37,7 +37,9 @@ def open_excel(file='file.xlsx'):
         return data
     except Exception as e:
         print(str(e))
-# 根据索引获取Excel表格中的数据   参数:file：Excel文件路径     colnameindex：表头列名所在行的所以
+# 根据索引获取Excel表格中的数据
+# 参数:file：Excel文件路径
+# colnameindex：表头列名所在行的所以
 # ，by_index：表的索引
 
 
@@ -57,7 +59,9 @@ def excel_table_by_index(file='', colnameindex=0, by_index=0):
             list.append(app)
     return list
 
-# 根据名称获取Excel表格中的数据   参数:file：Excel文件路径     colnameindex：表头列名所在行的所以
+# 根据名称获取Excel表格中的数据
+# 参数:file：Excel文件路径
+# colnameindex：表头列名所在行的所以
 # ，by_name：Sheet1名称
 
 

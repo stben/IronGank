@@ -17,7 +17,8 @@ class Student(models.Model):
 class YunPian(object):
     def __init__(self):
         self.APIKEY = "2c5f71b0dcda3c494893430c577b5225"
-        self.single_send_url = 'https://sms.yunpian.com/v2/sms/single_send.json'
+        self.single_send_url =\
+            'https://sms.yunpian.com/v2/sms/single_send.json'
 
     def send_sms(self, code, mobile):
         parmas = {
