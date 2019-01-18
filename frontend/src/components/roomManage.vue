@@ -78,13 +78,11 @@ export default {
         'roomId': this.roomNo,
         'departmentName': this.$refs.departmentName.value
       }
-      this.$axios.post('api/teacher/roomInfo',
+      this.$axios.post('/api/teacher/roomInfo',
         this.$Qs.stringify(postData)
       )
         .then((response) => {
-          if (response.data.code !== '0000') {
-            alert(response.data.msg)
-          }
+          alert(response.data.msg)
         })
     },
     getRoomInfo() {
