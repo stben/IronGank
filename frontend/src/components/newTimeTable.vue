@@ -1,7 +1,6 @@
 <template>
   <div id="newTimeTable">
     <mu-paper :z-depth="3" class="paper">
-
     </mu-paper>
   </div>
 </template>
