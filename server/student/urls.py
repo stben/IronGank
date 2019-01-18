@@ -1,3 +1,4 @@
+"""student urls"""
 from django.urls import path
 from student.views import register
 from student.views import student_login

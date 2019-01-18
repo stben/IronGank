@@ -1,3 +1,4 @@
+"""teacher urls"""
 from django.urls import path
 from teacher.views import teacher_login
 from teacher.views import teacher_logout

@@ -1,9 +1,10 @@
+"""calendar test views"""
 from django.http import JsonResponse
 from calendarFunc.models import Calendar
-# Create your views here.
 
 
 def get_list_of_timetable(request):
+    """the function of getting list of timetable"""
     if request.method == 'POST':
         room_no = request.POST.get('roomNo')
         calendar = Calendar()
@@ -12,6 +13,7 @@ def get_list_of_timetable(request):
 
 
 def add_new_timetable(request):
+    """the function of adding new timetable"""
     if request.method == 'POST':
         room_no = request.POST.get('roomNo')
         week = request.POST.get('week')
@@ -33,6 +35,7 @@ def add_new_timetable(request):
 
 
 def delete_timetable(request):
+    """the function of deleting timetable"""
     if request.method == 'POST':
         room_no = request.POST.get('roomNo')
         time_no = request.POST.get('timeNo')
@@ -48,6 +51,7 @@ def delete_timetable(request):
 
 
 def modify_timetable(request):
+    """the function of modifying timetable"""
     if request.method == 'POST':
         time_table_id = request.POST.get('timeTableId')
         week = request.POST.get('week')

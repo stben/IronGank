@@ -1,3 +1,4 @@
+"""teacher views"""
 from django.contrib.auth.models import auth
 from django.http import HttpResponse
 import re
@@ -15,6 +16,7 @@ from django.http import JsonResponse
 
 
 def teacher_login(request):
+    """the function of teacher login"""
     if request.method == 'POST':
         username = request.POST.get('username')
         if re.match(
@@ -33,12 +35,14 @@ def teacher_login(request):
 
 
 def teacher_logout(request):
+    """the function of teacher logout"""
     auth.logout(request)
     data = {'code': '0000', 'msg': '退出成功'}
     return HttpResponse(json.dumps(data))
 
 
 def create_new_room(request):
+    """the function of creating new room"""
     if request.method == 'POST':
         room_name = request.POST.get('roomName')
         college_name = request.POST.get('departmentName')
@@ -81,6 +85,7 @@ def create_new_room(request):
 
 
 def all_room(request):
+    """the function of listing all room"""
     if request.method == 'GET':
         room = Room.objects.all()
         all_room_list = []
@@ -94,6 +99,7 @@ def all_room(request):
 
 
 def get_view_rooms(request):
+    """the function of getting rooms' views"""
     if request.method == 'GET':
         username = request.user.username
         user = User.objects.filter(username=username)
@@ -111,6 +117,7 @@ def get_view_rooms(request):
 
 
 def get_room_info(request):
+    """the function of getting room information"""
     if request.method == 'GET':
         room_id = request.GET.get('roomNo')
         room_list = Room.objects.filter(id=int(room_id))
@@ -166,6 +173,7 @@ def get_room_info(request):
 
 
 def get_student_in_room(request):
+    """the function of getting students in the room"""
     if request.method == 'GET':
         room_id = int(request.GET.get('roomNo'))
         room_list = Room.objects.filter(id=room_id)
@@ -230,6 +238,7 @@ def get_student_in_room(request):
 
 
 def ban_stu_list(request):
+    """the function of getting the list of ban students and deleting the student in the list"""
     if request.method == 'GET':
         try:
             room_id = request.GET.get('roomNo')
@@ -261,6 +270,7 @@ def ban_stu_list(request):
 
 
 def teacher_room(request):
+    """the function of coming in teacher room"""
     if request.method == "GET":
         room_id = request.GET.get('roomNo')
         rooms = Room.objects.filter(id=int(room_id))

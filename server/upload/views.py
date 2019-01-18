@@ -1,16 +1,13 @@
+"""upload views"""
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-
-# Create your views here.
-# 用例导入
-
-
 from server import settings
 
 import xlrd
 
 
 def upload_file(request):
+    """the function of upload files"""
     if request.method == "POST":    # 请求方法为POST时，进行处理
 
         myFile = request.FILES.get(
@@ -32,6 +29,7 @@ def upload_file(request):
 
 
 def open_excel(file='file.xlsx'):
+    """the function of opening excel """
     try:
         data = xlrd.open_workbook(file)
         return data
@@ -44,6 +42,7 @@ def open_excel(file='file.xlsx'):
 
 
 def excel_table_by_index(file='', colnameindex=0, by_index=0):
+    """the function of getting data by index"""
     data = open_excel(file)
     table = data.sheets()[by_index]
     nrows = table.nrows  # 行数
@@ -66,6 +65,7 @@ def excel_table_by_index(file='', colnameindex=0, by_index=0):
 
 
 def excel_table_by_name(file='', colnameindex=0, by_name=u'Sheet1'):
+    """the function of getting data by name"""
     data = open_excel(file)
     table = data.sheet_by_name(by_name)
     nrows = table.nrows  # 行数
@@ -82,6 +82,7 @@ def excel_table_by_name(file='', colnameindex=0, by_name=u'Sheet1'):
 
 
 def main(file):
+    """the main function"""
     tables = excel_table_by_index(file)
     for one in tables:
         for k in one.values():

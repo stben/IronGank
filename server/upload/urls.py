@@ -1,3 +1,4 @@
+"""upload urls"""
 from django.urls import path
 from upload.views import upload_file
 

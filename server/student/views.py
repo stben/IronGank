@@ -1,3 +1,4 @@
+"""student views"""
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.models import User, auth
 from .models import SendMsg
@@ -8,10 +9,9 @@ from teacher.models import RoomAndStudent
 from django.db import transaction
 import json
 
-# Create your views here.
-
 
 def register(request):
+    """the function of register"""
     if request.method == 'POST':
         try:
             with transaction.atomic():
@@ -33,6 +33,7 @@ def register(request):
 
 
 def student_login(request):
+    """the function of student login"""
     if request.method == 'POST':
         username = request.POST.get('username')
         if len(username) != 11:
@@ -52,12 +53,14 @@ def student_login(request):
 
 
 def student_logout(request):
+    """the function of student logout"""
     auth.logout(request)
     data = {'code': '0000', 'msg': '退出成功'}
     return HttpResponse(json.dumps(data))
 
 
 def get_rooms(request):
+    """the function of getting rooms"""
     if request.method == 'GET':
         try:
             rooms = Room.objects.filter()
@@ -78,6 +81,7 @@ def get_rooms(request):
 
 
 def add_student_room(request):
+    """the function of adding student room"""
     if request.method == 'GET':
         try:
             room_id = request.GET.get('roomNo')
@@ -119,6 +123,7 @@ def add_student_room(request):
 
 
 def student_enter(request):
+    """the function of student enter"""
     if request.method == 'GET':
         try:
             room_id = request.GET.get('roomNo')
@@ -140,6 +145,7 @@ def student_enter(request):
 
 
 def send_msg(request):
+    """the function of sending message"""
     if request.method == 'POST':
         try:
             mobile = request.POST.get('mobile')
