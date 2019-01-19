@@ -70,11 +70,12 @@ export default {
       let roomNo = e.currentTarget.id
       for (let item of this.list) {
         if (item.roomNo + '' === roomNo) {
+          this.indexRoom = roomNo
           if (item.isPassword === true) {
-            this.indexRoom = roomNo
             this.alert = true
           } else {
-            this.$router.push({ name: '/student/teachingRoom', params: {roomNo: this.indexRoom} })
+            console.log(roomNo)
+            this.$router.push({ name: 'studentStudyRoom', params: {roomNo: roomNo} })
           }
         }
       }
@@ -84,7 +85,7 @@ export default {
       for (let item of this.list) {
         if (item.roomNo + '' === roomNo) {
           if (this.password === item.password) {
-            this.$router.push({ name: '/student/teachingRoom', params: {roomNo: this.indexRoom} })
+            this.$router.push({ name: 'studentStudyRoom', params: {roomNo: roomNo} })
           } else {
             alert('密码错误')
           }

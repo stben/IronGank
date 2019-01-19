@@ -14,7 +14,7 @@ export default {
   components: {
     teacherBar,
     teacherNavigation,
-    title: '阿萨德'
+    title: ''
   },
   props: ['selected', 'roomNo']
 }

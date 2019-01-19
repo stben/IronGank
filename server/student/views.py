@@ -125,7 +125,6 @@ def add_student_room(request):
 def student_enter(request):
     """the function of student enter"""
     if request.method == 'GET':
-        try:
             room_id = request.GET.get('roomNo')
             rooms = Room.objects.filter(id=int(room_id))
             students = Student.objects.filter(user=request.user)
@@ -134,18 +133,17 @@ def student_enter(request):
                 return HttpResponse(json.dumps(data))
             student_in = RoomAndStudent.objects.filter(
                 room=rooms[0], student=students[0])
-            data = {'code': '0000', 'myNo': students[0].sid,
+            data = {'code': '0000',
+                    'myNo': students[0].sid,
                     'myName': students[0].user.first_name,
                     'myStatus': student_in[0].status,
-                    'roomNo': room_id, 'roomName': rooms[0].name}
-            return HttpResponse(json.dumps(data))
-        except BaseException:
-            data = {'code': '0002', 'msg': '未知错误'}
+                    'roomNo': room_id,
+                    'roomName': rooms[0].name}
             return HttpResponse(json.dumps(data))
 
 
 def send_msg(request):
-    """the function of sending message"""
+    """ the function of sending message """
     if request.method == 'POST':
         try:
             mobile = request.POST.get('mobile')
