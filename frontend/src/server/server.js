@@ -55,8 +55,18 @@ io.on('connection', function (socket) {
   })
   socket.on('sendCode', function(data) {
     socket.broadcast.to(data.roomNo).emit('getCode', data.msg)
-  }
-  )
+  })
+
+  socket.on('drawing', function(data) {
+    socket.broadcast.emit('drawing', data)
+  })
+  socket.on('clear', function(data) {
+    socket.broadcast.emit('clear', data)
+  })
+  socket.on('drawRec', function(data) {
+    socket.broadcast.emit('drawRec', data)
+  })
+
   socket.on('sendChatMsg', function (data) {
     if (data !== '') {
       socket.broadcast.to(data.roomNo).emit('getChatMsg', data)
