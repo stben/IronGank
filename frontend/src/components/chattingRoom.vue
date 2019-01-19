@@ -3,7 +3,8 @@
     <div class="wrap-main">
       <div class="msg-list">
         <ul class="msg-cont">
-          <li v-for="item in getNewMsg" :key="item">
+          <li v-for="item in getNewMsg"
+              :key="item">
             <span>{{item.myName}}</span>
             <span class="msg-cont-item">{{item.msg}}</span>
           </li>
@@ -17,7 +18,8 @@
                          onkeyup.enter="sendMsg"
                          multi-line
                          :rows="3"
-                         :rows-max="6"></mu-text-field>
+                         :rows-max="6"
+                         class="text"></mu-text-field>
           <div class="btn-group btn-group-custom">
             <mu-button type="button"
                        class="btn btn-primary"
@@ -76,26 +78,22 @@ export default {
 
 <style scoped >
 .wrap {
-  height: 300px;
+  height: 100%;
 }
 
 .wrap-main {
-  float: right;
-  padding-left: 200px;
-  height: 300px;
-  width: 500px;
+  height: 100%;
+  width: 100%;
   text-align: left;
-  margin-top: 60px;
-  margin-left: 100px;
 }
 .msg-list {
-  height: 450px;
-  border: 10px solid #58b7ff;
+  height: 70%;
+  border: 1px solid #58b7ff;
   overflow: auto;
 }
 .msg-input {
-  height: 160px;
-  border: 10px solid #58b7ff;
+  height: 30%;
+  border: 1px solid #58b7ff;
 }
 .btn-group-custom {
   position: absolute;
@@ -120,5 +118,10 @@ export default {
   background: #8492a6;
   padding: 5px 10px;
   border-radius: 2px;
+}
+.text {
+  margin-top: 10px;
+  margin-left: 20px;
+  width: 85%;
 }
 </style>

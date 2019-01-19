@@ -1,14 +1,11 @@
 <template>
-  <div >
-    <canvas class='whiteboard' name='whiteboard'></canvas>
+  <div>
+    <canvas class='whiteboard'
+            name='whiteboard'></canvas>
     <div class='colors'>
       <el-color-picker v-model='color'></el-color-picker>
-      <div
-        :class='{tool:true, delete:true, "black-background": isBlack, "white-background": !isBlack}'
-      ></div>
-      <div
-        :class='{tool:true, rectanger:true, "blue-background": drawRec, "white-background": !drawRec}'
-      ></div>
+      <div :class='{tool:true, delete:true, "black-background": isBlack, "white-background": !isBlack}'></div>
+      <div :class='{tool:true, rectanger:true, "blue-background": drawRec, "white-background": !drawRec}'></div>
     </div>
   </div>
 </template>
@@ -18,7 +15,7 @@ import socket from 'socket.io-client'
 const SocketInstance = socket('http://localhost:3000')
 export default {
   name: 'WhiteBoard',
-  data() {
+  data () {
     return {
       isBlack: false,
       drawRec: false,
@@ -32,7 +29,7 @@ export default {
     }
   },
   props: ['roomNo'],
-  mounted() {
+  mounted () {
     SocketInstance.emit('joinRoom', this.roomNo)
     this.canvas = document.getElementsByClassName('whiteboard')[0]
     this.context = this.canvas.getContext('2d')
@@ -56,24 +53,24 @@ export default {
     SocketInstance.on('drawRec', this.onDrawRecEvent)
   },
   methods: {
-    onChangeDrawRec: function() {
+    onChangeDrawRec: function () {
       this.drawRec = !this.drawRec
     },
-    onReadyClear: function() {
+    onReadyClear: function () {
       this.isBlack = true
     },
-    onClear: function() {
+    onClear: function () {
       this.isBlack = false
       this.canvas.width = 855
       this.canvas.height = 310
       SocketInstance.emit('clear', false)
     },
 
-    onClearEvent: function() {
+    onClearEvent: function () {
       this.canvas.width = 855
       this.canvas.height = 310
     },
-    drawLine: function(x0, y0, x1, y1, color, needEmit) {
+    drawLine: function (x0, y0, x1, y1, color, needEmit) {
       this.context.moveTo(x0 - 210, y0 - 360)
       this.context.lineTo(x1 - 210, y1 - 360)
       this.context.strokeStyle = color
@@ -90,7 +87,7 @@ export default {
         color: color
       })
     },
-    drawRectang: function(x0, y0, x1, y1, color, needEmit) {
+    drawRectang: function (x0, y0, x1, y1, color, needEmit) {
       this.context.fillStyle = color
       this.context.fillRect(x0 - 210, y0 - 360, x1 - x0, y1 - y0)
       if (!needEmit) {
@@ -104,7 +101,7 @@ export default {
         color: color
       })
     },
-    onMouseDown: function(e) {
+    onMouseDown: function (e) {
       console.log('mouse down')
       if (this.drawRec && this.drawing) {
         return
@@ -113,7 +110,7 @@ export default {
       this.current.y = e.clientY
       this.drawing = true
     },
-    onMouseUp: function(e) {
+    onMouseUp: function (e) {
       console.log('mouse up')
       if (!this.drawing) {
         return
@@ -139,7 +136,7 @@ export default {
         true
       )
     },
-    onMouseMove: function(e) {
+    onMouseMove: function (e) {
       if (!this.drawing) {
         return
       }
@@ -166,12 +163,12 @@ export default {
       this.current.y = e.clientY
     },
 
-    onColorUpdate: function(e) {
+    onColorUpdate: function (e) {
       this.current.color = this.color
     },
-    throttle: function(callback, delay) {
+    throttle: function (callback, delay) {
       let previousCall = new Date().getTime()
-      return function() {
+      return function () {
         let time = new Date().getTime()
 
         if (time - previousCall >= delay) {
@@ -180,7 +177,7 @@ export default {
         }
       }
     },
-    onDrawingEvent: function(data) {
+    onDrawingEvent: function (data) {
       this.drawLine(
         data.x0,
         data.y0,
@@ -189,7 +186,7 @@ export default {
         data.color
       )
     },
-    onDrawRecEvent: function(data) {
+    onDrawRecEvent: function (data) {
       this.drawRectang(
         data.x0,
         data.y0,

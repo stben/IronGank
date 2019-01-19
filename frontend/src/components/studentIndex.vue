@@ -1,34 +1,66 @@
 <template>
-    <div>
-        <studentFrame :selected="''" :title="'首页'"></studentFrame>
-        <mu-paper class="paperstu"  z-depth="4">
-            <mu-form :model="form" class="mu-demo-form" :label-position="labelPosition" label-width="100">
-                <mu-form-item prop="select" label="专业院系">
-                    <mu-select v-model="form.select" @change="onSelected">
-                        <mu-option v-for="option in options" :key="option" :label="option" :value="option"></mu-option>
-                    </mu-select>
-                 </mu-form-item>
-            </mu-form>
-            <mu-data-table :columns="columns"  v-bind:data="showList">
-                <template slot-scope="scope">
-                    <td>{{scope.row.roomName}}</td>
-                    <td>{{scope.row.roomDescription}}</td>
-                    <td>{{scope.row.departmentName}}</td>
-                    <td><mu-button v-bind:id="scope.row.roomNo" color="primary" @click="enterRoom">
-                        加入房间
-                    </mu-button></td>
-                    <td> <mu-button v-bind:id="scope.row.roomNo" color="primary" @click="live">
-                        观看
-                    </mu-button></td>
-                </template>
-            </mu-data-table>
-            <mu-dialog title="请输入密码" width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="alert">
-               <mu-text-field v-model="password" placeholder="请输入房间密码" ref="password"></mu-text-field>
-               <mu-button slot="actions" flat color="primary" @click="closeAlertDialog">取消</mu-button>
-               <mu-button slot="actions" flat color="primary" @click="passwordConfirm">确定</mu-button>
-            </mu-dialog>
-        </mu-paper>
-    </div>
+  <div>
+    <studentFrame :selected="''"
+                  :title="'首页'"></studentFrame>
+    <mu-paper class="paperstu"
+              z-depth="4">
+      <mu-form :model="form"
+               class="mu-demo-form"
+               :label-position="labelPosition"
+               label-width="100">
+        <mu-form-item prop="select"
+                      label="专业院系">
+          <mu-select v-model="form.select"
+                     @change="onSelected">
+            <mu-option v-for="option in options"
+                       :key="option"
+                       :label="option"
+                       :value="option"></mu-option>
+          </mu-select>
+        </mu-form-item>
+      </mu-form>
+      <mu-data-table :columns="columns"
+                     v-bind:data="showList">
+        <template slot-scope="scope">
+          <td>{{scope.row.roomName}}</td>
+          <td>{{scope.row.roomDescription}}</td>
+          <td>{{scope.row.departmentName}}</td>
+          <td>
+            <mu-button v-bind:id="scope.row.roomNo"
+                       color="primary"
+                       @click="enterRoom">
+              加入房间
+            </mu-button>
+          </td>
+          <td>
+            <mu-button v-bind:id="scope.row.roomNo"
+                       color="primary"
+                       @click="live">
+              观看
+            </mu-button>
+          </td>
+        </template>
+      </mu-data-table>
+      <mu-dialog title="请输入密码"
+                 width="600"
+                 max-width="80%"
+                 :esc-press-close="false"
+                 :overlay-close="false"
+                 :open.sync="alert">
+        <mu-text-field v-model="password"
+                       placeholder="请输入房间密码"
+                       ref="password"></mu-text-field>
+        <mu-button slot="actions"
+                   flat
+                   color="primary"
+                   @click="closeAlertDialog">取消</mu-button>
+        <mu-button slot="actions"
+                   flat
+                   color="primary"
+                   @click="passwordConfirm">确定</mu-button>
+      </mu-dialog>
+    </mu-paper>
+  </div>
 </template>
 
 <script>
@@ -62,7 +94,7 @@ export default {
       showList: []
     }
   },
-  mounted() {
+  mounted () {
     this.getRooms()
   },
   methods: {
@@ -75,27 +107,27 @@ export default {
             this.alert = true
           } else {
             console.log(roomNo)
-            this.$router.push({ name: 'studentStudyRoom', params: {roomNo: roomNo} })
+            this.$router.push({ name: 'studentStudyRoom', params: { roomNo: roomNo } })
           }
         }
       }
     },
-    passwordConfirm() {
+    passwordConfirm () {
       let roomNo = this.indexRoom
       for (let item of this.list) {
         if (item.roomNo + '' === roomNo) {
           if (this.password === item.password) {
-            this.$router.push({ name: 'studentStudyRoom', params: {roomNo: roomNo} })
+            this.$router.push({ name: 'studentStudyRoom', params: { roomNo: roomNo } })
           } else {
             alert('密码错误')
           }
         }
       }
     },
-    closeAlertDialog() {
+    closeAlertDialog () {
       this.alert = false
     },
-    enterRoom(e) {
+    enterRoom (e) {
       let ec = e.currentTarget
       this.$axios.request({
         url: '/api/student/studentRoom',
@@ -107,7 +139,7 @@ export default {
         alert(response.data.msg)
       })
     },
-    getRooms() {
+    getRooms () {
       this.$axios.request({
         url: '/api/student/studentIndex',
         method: 'get'
@@ -132,8 +164,8 @@ export default {
 </script>
 
 <style scoped>
-.paperstu{
-    margin: 100px auto;
-    width: 800px;
-  }
+.paperstu {
+  margin: 100px auto;
+  width: 800px;
+}
 </style>

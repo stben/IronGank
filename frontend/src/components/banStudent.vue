@@ -1,13 +1,21 @@
 <template>
   <div id="banStudent">
-    <teacherFrame :selected="'2'" :title="'房间 '+roomNo+'：禁言学生列表'" :roomNo="roomNo"></teacherFrame>
-    <mu-paper :z-depth="2" class="paper">
-      <mu-data-table :columns="columns" :data="banList">
+    <teacherFrame :selected="'2'"
+                  :title="'房间 '+roomNo+'：禁言学生列表'"
+                  :roomNo="roomNo"></teacherFrame>
+    <mu-paper :z-depth="2"
+              class="paper">
+      <mu-data-table :columns="columns"
+                     :data="banList">
         <template slot-scope="item">
           <td>{{item.row.stuNo}}</td>
           <td>{{item.row.stuName}}</td>
           <td>
-            <mu-button flat color="error" v-bind:id="item.row.stuNo" class="remove-button" @click="remove($event)">解除禁言</mu-button>
+            <mu-button flat
+                       color="error"
+                       v-bind:id="item.row.stuNo"
+                       class="remove-button"
+                       @click="remove($event)">解除禁言</mu-button>
             <span class="remove-hint">已解除</span>
           </td>
         </template>
@@ -23,7 +31,7 @@ export default {
   components: {
     teacherFrame
   },
-  data() {
+  data () {
     return {
       roomNo: this.$route.params.roomNo,
       banList: [
@@ -37,7 +45,7 @@ export default {
     this.getBanStudents()
   },
   methods: {
-    remove(e) {
+    remove (e) {
       let postData = {
         'stuNo': e.currentTarget.id,
         'roomNo': this.roomNo
@@ -53,7 +61,7 @@ export default {
           } else alert(response.data.msg)
         })
     },
-    getBanStudents() {
+    getBanStudents () {
       this.$axios.request({
         url: '/api/teacher/banStudent',
         params: {
@@ -69,17 +77,18 @@ export default {
 </script>
 
 <style scoped>
-  .paper{
-    margin: 120px 400px;
-    width: 900px;
-  }
-  .remove-button{
-    margin: 0 80px;
-  }
-  .remove-hint{
-    display: none;
-    color: #f44336;
-    width: 80px;
-    margin: 0 105px;
-  }
+.paper {
+  margin-top: 120px;
+  margin-left: 25%;
+  width: 900px;
+}
+.remove-button {
+  margin: 0 80px;
+}
+.remove-hint {
+  display: none;
+  color: #f44336;
+  width: 80px;
+  margin: 0 105px;
+}
 </style>

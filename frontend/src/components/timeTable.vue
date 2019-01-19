@@ -1,47 +1,109 @@
 <template>
   <div id="timeTable">
-    <teacherFrame :selected="'4'" :title="'房间 '+roomNo+'：直播间日历'" :roomNo="roomNo"></teacherFrame>
-    <mu-button color="success" @click="showAlert" class="button1">新建</mu-button>
-    <mu-alert @delete="isAlert = false" delete v-if="isAlert" transition="mu-scale-transition" color="white" class="alert">
-      <mu-paper :z-depth="2" class="paper">
-        <mu-form :model="validateForm" class="form1">
+    <teacherFrame :selected="'4'"
+                  :title="'房间 '+roomNo+'：直播间日历'"
+                  :roomNo="roomNo"></teacherFrame>
+    <mu-button color="success"
+               @click="showAlert"
+               class="button1">新建</mu-button>
+    <mu-alert @delete="isAlert = false"
+              delete
+              v-if="isAlert"
+              transition="mu-scale-transition"
+              color="white"
+              class="alert">
+      <mu-paper :z-depth="2"
+                class="paper">
+        <mu-form :model="validateForm"
+                 class="form1">
           第&nbsp;
-          <mu-select v-model="validateForm.week" ref="week" class="select">
-            <mu-option v-for="option in weekoptions" :key="option" :label="option" :value="option"></mu-option>
+          <mu-select v-model="validateForm.week"
+                     ref="week"
+                     class="select">
+            <mu-option v-for="option in weekoptions"
+                       :key="option"
+                       :label="option"
+                       :value="option"></mu-option>
           </mu-select>
           &nbsp;周：星期&nbsp;
-          <mu-select v-model="validateForm.weekday" ref="weekday" class="select">
-            <mu-option v-for="option in weekdayoptions" :key="option" :label="option" :value="option"></mu-option>
+          <mu-select v-model="validateForm.weekday"
+                     ref="weekday"
+                     class="select">
+            <mu-option v-for="option in weekdayoptions"
+                       :key="option"
+                       :label="option"
+                       :value="option"></mu-option>
           </mu-select>
-          <mu-text-field v-model="validateForm.begin" prop="begin" placeholder="开始时间" class="begin"></mu-text-field>
+          <mu-text-field v-model="validateForm.begin"
+                         prop="begin"
+                         placeholder="开始时间"
+                         class="begin"></mu-text-field>
           -
-          <mu-text-field v-model="validateForm.end" prop="end" placeholder="结束时间" class="end"></mu-text-field>
-          <mu-text-field v-model="validateForm.description" prop="description" label="描述" class="description"></mu-text-field>
+          <mu-text-field v-model="validateForm.end"
+                         prop="end"
+                         placeholder="结束时间"
+                         class="end"></mu-text-field>
+          <mu-text-field v-model="validateForm.description"
+                         prop="description"
+                         label="描述"
+                         class="description"></mu-text-field>
           <mu-row>
-            <mu-button color="primary" @click="createTimeInfo" class="button2" flat>创建</mu-button>
+            <mu-button color="primary"
+                       @click="createTimeInfo"
+                       class="button2"
+                       flat>创建</mu-button>
           </mu-row>
         </mu-form>
       </mu-paper>
     </mu-alert>
-    <mu-list class="nodata"><mu-list-item>暂无数据</mu-list-item></mu-list>
-    <mu-expansion-panel v-for="item in timeTableList" :key="item.timeNo" class="list">
-      <div slot="header" class="text">第{{item.week}}周：星期{{item.weekday}}&nbsp;&nbsp;&nbsp;{{item.begin}}-{{item.end}}：{{item.description}}</div>
-      <mu-form class="form2">
-        第&nbsp;
-        <mu-select v-model="item.week" ref="week" class="select">
-          <mu-option v-for="option in weekoptions" :key="option" :label="option" :value="option"></mu-option>
-        </mu-select>
-        &nbsp;周：星期&nbsp;
-        <mu-select v-model="item.weekday" ref="weekday" class="select">
-          <mu-option v-for="option in weekdayoptions" :key="option" :label="option" :value="option"></mu-option>
-        </mu-select>
-        <mu-text-field v-model="item.begin" prop="begin" placeholder="开始时间" class="begin"></mu-text-field>
-        -
-        <mu-text-field v-model="item.end" prop="end" placeholder="结束时间" class="end"></mu-text-field>
-        <mu-text-field v-model="item.description" prop="description" label="描述" class="description"></mu-text-field>
-        <mu-button color="primary" v-bind:id="item.timeNo" @click="postTimeInfo" class="button3" flat>确认修改</mu-button>
-      </mu-form>
-    </mu-expansion-panel>
+    <mu-list class="nodata">
+      <mu-list-item>暂无数据</mu-list-item>
+    </mu-list>
+    <div class=list>
+      <mu-expansion-panel v-for="item in timeTableList"
+                          :key="item.timeNo">
+        <div slot="header"
+             class="text">第{{item.week}}周：星期{{item.weekday}}&nbsp;&nbsp;&nbsp;{{item.begin}}-{{item.end}}：{{item.description}}</div>
+        <mu-form class="form2">
+          第&nbsp;
+          <mu-select v-model="item.week"
+                     ref="week"
+                     class="select">
+            <mu-option v-for="option in weekoptions"
+                       :key="option"
+                       :label="option"
+                       :value="option"></mu-option>
+          </mu-select>
+          &nbsp;周：星期&nbsp;
+          <mu-select v-model="item.weekday"
+                     ref="weekday"
+                     class="select">
+            <mu-option v-for="option in weekdayoptions"
+                       :key="option"
+                       :label="option"
+                       :value="option"></mu-option>
+          </mu-select>
+          <mu-text-field v-model="item.begin"
+                         prop="begin"
+                         placeholder="开始时间"
+                         class="begin"></mu-text-field>
+          -
+          <mu-text-field v-model="item.end"
+                         prop="end"
+                         placeholder="结束时间"
+                         class="end"></mu-text-field>
+          <mu-text-field v-model="item.description"
+                         prop="description"
+                         label="描述"
+                         class="description"></mu-text-field>
+          <mu-button color="primary"
+                     v-bind:id="item.timeNo"
+                     @click="postTimeInfo"
+                     class="button3"
+                     flat>确认修改</mu-button>
+        </mu-form>
+      </mu-expansion-panel>
+    </div>
   </div>
 </template>
 <script>
@@ -51,7 +113,7 @@ export default {
   components: {
     teacherFrame
   },
-  data() {
+  data () {
     return {
       roomNo: this.$route.params.roomNo,
       isAlert: false,
@@ -68,14 +130,14 @@ export default {
       weekdayoptions: [1, 2, 3, 4, 5, 6, 7]
     }
   },
-  mounted() {
+  mounted () {
     this.getRoomTime()
   },
   methods: {
-    showAlert() {
+    showAlert () {
       this.isAlert = !this.isAlert
     },
-    getRoomTime() {
+    getRoomTime () {
       let postData = {
         'roomNo': this.$route.params.roomNo
       }
@@ -85,7 +147,7 @@ export default {
         this.timeTableList = response.data.timeTableList
       })
     },
-    postTimeInfo(e) {
+    postTimeInfo (e) {
       let postdata = this.timeTableList[e.currentTarget.id - 1]
       this.$axios.post('/api/teacher/modifyTimeTable',
         this.$Qs.stringify(postdata)
@@ -93,7 +155,7 @@ export default {
         alert(response.data.msg)
       })
     },
-    createTimeInfo() {
+    createTimeInfo () {
       this.$axios.post('/api/teacher/newTimeTable',
         this.$Qs.stringify(this.validateForm)
       ).then((response) => {
@@ -105,64 +167,65 @@ export default {
 </script>
 
 <style scoped>
-  .form1{
-    margin-top: 20px;
-    margin-left: 0px;
-    width: 750px;
-  }
-  .form2{
-    margin: 0 auto;
-  }
-  .list{
-    margin: 0 480px;
-    width: 750px;
-  }
-  .button1{
-    margin-top: 30px;
-    margin-left: -750px;
-  }
-  .button2{
-    margin-top: 0px;
-    margin-left: 300px;
-  }
-  .alert{
-    margin-left: 480px;
-    margin-top: -20px;
-    margin-bottom: 50px;
-    width: 700px;
-    height: 200px;
-  }
-  .nodata{
-    position: absolute;
-    margin: 0 800px;
-    width: 100px;
-    font-size: 15px;
-    z-index: -1;
-  }
-  .paper{
-    margin-left: -20px;
-    margin-top: 0;
-    width: 750px;
-    height: 230px;
-  }
-  .text{
-    font-size: 13px;
-  }
-  .select{
-    width: 80px;
-  }
-  .begin{
-    margin-left: 50px;
-    width: 150px;
-  }
-  .end{
-    margin-left: 5px;
-    width: 150px;
-  }
-  .description{
-    width: 670px;
-  }
-  .button3{
-    margin-left: -50px;
-  }
+.form1 {
+  margin-top: 20px;
+  margin-left: 0px;
+  width: 750px;
+}
+.form2 {
+  margin: 0 auto;
+}
+.list {
+  margin-top: -35px;
+  margin-left: 400px;
+  width: 750px;
+}
+.button1 {
+  margin-top: 50px;
+  margin-left: -750px;
+}
+.button2 {
+  margin-top: 0px;
+  margin-left: 300px;
+}
+.alert {
+  margin-left: 403px;
+  margin-top: -20px;
+  margin-bottom: 70px;
+  width: 700px;
+  height: 200px;
+}
+.nodata {
+  position: absolute;
+  margin: -45px 700px;
+  width: 100px;
+  font-size: 15px;
+  z-index: -1;
+}
+.paper {
+  margin-left: -20px;
+  margin-top: 0;
+  width: 750px;
+  height: 230px;
+}
+.text {
+  font-size: 13px;
+}
+.select {
+  width: 80px;
+}
+.begin {
+  margin-left: 50px;
+  width: 150px;
+}
+.end {
+  margin-left: 5px;
+  width: 150px;
+}
+.description {
+  width: 670px;
+}
+.button3 {
+  margin-left: -50px;
+}
 </style>
