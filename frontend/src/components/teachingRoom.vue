@@ -64,10 +64,12 @@ export default {
       codemirror,
       status: false,
       isCode: true,
-      isBoard: true
+      isBoard: true,
+      roomName: this.$route.params.roomName,
+      roomNo: this.$route.params.roomNo,
+      stuList: []
     }
   },
-  props: ['stuList', 'roomName', 'roomNo']
 }
 </script>
 

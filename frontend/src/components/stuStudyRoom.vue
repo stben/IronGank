@@ -53,6 +53,7 @@ export default {
     }
   },
   mounted () {
+    this.getInfo()
   },
   components: {
     stuFrame,
@@ -66,11 +67,30 @@ export default {
       videoStatus: true,
       queueStatus: true,
       isCode: true,
-      isBoard: true
+      isBoard: true,
+      myName: '',
+      myNo: '',
+      roomName: '',
+      roomNo: this.$route.params.roomNo
     }
   },
-  props: ['stuList', 'myName', 'myNo', 'roomName', 'myStatus', 'roomNo'],
   methods: {
+    getInfo() {
+      this.$axios.request({
+        url: '/api/student/getStudentInfo',
+        params: {
+          'roomNo': this.roomNo
+        },
+        method: 'get'
+      }).then((response) => {
+        this.roomName = response.data.roomName
+        this.myNo = response.data.myNo
+        this.myName = response.data.myName
+        if (response.data.myStatus !== 0) {
+          this.queueStatus = false
+        }
+      })
+    }
   }
 }
 </script>
