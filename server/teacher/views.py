@@ -256,11 +256,8 @@ def ban_stu_list(request):
             data = {'code': '0001', 'msg': '未知错误'}
             return JsonResponse(data)
     if request.method == 'POST':
-        print(request.POST)
         room_id = int(request.POST.get('roomNo'))
-        print(room_id)
         user_id = request.POST.get('stuNo')
-        print(user_id)
         its_student = Student.objects.filter(sid=user_id)[0]
         its_room = Room.objects.filter(id=room_id)[0]
         ListOfForbiddenStudents.objects.filter(
@@ -292,7 +289,7 @@ def teacher_room(request):
                 {'username': item.user.username,
                  'name': item.user.first_name})
         data = {
-            'code': '0001',
+            'code': '0000',
             'acceptedList': list_acceptions,
             'auditList': list_application}
         return HttpResponse(json.dumps(data))

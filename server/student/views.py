@@ -125,6 +125,7 @@ def add_student_room(request):
 def student_enter(request):
     """the function of student enter"""
     if request.method == 'GET':
+        try:
             room_id = request.GET.get('roomNo')
             rooms = Room.objects.filter(id=int(room_id))
             students = Student.objects.filter(user=request.user)
@@ -139,6 +140,9 @@ def student_enter(request):
                     'myStatus': student_in[0].status,
                     'roomNo': room_id,
                     'roomName': rooms[0].name}
+            return HttpResponse(json.dumps(data))
+        except BaseException:
+            data = {'code': '0002', 'msg': '未知错误'}
             return HttpResponse(json.dumps(data))
 
 
