@@ -58,7 +58,9 @@ export default {
       e.preventDefault()
     },
     sendMsg: function (e) {
-      SocketInsatnce.emit('sendChatMsg', { 'roomNo': this.roomNo, 'myName': this.myName, 'msg': this.myMsg })
+      SocketInsatnce.emit('sendChatMsg', { 'roomNo': this.roomNo,
+        'myName': this.myName,
+        'msg': this.myMsg })
       e.preventDefault()
       let data = {
         'myName': this.myName + '1',
@@ -66,6 +68,7 @@ export default {
       }
       this.getNewMsg.push(data)
       console.log(this.getNewMsg)
+      this.myMsg = ''
     }
   }
 }
