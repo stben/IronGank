@@ -2,18 +2,19 @@
   <div id="teacherLogin">
     <img src="../assets/background.jpg" class="img">
     <mu-paper :z-depth="4" class="board">
-      <span class="text">Iron Gank</span>
+      <br />
+      <span class="text">计算机课程答疑平台</span>
       <mu-tabs :value.sync="active" color="white" indicator-color="blue" center>
         <mu-tab style="color: #78909c" to="/student/login">学生</mu-tab>
         <mu-tab style="color: #03a9f4">教师</mu-tab>
       </mu-tabs>
       <div v-if="active===1">
         <mu-form ref="form1" :model="validateForm1" class="formstyle">
-          <mu-form-item prop="username" :rules="usernameRules1">
-            <mu-text-field v-model="validateForm1.username" prop="username" placeholder="工号/邮箱" class="input"></mu-text-field>
+          <mu-form-item prop="username" :rules="usernameRules1" class="input">
+            <mu-text-field v-model="validateForm1.username" prop="username" placeholder="邮箱"></mu-text-field>
           </mu-form-item>
-          <mu-form-item prop="password" :rules="passwordRules1">
-            <mu-text-field type="password" v-model="validateForm1.password" prop="password" placeholder="密码" class="input"></mu-text-field>
+          <mu-form-item prop="password" :rules="passwordRules1" class="input">
+            <mu-text-field type="password" v-model="validateForm1.password" prop="password" placeholder="密码"></mu-text-field>
           </mu-form-item>
           <mu-form-item class="loginbutton">
             <mu-button color="primary" @click="submitTeacher">登录</mu-button>
@@ -85,10 +86,10 @@ export default {
   .board{
     margin: 120px auto;
     width: 390px;
-    height: 380px;
+    height: 360px;
   }
   .text{
-    font-size: 40px;
+    font-size: 28px;
     color: grey;
   }
   .formstyle{
@@ -102,6 +103,6 @@ export default {
     width: 320px;
   }
   .loginbutton{
-    margin:30px auto;
+    margin:0 auto;
   }
 </style>

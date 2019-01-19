@@ -36,7 +36,7 @@ export default {
       readOnly: this.status,
       styleActiveLine: true,
       matchBrackets: true,
-      theme: 'blackboard',
+      theme: 'default',
       direction: 'ltr',
       extraKeys: { 'Ctrl-Space': 'autocomplete' }
     })

@@ -76,13 +76,15 @@ export default {
 
 <style scoped>
   .tabs{
-    margin: 100px 680px;
+    top: 40px;
+    left: 610px;
     width: 300px;
   }
   .paper{
-       margin: -80px 400px;
-       width: 900px;
-     }
+    margin-top: 60px;
+    margin-left: 25%;
+    width: 900px;
+  }
   .agree{
     margin-left: 20px;
   }

@@ -16,7 +16,7 @@ export default {
     teacherNavigation,
     title: ''
   },
-  props: ['selected', 'roomNo']
+  props: ['selected', 'roomNo', 'title']
 }
 </script>
 

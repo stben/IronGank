@@ -15,6 +15,7 @@ import pickTeacherAccepted from '@/components/pickTeacherAccepted'
 import teacherLogin from '@/components/teacherLogin'
 import studentLogin from '@/components/studentLogin'
 import stuStudyRoom from '@/components/stuStudyRoom'
+import studentTimeTable from '@/components/studentTimeTable'
 Vue.use(Router)
 
 export default new Router({
@@ -99,6 +100,11 @@ export default new Router({
       path: '/student/login',
       name: 'studentLogin',
       component: studentLogin
+    },
+    {
+      path: '/student/timeTable',
+      name: 'studentTimeTable',
+      component: studentTimeTable
     }
   ]
 })
