@@ -31,18 +31,14 @@ export default {
       drawing: false
     }
   },
-  props:['roomNo'],
+  props: ['roomNo'],
   mounted() {
     SocketInstance.emit('joinRoom', this.roomNo)
-
     this.canvas = document.getElementsByClassName('whiteboard')[0]
     this.context = this.canvas.getContext('2d')
-    this.canvas.width=855
-    this.canvas.height=310
-
-    // 鼠标点击画布的事件
+    this.canvas.width = 855
+    this.canvas.height = 310
     this.canvas.addEventListener('mousedown', this.onMouseDown, false)
-    
     this.canvas.addEventListener('mouseup', this.onMouseUp, false)
     this.canvas.addEventListener('mouseout', this.onMouseUp, false)
     this.canvas.addEventListener(
@@ -50,110 +46,79 @@ export default {
       this.throttle(this.onMouseMove, 10),
       false
     )
-
-    // 监听清除点击clear垃圾桶的事件
     let crashCan = document.getElementsByClassName('tool')[this.CRASHCAN_NUM]
     crashCan.addEventListener('mousedown', this.onReadyClear, false)
     crashCan.addEventListener('mouseup', this.onClear, false)
-
-    // 监听是否画矩形的事件
     let drawRec = document.getElementsByClassName('tool')[this.DRAW_REC]
     drawRec.addEventListener('mouseup', this.onChangeDrawRec, false)
-
-    // 同步其他client的drawing事件
     SocketInstance.on('drawing', this.onDrawingEvent)
-
-    // 同步clear屏幕事件
     SocketInstance.on('clear', this.onClearEvent)
-
-    // 同步绘制矩形的事件
     SocketInstance.on('drawRec', this.onDrawRecEvent)
-
-   
   },
   methods: {
     onChangeDrawRec: function() {
       this.drawRec = !this.drawRec
     },
-
     onReadyClear: function() {
       this.isBlack = true
     },
-
     onClear: function() {
       this.isBlack = false
-      this.canvas.width=855
-      this.canvas.height=310
+      this.canvas.width = 855
+      this.canvas.height = 310
       SocketInstance.emit('clear', false)
     },
 
     onClearEvent: function() {
-      this.canvas.width=855
-      this.canvas.height=310
+      this.canvas.width = 855
+      this.canvas.height = 310
     },
-
-    // 绘制直线
-
     drawLine: function(x0, y0, x1, y1, color, needEmit) {
-        
-      this.context.moveTo(x0-210, y0-360)
-      this.context.lineTo(x1-210, y1-360)
+      this.context.moveTo(x0 - 210, y0 - 360)
+      this.context.lineTo(x1 - 210, y1 - 360)
       this.context.strokeStyle = color
       this.context.lineWidth = 2
       this.context.stroke()
-
       if (!needEmit) {
         return
       }
-      let w = this.canvas.width
-      let h = this.canvas.height
-
-      // 发布drawing事件
       SocketInstance.emit('drawing', {
-        
-        x0:x0,y0:y0,
-        x1:x1,y1:y1,
+        x0: x0,
+        y0: y0,
+        x1: x1,
+        y1: y1,
         color: color
       })
     },
-
-    // 绘制矩形
     drawRectang: function(x0, y0, x1, y1, color, needEmit) {
       this.context.fillStyle = color
-      this.context.fillRect(x0-210, y0-360, x1 - x0, y1 - y0)
+      this.context.fillRect(x0 - 210, y0 - 360, x1 - x0, y1 - y0)
       if (!needEmit) {
         return
       }
-     
-      // 发布drawRec事件
       SocketInstance.emit('drawRec', {
-        x0: x0 ,
-        y0: y0 ,
-        x1: x1 ,
-        y1: y1 ,
+        x0: x0,
+        y0: y0,
+        x1: x1,
+        y1: y1,
         color: color
       })
     },
-
     onMouseDown: function(e) {
-      console.log("mouse down")
+      console.log('mouse down')
       if (this.drawRec && this.drawing) {
         return
       }
-  
       this.current.x = e.clientX
       this.current.y = e.clientY
       this.drawing = true
     },
-
     onMouseUp: function(e) {
-      console.log("mouse up")
+      console.log('mouse up')
       if (!this.drawing) {
         return
       }
       this.drawing = false
-
-      // 如果是需要绘制矩形
       if (this.drawRec) {
         this.drawRectang(
           this.current.x,
@@ -165,7 +130,6 @@ export default {
         )
         return
       }
-
       this.drawLine(
         this.current.x,
         this.current.y,
@@ -175,7 +139,6 @@ export default {
         true
       )
     },
-
     onMouseMove: function(e) {
       if (!this.drawing) {
         return
@@ -206,8 +169,6 @@ export default {
     onColorUpdate: function(e) {
       this.current.color = this.color
     },
-
-    // limit the number of events per second
     throttle: function(callback, delay) {
       let previousCall = new Date().getTime()
       return function() {
@@ -219,25 +180,21 @@ export default {
         }
       }
     },
-
     onDrawingEvent: function(data) {
-      
       this.drawLine(
-        data.x0 ,
-        data.y0 ,
-        data.x1 ,
-        data.y1 ,
+        data.x0,
+        data.y0,
+        data.x1,
+        data.y1,
         data.color
       )
     },
-
     onDrawRecEvent: function(data) {
-      
       this.drawRectang(
-        data.x0 ,
-        data.y0 ,
-        data.x1 ,
-        data.y1 ,
+        data.x0,
+        data.y0,
+        data.x1,
+        data.y1,
         data.color
       )
     }
@@ -303,5 +260,3 @@ export default {
   width: 48px;
 }
 </style>
-
-
