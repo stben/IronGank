@@ -12,10 +12,16 @@
                 v-bind:status="status"
                 v-if="isCode===true"
                 class="code-mirror" />
-    <mu-switch v-model="isBoard"
+    <!-- <mu-switch v-model="isBoard"
                class="board-switch"></mu-switch>
     <div v-if="isBoard===true"
          class="board-div">
+    </div> -->
+    <!-- <el-tab-pane label="白板" name="whiteboard">
+      <whiteboard/>
+    </el-tab-pane> -->
+    <div class="board-div">
+      <WhiteBoard label="白板"  />
     </div>
     <div class="queue-div">
       <teacherQueue v-bind:stuList="stuList"
@@ -33,6 +39,7 @@ import chattingRoom from '../components/chattingRoom'
 import teacherVideo from '../components/teacherVideo'
 import AgoraRTC from 'agora-rtc-sdk'
 import codemirror from '../components/codemirror'
+import WhiteBoard from '../components/whiteBoard'
 import teacherQueue from '../components/teacherQueue'
 import teacherBar from '../components/teacherBar'
 
@@ -46,6 +53,7 @@ export default {
     chattingRoom,
     teacherVideo,
     teacherQueue,
+    WhiteBoard,
     codemirror
   },
   data () {

@@ -18,7 +18,7 @@ require('codemirror/addon/selection/active-line')
 require('codemirror/addon/hint/show-hint.js')
 require('codemirror/addon/hint/show-hint.css')
 require('codemirror/addon/hint/javascript-hint.js')
-const SocketInsatnce = socket('http://localhost:3000')
+const SocketInstance = socket('http://localhost:3000')
 
 export default {
   name: 'codeMirror',
@@ -30,7 +30,7 @@ export default {
   props: ['roomNo', 'status'],
   mounted () {
     let self = this
-    SocketInsatnce.emit('joinRoom', this.roomNo)
+    SocketInstance.emit('joinRoom', this.roomNo)
     let editor = CodeMirror.fromTextArea(document.getElementById('code'), {
       lineNumbers: true,
       readOnly: this.status,
@@ -40,7 +40,9 @@ export default {
       direction: 'ltr',
       extraKeys: { 'Ctrl-Space': 'autocomplete' }
     })
-    SocketInsatnce.on('getCode', (msg) => {
+
+    SocketInstance.on('getCode', (msg) => {
+      alert("getcode!")
       editor.replaceRange(msg.codeMsg, msg.from, msg.to)
     })
     editor.on('change', function (editor, change) {
@@ -58,7 +60,8 @@ export default {
 
   methods: {
     sendCodeMsg (data) {
-      SocketInsatnce.emit('sendCode', data)
+      
+      SocketInstance.emit('sendCode', data)
     }
   }
 }

@@ -8,7 +8,9 @@ import 'muse-ui/dist/muse-ui.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Qs from 'qs'
-
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(ElementUI)
 Vue.prototype.$Qs = Qs
 Vue.prototype.$axios = axios
 Vue.use(VueAxios, axios)

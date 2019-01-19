@@ -1,256 +1,307 @@
 <template>
-  <div class="board">
-    <this.canvas id="this.canvas"
-                 class="this.canvas-line this.canvas">浏览器不支持this.canvas</this.canvas>
-
-    <div id="opts"
-         class="opts">
-      <div class="opts-layer">
-        <div class="setting">
-          <span id="setColor"
-                class="setColor"></span>
-          <span id="setLineWidth"
-                class="setSize"></span>
-          <div class="setColor-layer"
-               id="color">
-            <ul>
-              <li class="color-item col_red"
-                  style="background-color: #000"></li>
-              <li class="color-item col_red"
-                  style="background-color: #fff"></li>
-              <li class="color-item col_red"
-                  style="background-color: #d1021c"></li>
-              <li class="color-item col_red"
-                  style="background-color: #fddc01"></li>
-              <li class="color-item col_red"
-                  style="background-color: #7dd21f"></li>
-              <li class="color-item col_red"
-                  style="background-color: #228bf8"></li>
-              <li class="color-item col_red"
-                  style="background-color: #9b0df5"></li>
-              <li class="color-item col_red"
-                  style="background-color: #7a3e3e"></li>
-              <li class="color-item col_red"
-                  style="background-color: #f443ab"></li>
-              <li class="color-item col_red"
-                  style="background-color: #b9fd01"></li>
-              <li class="color-item col_red"
-                  style="background-color: #1cb114"></li>
-              <li class="color-item col_red"
-                  style="background-color: #135b88"></li>
-              <li class="color-item col_red"
-                  style="background-color: #1516bd"></li>
-              <li class="color-item col_red"
-                  style="background-color: #003300"></li>
-              <li class="color-item col_red"
-                  style="background-color: #330000"></li>
-              <li class="color-item col_red"
-                  style="background-color: #336600"></li>
-              <li class="color-item col_red"
-                  style="background-color: #999966"></li>
-              <li class="color-item col_red"
-                  style="background-color: #9900FF"></li>
-            </ul>
-          </div>
-          <div class="setSize-layer"
-               id="lineWidth">
-            <ul>
-              <li class="line-item col_size">2</li>
-              <li class="line-item col_size">4</li>
-              <li class="line-item col_size">6</li>
-              <li class="line-item col_size">8</li>
-              <li class="line-item col_size">10</li>
-              <li class="line-item col_size">12</li>
-              <li class="line-item col_size">20</li>
-            </ul>
-          </div>
-        </div>
-        <div id="line"
-             class="opt line"
-             title="画笔"></div>
-        <div id="straightLine"
-             class="opt straightLine"
-             title="直线"></div>
-        <div id="rect"
-             class="opt rect"
-             title="矩形"></div>
-        <div id="round"
-             class="opt round"
-             title="圆形"></div>
-        <div id="text"
-             class="opt text"
-             title="填写文本后，点击绘制"></div>
-        <div id="delete"
-             class="opt delete"
-             title="选中后高亮，点击删除"></div>
-        <div id="undo"
-             class="opt back"
-             title="撤回上一步"></div>
-        <div id="clearAll"
-             class="opt clear"
-             title="清空"></div>
-      </div>
+  <div >
+    <canvas class='whiteboard' name='whiteboard'></canvas>
+    <div class='colors'>
+      <el-color-picker v-model='color'></el-color-picker>
+      <div
+        :class='{tool:true, delete:true, "black-background": isBlack, "white-background": !isBlack}'
+      ></div>
+      <div
+        :class='{tool:true, rectanger:true, "blue-background": drawRec, "white-background": !drawRec}'
+      ></div>
     </div>
   </div>
 </template>
-<script>
 
+<script>
+import socket from 'socket.io-client'
+const SocketInstance = socket('http://localhost:3000')
 export default {
-  name: 'whiteBoard',
-  created: function () {
-  },
-  data () {
+  name: 'WhiteBoard',
+  data() {
     return {
-      canvas: '',
-      context: '',
-      cvsW: '',
-      cvsH: '',
-      container: {
-        selected: {
-          id: '',
-          extensionWidth: 1,
-          lineColor: 'red' // '#00ff00'
-        },
-        session: {}
-      }
+      isBlack: false,
+      drawRec: false,
+      CRASHCAN_NUM: 0,
+      DRAW_REC: 1,
+      color: '#111111',
+      canvas: null,
+      context: null,
+      current: { color: 'black' },
+      drawing: false
     }
   },
+  props:['roomNo'],
+  mounted() {
+    SocketInstance.emit('joinRoom', this.roomNo)
+
+    this.canvas = document.getElementsByClassName('whiteboard')[0]
+    this.context = this.canvas.getContext('2d')
+    this.canvas.width=855
+    this.canvas.height=310
+
+    // 鼠标点击画布的事件
+    this.canvas.addEventListener('mousedown', this.onMouseDown, false)
+    
+    this.canvas.addEventListener('mouseup', this.onMouseUp, false)
+    this.canvas.addEventListener('mouseout', this.onMouseUp, false)
+    this.canvas.addEventListener(
+      'mousemove',
+      this.throttle(this.onMouseMove, 10),
+      false
+    )
+
+    // 监听清除点击clear垃圾桶的事件
+    let crashCan = document.getElementsByClassName('tool')[this.CRASHCAN_NUM]
+    crashCan.addEventListener('mousedown', this.onReadyClear, false)
+    crashCan.addEventListener('mouseup', this.onClear, false)
+
+    // 监听是否画矩形的事件
+    let drawRec = document.getElementsByClassName('tool')[this.DRAW_REC]
+    drawRec.addEventListener('mouseup', this.onChangeDrawRec, false)
+
+    // 同步其他client的drawing事件
+    SocketInstance.on('drawing', this.onDrawingEvent)
+
+    // 同步clear屏幕事件
+    SocketInstance.on('clear', this.onClearEvent)
+
+    // 同步绘制矩形的事件
+    SocketInstance.on('drawRec', this.onDrawRecEvent)
+
+   
+  },
   methods: {
-    Canvas (cvs, ctx) {
-      this.canvas = cvs
-      this.context = ctx
-      this.cvsW = cvs.width
-      this.cvsH = cvs.height
+    onChangeDrawRec: function() {
+      this.drawRec = !this.drawRec
     },
-    redraw () {
-      this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
-      var o, lineColor, lineWidth
-      for (var key in this.container.session) {
-        o = this.container.session[key]
-        lineColor = o.lineColor
-        lineWidth = o.lineWidth
-        if (this.container.selected.id === o.id) {
-          lineColor = this.container.selected.lineColor
-          lineWidth = o.lineWidth * 1 + this.container.selected.extensionWidth
-        }
-        switch (o.type) {
-          case 'line': {
-            // 线条
-            if (o.points.length < 2) break
 
-            this.context.beginPath() // 起始一条路径，或重置当前路径
-            this.context.moveTo(o.points[0].x * this.cvsW, o.points[0].y * this.cvsH) // 把路径移动到画布中的指定点，不创建线条
-            for (var i = 1, len = o.points.length; i < len; i++) {
-              this.context.lineTo(o.points[i].x * this.cvsW, o.points[i].y * this.cvsH) // 添加一个新点，然后在画布中创建从该点到最后指定点的线条
-            }
-            this.context.strokeStyle = lineColor // 设置或返回用于笔触的颜色、渐变或模式
-            this.context.lineWidth = lineWidth // 设置或返回当前的线条宽度
-            this.context.stroke() // 绘制已定义的路径
-            this.context.closePath() // 创建从当前点回到起始点的路径
-            break
-          }
-          case 'straightLine': {
-            // 直线
-            this.context.beginPath()
-            this.context.moveTo(o.startDot.x * this.cvsW, o.startDot.y * this.cvsH)
-            this.context.lineTo(o.endDot.x * this.cvsW, o.endDot.y * this.cvsH)
-            this.context.strokeStyle = lineColor
-            this.context.lineWidth = lineWidth
-            this.context.stroke()
-            this.context.closePath()
-            break
-          }
-          case 'rect': {
-            // 矩形
-            this.context.beginPath()
-            this.context.rect(
-              o.startDot.x * this.cvsW,
-              o.startDot.y * this.cvsH,
-              o.endDot.x * this.cvsW - o.startDot.x * this.cvsW,
-              o.endDot.y * this.cvsH - o.startDot.y * this.cvsH
-            )
-            this.context.strokeStyle = lineColor
-            this.context.lineWidth = lineWidth
-            // this.context.fill();
-            this.context.stroke()
-            break
-          }
-          case 'round': {
-            // 圆形
-            this.context.beginPath()
-            this.context.arc(
-              o.startDot.x * this.cvsW,
-              o.startDot.y * this.cvsH,
-              o.r * (this.cvsW / this.cvsH),
-              0,
-              2 * Math.PI
-            )
-            this.context.strokeStyle = lineColor
-            this.context.lineWidth = lineWidth
-            this.context.stroke()
-            break
-          }
-          case 'text': {
-            // 文本
-            this.context.font = parseInt(lineWidth) * 10 + 'px serif'
-            this.context.fillStyle = lineColor
-            this.context.fillText(
-              o.content,
-              o.startDot.x * this.cvsW,
-              o.startDot.y * this.cvsH
-            )
-            break
-          }
-          default:
-            continue
-        }
-      }
+    onReadyClear: function() {
+      this.isBlack = true
     },
-    prototype () {
-      let self = this
-      drawing: (d) => {
-        if (d.type === 'delete') {
-          delete self.container.session[d.id]
-        } else {
-          self.container.session[d.id] = d
-        }
 
-        redraw() // 重新绘制画布
-      }
-      // 清空 画板
-      clearAll: (d) => {
-        self.canvas.width = self.canvas.width
-        self.container.session = {}
-      }
-      setWH: (w, h) => {
-        cvsW = w
-        cvsH = h
-      }
-      getContainer: {
-        return self.container
-      }
-      getLastOptId: {
-        let lastTime = 0
-        let id = ''
-        for (var key in self.container.session) {
-          if (lastTime < self.container.session[key].time) {
-            lastTime = self.container.session[key].time
-            id = self.container.session[key].id
-          }
-        }
-        return id
-      },
-      redraw: redraw
+    onClear: function() {
+      this.isBlack = false
+      this.canvas.width=855
+      this.canvas.height=310
+      SocketInstance.emit('clear', false)
     },
-  }
+
+    onClearEvent: function() {
+      this.canvas.width=855
+      this.canvas.height=310
+    },
+
+    // 绘制直线
+
+    drawLine: function(x0, y0, x1, y1, color, needEmit) {
+        
+      this.context.moveTo(x0-210, y0-360)
+      this.context.lineTo(x1-210, y1-360)
+      this.context.strokeStyle = color
+      this.context.lineWidth = 2
+      this.context.stroke()
+
+      if (!needEmit) {
+        return
+      }
+      let w = this.canvas.width
+      let h = this.canvas.height
+
+      // 发布drawing事件
+      SocketInstance.emit('drawing', {
+        
+        x0:x0,y0:y0,
+        x1:x1,y1:y1,
+        color: color
+      })
+    },
+
+    // 绘制矩形
+    drawRectang: function(x0, y0, x1, y1, color, needEmit) {
+      this.context.fillStyle = color
+      this.context.fillRect(x0-210, y0-360, x1 - x0, y1 - y0)
+      if (!needEmit) {
+        return
+      }
+     
+      // 发布drawRec事件
+      SocketInstance.emit('drawRec', {
+        x0: x0 ,
+        y0: y0 ,
+        x1: x1 ,
+        y1: y1 ,
+        color: color
+      })
+    },
+
+    onMouseDown: function(e) {
+      console.log("mouse down")
+      if (this.drawRec && this.drawing) {
+        return
+      }
+  
+      this.current.x = e.clientX
+      this.current.y = e.clientY
+      this.drawing = true
+    },
+
+    onMouseUp: function(e) {
+      console.log("mouse up")
+      if (!this.drawing) {
+        return
+      }
+      this.drawing = false
+
+      // 如果是需要绘制矩形
+      if (this.drawRec) {
+        this.drawRectang(
+          this.current.x,
+          this.current.y,
+          e.clientX,
+          e.clientY,
+          this.color,
+          true
+        )
+        return
+      }
+
+      this.drawLine(
+        this.current.x,
+        this.current.y,
+        e.clientX,
+        e.clientY,
+        this.color,
+        true
+      )
+    },
+
+    onMouseMove: function(e) {
+      if (!this.drawing) {
+        return
+      }
+      if (this.drawRec) {
+        this.drawRectang(
+          this.current.x,
+          this.current.y,
+          e.clientX,
+          e.clientY,
+          this.color,
+          true
+        )
+        return
+      }
+      this.drawLine(
+        this.current.x,
+        this.current.y,
+        e.clientX,
+        e.clientY,
+        this.color,
+        true
+      )
+      this.current.x = e.clientX
+      this.current.y = e.clientY
+    },
+
+    onColorUpdate: function(e) {
+      this.current.color = this.color
+    },
+
+    // limit the number of events per second
+    throttle: function(callback, delay) {
+      let previousCall = new Date().getTime()
+      return function() {
+        let time = new Date().getTime()
+
+        if (time - previousCall >= delay) {
+          previousCall = time
+          callback.apply(null, arguments)
+        }
+      }
+    },
+
+    onDrawingEvent: function(data) {
+      
+      this.drawLine(
+        data.x0 ,
+        data.y0 ,
+        data.x1 ,
+        data.y1 ,
+        data.color
+      )
+    },
+
+    onDrawRecEvent: function(data) {
+      
+      this.drawRectang(
+        data.x0 ,
+        data.y0 ,
+        data.x1 ,
+        data.y1 ,
+        data.color
+      )
+    }
+  },
+  watch: {}
 }
 </script>
 
-<script src="../assets/js/UUID.js" charset="utf-8"></script>
-<script src="../assets/js/qbian.js" charset="utf-8"></script>
-<script src="../assets/js/Canvas.js" charset="utf-8"></script>
-<script src="../assets/js/index.js" charset="utf-8"></script>
-
 <style scoped>
-@import "../assets/css/whiteBoard.css";
+.one-div {
+  height: 65vh;
+  width: 56vw;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.whiteboard {
+  position: fixed;
+  top: 360px;
+  left: 210px;
+  width: 855px;
+  height: 310px;
+  margin: 0 auto;
+}
+
+.colors {
+  position: fixed;
+}
+
+.tool {
+  display: inline-block;
+  height: 48px;
+  width: 48px;
+}
+
+.tool.delete {
+  background-image: url(../assets/trash-can.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.tool.rectanger {
+  background-image: url(../assets/rectanger.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.black-background {
+  background-color: #555555;
+}
+
+.white-background {
+  background-color: #ffffff;
+}
+
+.blue-background {
+  background-color: #0ff8f0;
+}
+
+.color {
+  display: inline-block;
+  height: 48px;
+  width: 48px;
+}
 </style>
+
+
