@@ -13,8 +13,7 @@ export default {
   name: 'teacherFrame',
   components: {
     teacherBar,
-    teacherNavigation,
-    title: ''
+    teacherNavigation
   },
   props: ['selected', 'roomNo', 'title']
 }
