@@ -1,6 +1,7 @@
 """calendar test views"""
 from django.http import JsonResponse
 from calendarFunc.models import Calendar
+import re
 
 
 def get_list_of_timetable(request):
@@ -21,6 +22,12 @@ def add_new_timetable(request):
         begin = request.POST.get('begin')
         end = request.POST.get('end')
         description = request.POST.get('description')
+        if not re.match(r'^([0-1]?[0-9]|2[0-3]):([0-5][0-9])$', begin):
+            data = {'code': '0001', 'msg': '开始时间格式错误'}
+            return JsonResponse(data)
+        if not re.match(r'^([0-1]?[0-9]|2[0-3]):([0-5][0-9])$', end):
+            data = {'code': '0001', 'msg': '结束时间格式错误'}
+            return JsonResponse(data)
         new_timetable_info = {
             'room_no': room_no,
             'week': week,
@@ -59,6 +66,12 @@ def modify_timetable(request):
         begin = request.POST.get('begin')
         end = request.POST.get('end')
         description = request.POST.get('description')
+        if not re.match(r'^([0-1]?[0-9]|2[0-3]):([0-5][0-9])$', begin):
+            data = {'code': '0001', 'msg': '开始时间格式错误'}
+            return JsonResponse(data)
+        if not re.match(r'^([0-1]?[0-9]|2[0-3]):([0-5][0-9])$', end):
+            data = {'code': '0001', 'msg': '结束时间格式错误'}
+            return JsonResponse(data)
         new_info = {
             'time_table_id': time_table_id,
             'week': week,
