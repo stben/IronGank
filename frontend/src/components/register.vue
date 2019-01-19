@@ -5,13 +5,9 @@
     <div class="img-div">
       <mu-appbar style="width: 100%;"
                  color="#29b6f6">
-        <mu-button icon
-                   slot="left">
-          <mu-icon value="menu"></mu-icon>
-        </mu-button>
         注册
         <mu-button flat
-                   slot="right">登录</mu-button>
+                   slot="right" to="/">登录</mu-button>
       </mu-appbar>
       <div v-if="active===0">
         <mu-row>
