@@ -67,7 +67,7 @@ export default {
       roomNo: this.$route.params.roomNo,
       stuList: []
     }
-  },
+  }
 }
 </script>
 
