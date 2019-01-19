@@ -42,7 +42,7 @@ export default {
     })
 
     SocketInstance.on('getCode', (msg) => {
-      alert("getcode!")
+      alert('getcode!')
       editor.replaceRange(msg.codeMsg, msg.from, msg.to)
     })
     editor.on('change', function (editor, change) {
@@ -60,7 +60,6 @@ export default {
 
   methods: {
     sendCodeMsg (data) {
-      
       SocketInstance.emit('sendCode', data)
     }
   }
